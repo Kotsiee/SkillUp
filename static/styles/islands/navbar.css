@@ -1,0 +1,39 @@
+@import '../components/navigation/guestnav.css';
+@import '../components/navigation/usernav.css';
+
+nav{
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  a {text-decoration: none;}
+
+  .chevron{
+    stroke: var(--text-color-dark);
+    stroke-width: 3;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--border-radius-small);
+  }
+  
+  .settings-btn{
+    fill: var(--text-color-dark-hover);
+    stroke: none;
+    transition: transform 500ms ease;
+    cursor: pointer;
+    transition: transform 300ms var(--easing);
+  
+    &:hover{
+      fill: var(--text-color-dark);
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.nav {
+  height: var(--header-height-desktop);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--nav-bg);
+}

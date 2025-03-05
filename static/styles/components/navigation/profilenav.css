@@ -1,0 +1,97 @@
+.profile-popout {
+    position: absolute;
+    background-color: var(--nav-bg);
+    border-radius: var(--border-radius);
+    width: 300px;
+    right: 0;
+    margin-top: 20px;
+    padding: 20px;
+
+    &:focus {
+        outline: none;
+    }
+
+    .user-details {
+        margin: 12px 0;
+
+        .name {
+            font-weight: var(--weight-bold);
+        }
+
+        .username {
+            font-size: 0.7em;
+            color: var(--text-color-dark);
+        }
+    }
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .switch-account {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px;
+            background-color: var(--modal-colour);
+            border-radius: var(--border-radius-smaller);
+            cursor: pointer;
+            width: 80%;
+
+            .details {
+                display: flex;
+                align-items: center;
+
+                .profilePic {
+                    outline: none
+                }
+
+                .account {
+                    margin-left: 8px;
+
+                    .username {
+                        font-size: 0.9em
+                    }
+
+                    .type {
+                        font-size: 0.6em;
+                        color: var(--text-color-dark);
+                    }
+                }
+            }
+
+            &:hover {
+                background-color: var(--modal-colour-dark)
+            }
+
+        }
+    }
+
+    .options {
+        hr {
+            margin: 12px 0;
+            border-color: var(--text-color-dark);
+        }
+
+        .option {
+            border-radius: var(--border-radius-small);
+            cursor: pointer;
+            display: flex;
+
+            a {
+                height: 100%;
+                width: 100%;
+                padding: 8px;
+            }
+
+            &:hover {
+                background-color: var(--modal-colour);
+            }
+
+            &.signout:hover {
+                background-color: hsl(350, 55%, 50%);
+            }
+        }
+    }
+}

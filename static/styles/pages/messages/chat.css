@@ -1,0 +1,12 @@
+@import "../../components/messages/input.css";
+@import "../../components/messages/message.css";
+
+.chat-messages-container{
+    position: relative;
+    width: 100%;
+
+    .chat-messages-area{
+        padding: 40px;
+        padding-bottom: calc(var(--footer-hight));
+    }
+}

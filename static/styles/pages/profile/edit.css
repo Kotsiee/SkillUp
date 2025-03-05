@@ -1,0 +1,120 @@
+.editLayout {
+    padding: 20px;
+    display: flex;
+    width: 100%;
+
+    .side-nav {
+        margin-right: 20px;
+        width: 100%;
+        max-width: 250px;
+
+        ul {
+            position: sticky;
+            top: 60px;
+
+            li {
+                width: 100%;
+                display: flex;
+
+                a {
+                    text-decoration: none;
+                    padding: 4px 16px;
+                    padding-right: 100px;
+                    width: 100%;
+                    border-radius: var(--border-radius-smaller);
+
+                    &.active {
+                        background-color: hsla(var(--primary-hue), var(--primary-saturation), var(--primary-lightness), 0.5);
+                    }
+
+                }
+            }
+        }
+    }
+
+    .content {
+        position: relative;
+        width: 100%;
+
+        section {
+            border-radius: var(--border-radius);
+            background-color: var(--modal-colour-dark);
+            padding: 28px 40px;
+            margin-bottom: 40px;
+        }
+
+        #banner-section {
+            position: relative;
+            border-radius: 0;
+            background: none;
+            padding: 0;
+            margin-bottom: 60px;
+
+            .change-image {
+                transition: all 100ms;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: var(--border-radius);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                * {
+                    display: none;
+                }
+            }
+
+            .banner-img {
+                border-radius: var(--border-radius);
+                width: 100%;
+                height: 200px;
+                background-size: cover;
+                background-position: 50%;
+                cursor: pointer;
+                position: relative;
+
+                &:hover {
+                    .change-image {
+                        background-color: #f001;
+                        backdrop-filter: blur(2px) brightness(0.6);
+
+                        * {
+                            display: block;
+                        }
+                    }
+                }
+            }
+
+            .profile-img {
+                height: 140px;
+                width: 140px;
+                border-radius: 140px;
+                background-size: cover;
+                background-position: 50%;
+                cursor: pointer;
+                position: absolute;
+                bottom: -40px;
+                left: 40px;
+                outline: 8px solid var(--modal-colour-dark);
+
+                .change-image {
+                    border-radius: 140px;
+                }
+
+                &:hover {
+                    .change-image {
+                        background-color: #f001;
+                        backdrop-filter: blur(2px) brightness(0.6);
+
+                        * {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

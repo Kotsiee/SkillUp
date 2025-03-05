@@ -1,0 +1,53 @@
+.user-nav-side {
+    position: absolute;
+    background-color: var(--nav-bg);
+    height: 100vh;
+    transition: all 400ms;
+    width: var(--header-side-width-desktop);
+
+    .container {
+        display: flex;
+        justify-content: center;
+
+        ul {
+            li {
+                display: flex;
+                justify-content: center;
+                align-content: center;
+                margin-bottom: 2px;
+                position: relative;
+
+                a {
+                    height: 100%;
+                    width: 100%;
+                    padding: 12px;
+                    border-radius: var(--border-radius-small);
+                    transition: all 200ms;
+
+                    &:hover {
+                        background-color: var(--bg-colour-tertiary)
+                    }
+                }
+
+                label {
+                    position: absolute;
+                    top: 10px;
+                    left: calc(var(--header-side-width-desktop));
+                    background-color: var(--bg-colour-primary);
+                    font-size: 0.6em;
+                    padding: 4px 12px;
+                    color: var(--text-color);
+                    outline: 0.5px solid var(--text-color-dark-hover);
+                    border-radius: var(--border-radius-smaller);
+
+                    transition: scale 200ms;
+                    scale: 0;
+                }
+
+                a:hover+label {
+                    scale: 1;
+                }
+            }
+        }
+    }
+}

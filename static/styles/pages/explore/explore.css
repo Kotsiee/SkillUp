@@ -1,0 +1,13 @@
+@import '../../islands/explore/exploreNavbar.css';
+@import '../../islands/explore/exploreFilter.css';
+
+.explore-layout {
+    .explore-content{
+        display: flex;
+        justify-content: center;
+
+        .container{
+            width: 90%;
+        }
+    }
+}

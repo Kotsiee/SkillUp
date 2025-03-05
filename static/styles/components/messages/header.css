@@ -1,0 +1,94 @@
+.chat-header{
+    padding: 20px 20px 0 20px;
+    position: fixed;
+    /* transition: width var(--width-transition); */
+    width: calc(100% - var(--header-side-width-desktop) - var(--messages-width));
+    max-height: var(--header-height);
+    z-index: 5;
+
+    .chat-header-container{
+        background-color: var(--bg-colour-secondary);
+        border-radius: var(--border-radius-small);
+        padding: 20px;
+        max-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .left {
+            display: flex;
+            align-items: center;
+            width: 100%;
+
+            .chat-photo{
+                height: 30px;
+                width: 30px;
+                border-radius: 30px;
+                object-fit: cover;
+                margin-right: 20px;
+            }
+
+            .isTyping {
+                font-size: 0.6em;
+                font-style: italic;
+                color: var(--primary-colour-light);
+            }
+        }
+
+        .center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .right {
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            width: 100%;
+
+            .chatmenu{
+                stroke: none;
+                fill: var(--text-color);
+            }
+        }
+    }
+}
+
+.select-view{
+    width: 100%;
+
+    p { 
+        text-align: center;
+        user-select: none;
+    }
+
+    .lines-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        .lines {
+            display: flex;
+            justify-content: center;
+    
+            .select-view-input {
+                height: 5px;
+                width: 20px;
+                margin: 0 4px;
+                background-color: var(--modal-colour-light);
+                cursor: pointer;
+                border-radius: 4px;
+
+                &:hover {
+                    background-color: var(--primary-colour-dark);
+                 }
+            }
+
+            .select-view-input[data-current="true"] {
+                background-color: var(--primary-colour);
+            }
+        }
+    }
+}

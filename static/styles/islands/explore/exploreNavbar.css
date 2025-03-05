@@ -1,0 +1,57 @@
+.explore-select{
+    background-color: var(--modal-colour-darker);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ul {
+        display: flex;
+        list-style: none;
+
+        *{ 
+            user-select: none;
+            transition: all 150ms;
+            text-decoration: none;
+        }
+
+        .nav-btn-explore{
+            a{
+                display: flex;
+                height: 100%;
+                width: 100%;
+                padding: 15px 20px;
+                padding-bottom: 20px ;
+            }
+
+            &:hover{
+                background: linear-gradient(
+                    var(--tertiary-colour) 2px,
+                    hsla(
+                         var(--tertiary-hue), 
+                        var(--tertiary-saturation), 
+                        var(--tertiary-lightness), 0.4
+                        ) 5%, 
+                    #0000 50%);
+
+                a { color: var(--text-color-hover); }
+            }
+
+            &.active{
+                background: linear-gradient(
+                    var(--secondary-colour) 2px,
+                    hsla(
+                         var(--secondary-hue), 
+                        var(--secondary-saturation), 
+                        var(--secondary-lightness), 0.4
+                        ) 5%, 
+                    #0000 50%);
+
+                a{ 
+                    color: var(--text-color);
+                    font-weight: var(--weight-bold);
+                }
+            }
+        }
+    }
+}

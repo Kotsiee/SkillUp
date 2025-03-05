@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Cookie&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import './variables.css';
+
+html {
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Poppins, serif;
+  color: var(--text-color);
+  list-style: none;
+  transition: background-color 100ms;
+  object-fit: cover;
+}
+
+body{
+  background-color: var(--bg-colour-primary);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: none;
+  stroke: var(--text-color);
+}
+
+.body{
+  position: absolute;
+  min-height: calc(100% - var(--header-height-desktop));
+  width: 100%;
+  top: var(--header-height-desktop);
+  color: var(--text-color);
+
+  transition: all var(--width-transition);
+  width: calc(100% - var(--header-side-width-desktop));
+  left: var(--header-side-width-desktop);
+}
+
+h1{
+  font-weight: var(--weight-black);
+  font-size: 2.5em;
+}
+
+h2, h3, h4, h5, h6{
+  font-weight: var(--weight-bold);
+}
+
+h2{ font-size: 2em; }
+h3{ font-size: 1.75em; }
+h4{ font-size: 1.5em; }
+h5{ font-size: 1.25em; }
+h6{ font-size: 1em; }
+
+input, button, textarea {
+  border: none;
+  outline: none;
+}
+
+button {
+  background: none;
+}
+
+a, button {
+  cursor: pointer;
+}
+
+/* Scrollbar width */
+::-webkit-scrollbar {
+  width: 6px; /* Vertical scrollbar width */
+  height: 6px; /* Horizontal scrollbar height */
+}
+
+/* Track (the background) */
+::-webkit-scrollbar-track {
+  background: #0000; /* Light grey background */
+  border-radius: 10px;
+}
+
+/* Handle (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2f2f2f;
+}

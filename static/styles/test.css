@@ -1,0 +1,56 @@
+.home {
+    padding: 20px;
+}
+
+.coloursTest {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    div {
+        height: 50px;
+        width: 50px;
+    }
+}
+
+.colours {
+    #col-1 { background-color: var(--primary-colour) }
+    #col-2 { background-color: var(--secondary-colour) }
+    #col-3 { background-color: var(--tertiary-colour) }
+}
+
+.colours-dark {
+    #col-1 { background-color: var(--primary-colour-dark) }
+    #col-2 { background-color: var(--secondary-colour-dark) }
+    #col-3 { background-color: var(--tertiary-colour-dark) }
+}
+
+.colours-darker {
+    #col-1 { background-color: var(--primary-colour-darker) }
+    #col-2 { background-color: var(--secondary-colour-darker) }
+    #col-3 { background-color: var(--tertiary-colour-darker) }
+}
+
+.colours-light {
+    #col-1 { background-color: var(--primary-colour-light) }
+    #col-2 { background-color: var(--secondary-colour-light) }
+    #col-3 { background-color: var(--tertiary-colour-light) }
+}
+
+.colours-lighter {
+    #col-1 { background-color: var(--primary-colour-lighter) }
+    #col-2 { background-color: var(--secondary-colour-lighter) }
+    #col-3 { background-color: var(--tertiary-colour-lighter) }
+}
+
+.gradient {
+    #col-1 { background: linear-gradient(var(--primary-colour), var(--secondary-colour)) }
+    #col-2 { background: linear-gradient(var(--secondary-colour), var(--tertiary-colour)) }
+    #col-3 { background: linear-gradient(var(--primary-colour), var(--tertiary-colour)) }
+}
+
+.background {
+    #col-1 { background-color: var(--bg-colour-primary) }
+    #col-2 { background-color: var(--bg-colour-secondary) }
+    #col-3 { background-color: var(--modal-colour) }
+}

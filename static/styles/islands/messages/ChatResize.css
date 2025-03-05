@@ -1,0 +1,17 @@
+.resize-container {
+    position: relative;
+    background-color: aqua;
+}
+
+.resize-bar {
+    background-color: var(--bg-colour-secondary);
+    width: 6px;
+    height: 100%;
+    cursor: ew-resize;
+    position: absolute;
+    z-index: 20;
+
+    &:hover {
+        background-color: var(--btn-active);
+    }
+}

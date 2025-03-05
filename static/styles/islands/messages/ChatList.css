@@ -1,0 +1,103 @@
+.chat-list {
+    background-color: var(--modal-colour-darker);
+    min-width: var(--messages-width);
+    max-width: var(--messages-width);
+    position: relative;
+    user-select: none;
+
+    *{
+        text-decoration: none;
+    }
+
+    .chat-container {
+        position: fixed;
+        padding: 20px;
+        min-width: var(--messages-width);
+        max-width: var(--messages-width);
+    }
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 12px;
+    }
+
+    .options {
+        ul {
+            display: flex;
+            gap: 8px;
+
+            li {
+                label {
+                    background-color: var(--bg-colour-secondary);
+                    border-radius: 50px;
+                    padding: 4px 12px;
+                    font-size: 0.8em;
+                    color: var(--text-color-hover);
+                    cursor: pointer;
+
+                    &:hover {
+                        color: var(--text-color);
+                    }
+                }
+
+                input:checked+label {
+                    background-color: hsla(var(--primary-hue), var(--primary-saturation), var(--primary-lightness), 0.5);
+                    color: var(--text-color);
+
+                    &:hover {
+                        background-color: hsla(var(--primary-hue), var(--primary-saturation), var(--primary-lightness), 0.8);
+                    }
+                }
+            }
+        }
+    }
+
+    .chat-list-container{
+        margin-top: 20px;
+        .chat-item {
+            margin-bottom: 8px;
+            .chat-link {
+                .container {
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    transition: background-color 100ms;
+
+                    cursor: pointer;
+                    padding: 12px;
+                    border-radius: var(--border-radius-small);
+        
+                    .chat-photo {
+                        height: 30px;
+                        width: 30px;
+                        object-fit: cover;
+                        border-radius: 30px;
+                    }
+
+                    .lastMessage {
+                        display: -webkit-box;
+                        line-clamp: 1;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        font-size: 0.8em;
+                        line-height: 0.8em;
+                        height: 0.8em;
+                        color: var(--text-color-hover);
+                        font-weight: var(--weight-light);
+                    }
+
+                    &:hover { background-color: var(--modal-colour) }
+                    &:active { background-color: var(--modal-colour-light) }
+                }
+            }
+            
+        }
+    }
+}
+
+[data-current] .container, [data-ancestor] .container{
+    background-color: var(--modal-colour);
+}

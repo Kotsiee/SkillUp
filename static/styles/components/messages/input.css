@@ -1,0 +1,315 @@
+@import './textbox.css';
+
+.chat-input {
+    position: fixed;
+    bottom: 0;
+    transition: width var(--width-transition);
+    width: calc(100% - var(--header-side-width-desktop) - var(--messages-width));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(#0000, var(--bg-colour-primary));
+    backdrop-filter: blur(3px);
+    padding-bottom: 36px;
+
+    .container {
+        background-color: var(--bg-colour-primary);
+        outline: 1px solid var(--text-color-dark);
+        border-radius: var(--border-radius-large);
+        width: 80%;
+
+        &:has(.ql-blank) {
+            .message-sent {
+                display: none !important;
+            }
+
+            .record-message {
+                display: flex !important;
+            }
+        }
+
+
+        &:not(:has(.ql-blank)) {
+            .message-sent {
+                display: flex !important;
+            }
+
+            .record-message {
+                display: none !important;
+            }
+        }
+    }
+
+    .chat-input-text {
+        /* height: 40px; */
+        max-height: 20vh;
+        display: flex;
+        align-items: center;
+        padding: 4px;
+
+        .message-input {
+            max-height: inherit;
+            width: 100%;
+            resize: none;
+            overflow-y: auto;
+            box-sizing: border-box;
+            padding: 8px;
+        }
+    }
+
+    .options {
+        ul {
+            display: flex;
+            align-items: center;
+
+            li {
+                padding: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .icon {
+                    padding: 2px;
+                }
+
+                path { stroke: none }
+
+                &.advanced-text {                    
+                    .advanced-text-icon {
+                        path {
+                            transition: fill 150ms; 
+                            fill: white;
+                        }
+                    }
+
+                    button {
+                        &:hover {
+                            .advanced-text-icon path { fill: var(--text-color-hover) }
+                        }
+                    }
+
+                    &.show { 
+                        path {
+                            fill: var(--secondary-colour)
+                        }
+
+                        button {
+                            &:hover .advanced-text-icon path{ fill: var(--secondary-colour-dark) }
+                            &:active .advanced-text-icon path{ fill: var(--secondary-colour-darker) }
+                        }
+                    }
+                }
+
+                &.record-message {
+                    background-color: var(--primary-colour);
+                    border-radius: 40px;
+                    height: 40px;
+                    width: 40px;
+
+                    button {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: absolute;
+                        padding: 4px;
+                        height: inherit;
+                        width: inherit;
+                        border-radius: inherit;
+                    }
+        
+                    .record-icon {
+                        padding: 2px;
+                        fill: var(--text-color);
+                    }
+        
+                    &:hover { background-color: var(--primary-colour-dark) }
+                    &:active { background-color: var(--primary-colour-darker) }
+                }
+
+                &.message-sent {
+                    background-color: var(--primary-colour);
+                    border-radius: 40px;
+                    height: 40px;
+                    width: 60px;
+
+                    button {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: absolute;
+                        height: inherit;
+                        width: inherit;
+                        border-radius: inherit;
+                    }
+        
+                    .send-icon {
+                        fill: var(--text-color);
+                    }
+        
+                    &:hover {
+                        background-color: var(--primary-colour-hover);       
+                    }
+                }
+            }
+        }
+    }
+
+    .additional-btn{
+        stroke-width: 3px;
+        margin-left: 12px;
+        margin-right: 8px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 250ms var(--easing);
+
+        &:hover {
+            transform: scale(0.8);
+        }
+    }
+
+    .chat-input-additional{
+        position: absolute;
+        bottom: var(--footer-hight);
+        /* margin-bottom: 30px; */
+        border-radius: var(--border-radius-small);
+        outline: 1px solid var(--text-color-dark);
+        padding: 4px;
+        background-color: var(--bg-colour-primary);
+        display: none;
+
+        .item-select{
+            font-size: 0.8em;
+            text-align: center;
+        }
+
+        ul {
+            display: flex;
+
+            li {
+                border-radius: var(--border-radius-smaller);
+                min-width: 40px;
+                padding: 8px;
+                margin: 4px;
+                font-size: 0.8em;
+                cursor: pointer;
+                text-align: center;
+                position: relative;
+
+                &:hover {
+                    background-color: var(--btn-active);
+
+                    &.File { background-color: hsla(346, 84%, 61%, 0.25) }
+                    &.Poll { background-color: hsla(42, 100%, 70%, 0.25) }
+                    &.Project { background-color: hsla(164, 95%, 43%, 0.25) }
+                    &.Person { background-color: hsla(195, 83%, 38%, 0.25) }
+                    &.Post { background-color: hsla(39, 77%, 70%, 0.25) }
+                }
+
+                path{stroke: none}
+
+                &.File path { fill: hsl(346, 84%, 61%) }
+                &.Poll path { fill: hsl(42, 100%, 70%) }
+                &.Project path { fill: hsl(164, 95%, 43%) }
+                &.Person path { fill: hsl(195, 83%, 38%) }
+                &.Post path { fill: hsl(239, 77%, 70%) }
+            }
+        }
+
+        &.show {
+            display: block;
+            animation: popup 150ms;
+        }
+
+        &.hide {
+            animation: popup-reverse 150ms;
+        }
+    }
+}
+
+
+.ql-editor {
+    outline: none;
+
+    &.ql-blank {
+        &::before {
+            color: var(--text-color-dark);
+            position: absolute;
+            left: 0;
+        }
+    }
+}
+
+.ql-toolbar {
+    .advanced-text-area {
+        display: flex;
+        align-items: center;
+        padding: 4px;
+        margin: 8px;
+        margin-bottom: 0;
+
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            gap: 8px;
+            margin-left: 20px;
+            padding-right: 20px;
+
+            border-right: 1px solid #444;
+            
+            li {
+                cursor: pointer;
+                
+                .icon {
+                    height: 18px;
+                    width: 18px;
+                }
+
+                .icon path{
+                    fill: white;
+                    stroke: none;
+
+                    transition: fill 150ms;
+                }
+
+                &:hover {
+                    .icon path{
+                        fill: var(--text-color-hover);
+                    }
+                }
+
+                &.enabled {
+                    .icon path{
+                        fill: var(--primary-colour);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes popup {
+    0% {
+        display: none;
+        transform: translate(-50%, 50%);
+        scale: 0;
+    }
+    100% {
+        display: block;
+        transform: translate(0, 0);
+        scale: 1;
+    }
+}
+
+@keyframes popup-reverse {
+    0% {
+        display: block;
+        transform: translate(0, 0);
+        scale: 1;
+    }
+    100% {
+        display: none;
+        transform: translate(-50%, 50%);
+        scale: 0;
+    }
+}

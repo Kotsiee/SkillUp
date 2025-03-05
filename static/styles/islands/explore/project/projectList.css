@@ -1,0 +1,126 @@
+.projectCard {
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 20px;
+
+    *{
+        list-style: none;
+        text-decoration: none;
+    }
+
+    .projectCard-container{
+        padding: 20px;
+        border-radius: var(--border-radius);
+        background-color: var(--modal-colour);
+
+        transition: background-color 100ms;
+        &:hover { background-color: var(--modal-colour-dark); }
+        &:active { background-color: var(--modal-colour-darker); }
+    }
+
+    .title-container{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        position: relative;
+
+        .title-container-right{
+            display: flex;
+
+            .logo{
+                width: 50px;
+                height: 50px;
+                border-radius: 50px;
+                object-fit: cover;
+                background-color: var(--text-color);
+                user-select: none;
+
+                margin-right: 20px;
+            }
+    
+            .org{
+                font-size: var(--font-small);
+                color: var(--text-color-dark);
+        
+                b { 
+                    font-weight: var(--weight-light);
+                    color: var(--text-color-dark);
+                }
+            }
+        }
+    }
+
+    .description-container{
+        margin-bottom: 20px;
+
+        .description{
+            display: -webkit-box;
+            line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2em;
+            
+            font-size: 0.9em;
+            font-weight: var(--weight-light);
+            text-align: justify;
+            max-height: calc(1.2em * 4);
+        }
+
+        .tasks {
+            display: flex;
+            margin-top: 8px;
+    
+            li {
+                font-size: var(--font-small);
+                padding: 4px 8px;
+                border-radius: 50px;
+                border: 1px solid var(--text-color-dark);
+                color: var(--text-color-hover);
+            }
+        }
+    }
+
+    .details-container {
+        hr {
+            border: 1px solid var(--text-color-dark);
+            position: relative;
+            width: 80%;
+            left: 10%;
+        }
+
+        .deets {
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-evenly;
+
+            .title {
+                font-size: var(--font-small);
+                color: var(--text-color-dark);
+                font-weight: var(--weight-bold);
+            }
+
+            .info {
+                font-size: 1.2em;
+                font-weight: var(--weight-bold);
+            }
+        }
+    }
+
+    .save{
+        position: absolute;
+        top: 20px;
+        right: 20px;
+
+        .save-icon{
+            stroke-width: 2px;
+
+            &:hover{
+                stroke: var(--primary-colour);
+                stroke-width: 3px;
+            }
+
+            &:active { stroke: var(--primary-colour-hover) }
+        }
+    }
+}

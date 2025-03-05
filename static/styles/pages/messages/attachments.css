@@ -1,0 +1,158 @@
+.attachments {
+    .actions {
+        display: flex;
+
+        button {
+            background-color: var(--modal-colour);
+            padding: 6px 20px;
+            font-weight: var(--weight-bold);
+            border-radius: var(--border-radius-smaller);
+            margin-right: 8px;
+            font-size: 0.8em;
+
+            &:hover { background-color: var(--modal-colour-light) }
+            &:active { background-color: var(--modal-colour-lighter) }
+
+            &.new {
+                background-color: var(--primary-colour);
+                &:hover { background-color: var(--primary-colour-light) }
+                &:active { background-color: var(--primary-colour-lighter) }
+            }
+        }
+    }
+
+    .items {
+        margin-top: 20px;
+
+        .items-container {
+            display: flex;
+        }
+    }
+}
+
+.attachment-card {
+    background-color: var(--modal-colour-darker);
+    width: 160px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: box-shadow 150ms;
+
+    &:hover {
+        box-shadow: 0 2px 20px #fff3;
+    }
+
+    .attachment-image {
+        height: 160px;
+        width: inherit;
+        background-color: var(--modal-colour-light);
+        border-radius: var(--border-radius);
+        padding: 16px;
+
+        img {
+            height: 100%;
+            width: 100%;
+            border-radius: var(--border-radius-small);
+            object-fit: cover;
+        }
+    }
+
+    .attachment-details {
+        padding: 16px;
+
+        .title {
+            font-weight: var(--weight-bold);
+            line-height: 1em;
+            margin-bottom: 4px;
+        }
+
+        .date {
+            font-weight: var(--weight-light);
+            font-size: 0.8em;
+            line-height: 1em;
+        }
+    }
+}
+
+.preview {
+    background-color: var(--modal-colour);
+    border-radius: var(--border-radius);
+    position: fixed;
+    bottom: 20px;
+    width: calc(100% - var(--header-side-width-desktop) - var(--messages-width) - 40px);
+    display: flex;
+    align-items: center;
+    padding: 16px;
+
+    .preview-image {
+        height: 100%;
+        margin-right: 16px;
+
+        img {
+            max-height: 100px;
+            max-width: 300px;
+            border-radius: var(--border-radius-small);
+            object-fit: cover;
+        }
+    }
+
+    .preview-info {
+        width: 100%;
+
+        .obj-info {
+            .title { font-weight: var(--weight-bold) }
+            .obj-type {
+                font-weight: var(--weight-light);
+                font-size: 0.7em;
+            }
+
+            .sent-at {
+                font-weight: var(--weight-light);
+                font-size: 0.7em;
+                color: var(--text-color-dark);
+            }
+        }
+
+        .message-info {
+            .goto {
+                font-weight: var(--weight-bold);
+                color: var(--primary-colour);
+            }
+        }
+
+        hr {
+            max-width: 200px;
+            border: 1px solid var(--modal-colour-lighter);
+            margin: 8px 0;
+        }
+    }
+
+    .preview-actions {
+        padding-left: 12px;
+        border-left: 2px solid var(--modal-colour-lighter);
+
+        ul {
+            li {
+                margin: 4px 0;
+                button {
+                    background-color: var(--modal-colour-dark);
+                    padding: 8px 20px;
+                    padding-right: 40px;
+                    font-weight: var(--weight-bold);
+                    border-radius: var(--border-radius-smaller);
+                    width: 100%;
+                    font-size: 0.8em;
+                    text-align: left;
+
+                    &:hover { background-color: var(--modal-colour-light) }
+                    &:active { background-color: var(--modal-colour-lighter) }
+                }
+
+                &.open button{
+                    background-color: var(--primary-colour);
+                    &:hover { background-color: var(--primary-colour-light) }
+                    &:active { background-color: var(--primary-colour-lighter) }
+                }
+            }
+        }
+    }
+}

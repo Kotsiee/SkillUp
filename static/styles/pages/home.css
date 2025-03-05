@@ -1,0 +1,6 @@
+@import "../islands/textbox.css";
+
+.txt {
+    background-color: aqua;
+    width: 100%;
+}

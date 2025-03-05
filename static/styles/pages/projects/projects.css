@@ -1,0 +1,27 @@
+@import "../../islands/projects/ChatList.css";
+@import "../../islands/messages/ChatResize.css";
+@import "../../components/messages/header.css";
+
+@import "./project/chat.css";
+
+:root {
+    --messages-width: 380px;
+    --header-height: 40px;
+    --footer-height: 100px;
+
+    scroll-behavior: smooth;
+}
+
+.projects-layout {
+    display: flex;
+    height: calc(100vh - var(--header-height-desktop));
+}
+
+.chatarea {
+    width: 100%;
+
+    .chat-messages-container {
+        margin-top: var(--header-height);
+        padding: 20px;
+    }
+}

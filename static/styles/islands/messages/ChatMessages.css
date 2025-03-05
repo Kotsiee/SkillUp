@@ -1,0 +1,19 @@
+@import "../../components/messages/input.css";
+@import "../../components/messages/header.css";
+@import "../../components/messages/message.css";
+
+.chatarea {
+    width: 100%;
+    background-color: var(--bg-colour-tertiary);
+
+    .chat-messages-container{
+        position: relative;
+        width: 100%;
+        background-color: var(--bg-colour-tertiary);
+
+        .chat-messages-area{
+            padding: 40px;
+            padding-bottom: calc(var(--footer-hight));
+        }
+    }
+}

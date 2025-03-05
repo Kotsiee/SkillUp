@@ -1,0 +1,32 @@
+@import '../../islands//explore/project/projectDetails.css';
+@import '../../islands//explore/project/projectList.css';
+
+.explore-projects{
+    display: flex;
+
+    .explore-projects-items, .explore-projects-details{
+        width: 50%;
+    }
+    
+    .explore-projects-items{
+        display: flex;
+        justify-content: center;
+
+        .container{
+            display: block;
+        }
+    }
+
+    .explore-projects-details{
+        position: sticky;
+
+        .container {
+            background-color: var(--modal-colour);
+            position: sticky;
+            top: calc(var(--header-height-desktop) + 20px);
+            width: 100%;
+            padding: 20px;
+            border-radius: var(--border-radius);
+        }
+    }
+}

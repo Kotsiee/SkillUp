@@ -1,0 +1,53 @@
+.profile-nav {
+    width: 100%;
+    background-color: var(--modal-colour-darker);
+
+    display: flex;
+    align-items: center;
+    justify-content: left;
+
+    *{ 
+        user-select: none;
+        transition: all 150ms;
+        text-decoration: none;
+    }
+
+    li {
+        a{
+            display: flex;
+            height: 100%;
+            width: 100%;
+            padding: 15px 20px;
+            padding-bottom: 20px ;
+        }
+
+        &:hover{
+            background: linear-gradient(
+                var(--tertiary-colour) 2px,
+                hsla(
+                     var(--tertiary-hue), 
+                    var(--tertiary-saturation), 
+                    var(--tertiary-lightness), 0.4
+                    ) 5%, 
+                #0000 50%);
+
+            a { color: var(--text-color-hover); }
+        }
+
+        &:has([data-current]), &:has([data-ancestor]){
+            background: linear-gradient(
+                var(--secondary-colour) 2px,
+                hsla(
+                     var(--secondary-hue), 
+                    var(--secondary-saturation), 
+                    var(--secondary-lightness), 0.4
+                    ) 5%, 
+                #0000 50%);
+
+            a { 
+                color: var(--text-color);
+                font-weight: var(--weight-bold);
+            }
+        }
+    }
+}
