@@ -18,7 +18,7 @@ export default function Profile(props: PageProps<User | null>) {
       {props.data
         ? (
           <div>
-            <EditProfile user={props.data} />
+            <EditProfile />
           </div>
         )
         : (

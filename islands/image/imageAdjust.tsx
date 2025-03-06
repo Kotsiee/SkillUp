@@ -1,33 +1,40 @@
-import { useEffect, useRef } from "preact/hooks";
+import { useEffect, useImperativeHandle, useRef } from "preact/hooks";
 import {
   effect,
   Signal,
   signal,
 } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 import * as fabric from "https://esm.sh/fabric@6.6.1";
+import { JSX } from "preact/jsx-runtime";
 
 interface IImageAdjust {
   size: number;
   img?: string | null;
-  className?: string;
 
   zoom?: Signal<number>;
+  rotate?: Signal<number>;
+
+  thisRef?: any;
 }
 
 export default function CircleCrop(
-  { size, img, className, zoom }: IImageAdjust,
+  { size, img, zoom, className, style, rotate, thisRef }:
+    & IImageAdjust
+    & JSX.HTMLAttributes<HTMLCanvasElement>,
 ) {
   const canvasEl = useRef<HTMLCanvasElement>(null);
   const fabricCanvas = useRef<fabric.Canvas | null>(null);
   const fabricImg = useRef<fabric.Image | null>(null);
+  const fabricCutout = useRef<fabric.Circle | null>(null);
 
   const isDragging = useRef(false);
   const lastPosX = useRef(0);
   const lastPosY = useRef(0);
 
-  const preview = signal("");
-
   const scaleFactor = size / 1080;
+  const thisStyle = style
+    ? style as JSX.CSSProperties
+    : { backgroundColor: "red" };
 
   useEffect(() => {
     if (!canvasEl.current) return;
@@ -36,7 +43,8 @@ export default function CircleCrop(
       fabricCanvas.current = new fabric.Canvas(canvasEl.current, {
         selection: false,
       });
-      fabricCanvas.current.backgroundColor = "green";
+      fabricCanvas.current.backgroundColor = thisStyle
+        .backgroundColor as string;
       fabricCanvas.current.width = 1080;
       fabricCanvas.current.height = 1080;
 
@@ -50,7 +58,7 @@ export default function CircleCrop(
 
     if (!canvas) return;
 
-    fabric.FabricImage.fromURL(img? img : '').then((img) => {
+    fabric.FabricImage.fromURL(img ? img : "").then((img) => {
       img.scaleToWidth(zoom?.value || 1080);
       img.scaleToHeight(zoom?.value || 1080);
       img.set({
@@ -83,6 +91,8 @@ export default function CircleCrop(
         selectable: false,
         evented: false,
       });
+
+      fabricCutout.current = cutout;
 
       const overlayCanvas = new fabric.Canvas("", {
         height: canvas.height,
@@ -120,13 +130,11 @@ export default function CircleCrop(
       if (!isDragging.current || !fabricImg.current) return;
 
       const img = fabricImg.current;
+
       // @ts-ignore: Suppresses the next line's TypeScript error
       const deltaX = event.e.clientX / scaleFactor - lastPosX.current;
       // @ts-ignore: Suppresses the next line's TypeScript error
       const deltaY = event.e.clientY / scaleFactor - lastPosY.current;
-
-      // const scale = img.getScaledHeight() / canvas.height
-      // console.log(img.top / scale, 250 / scale)
 
       img.set({
         left: img.left! + deltaX,
@@ -151,7 +159,7 @@ export default function CircleCrop(
         fabricCanvas.current = null;
         fabricImg.current = null;
 
-        if(canvasEl.current) {
+        if (canvasEl.current) {
           canvasEl.current.width = size;
           canvasEl.current.height = size;
         }
@@ -162,6 +170,7 @@ export default function CircleCrop(
   effect(() => {
     if (fabricImg.current && fabricCanvas.current) {
       fabricImg.current.scaleToHeight(zoom?.value || 1080);
+      fabricImg.current.rotate(rotate?.value || 0);
       fabricImg.current.set({
         left: fabricImg.current.left,
         top: fabricImg.current.top,
@@ -170,7 +179,11 @@ export default function CircleCrop(
     }
   });
 
-  const generatePreview = () => {
+  useImperativeHandle(thisRef, () => ({
+    generatePreview,
+  }));
+
+  const generatePreview = async () => {
     if (!fabricCanvas.current) return;
     const canvas = fabricCanvas.current;
 
@@ -181,16 +194,13 @@ export default function CircleCrop(
     const previewCanvas = new fabric.Canvas(tempCanvas);
     previewCanvas.backgroundColor = "black";
 
-    fabricImg.current!
-      .clone()
-      .then((img) => {
-        previewCanvas.add(img);
-        previewCanvas.renderAll();
-      });
+    // ✅ Wait for image cloning
+    const img = await fabricImg.current!.clone();
 
-    setTimeout(() => {
-      preview.value = tempCanvas.toDataURL();
-    }, 0);
+    previewCanvas.add(img);
+    previewCanvas.renderAll();
+
+    return tempCanvas.toDataURL(); // ✅ Return after rendering
   };
 
   return <canvas class={className} height={size} width={size} ref={canvasEl} />;

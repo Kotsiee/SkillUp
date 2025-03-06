@@ -1,3 +1,5 @@
+@import '../../components/profile/changePhoto.css';
+
 .editLayout {
     padding: 20px;
     display: flex;
