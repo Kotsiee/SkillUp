@@ -1,0 +1,101 @@
+.file-card {
+    background-color: var(--modal-colour-lighter);
+    width: 100px;
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    position: relative;
+    outline: 1px solid var(--modal-colour-lighterer);
+
+    * {
+        transition: all 100ms;
+    }
+
+    &:hover {
+        background-color: var(--modal-colour);
+        .file-card-container {
+            border-radius: var(--border-radius-small);
+            filter: brightness(0.6)
+        }
+    }
+
+    &.selected {
+        outline: 2px solid var(--tertiary-colour);
+    }
+
+    .file-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: inherit;
+        height: 100px;
+
+        background-color: var(--modal-colour-dark);
+        border-radius: var(--border-radius-small);
+        overflow: hidden;
+        position: relative;
+
+        .background {
+            position: absolute;
+            z-index: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(5px) brightness(0.5);
+        }
+
+        .foreground {
+            position: absolute;
+            z-index: 0;
+            max-width: inherit;
+            height: 100px;
+            object-fit: cover;
+        }
+    }
+
+    .file-details {
+        padding: 4px 8px;
+        font-size: 0.7em;
+
+        .title {
+            font-weight: var(--weight-bold);
+            display: -webkit-box;
+            line-clamp: 1;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .file-actions-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        .file-actions {
+            padding: 4px;
+
+            .file-remove {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 2px;
+                background-color: var(--red);
+                border-radius: 12px;
+                height: 16px;
+                width: 16px;
+
+                path {
+                    stroke-width: 2;
+                }
+
+                &:hover {
+                    background-color: var(--red-dark);
+                }
+            }
+        }
+    }
+}

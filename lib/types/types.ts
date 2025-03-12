@@ -21,14 +21,23 @@ export enum Theme{
 }
 
 export enum Privacy{
+    private,
     public,
-    private
+    restricted
 }
 
 export enum ConnectionStatus{
     pending,
     accepted,
     blocked
+}
+
+export enum Entity{
+    message,
+    post,
+    project,
+    submission,
+    task
 }
 
 export type Logo = {

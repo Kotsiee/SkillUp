@@ -4,13 +4,8 @@ export default function Test() {
   const { user } = useUser()
 
   return (
-    <div>
-      {
-        user ? 
-        <div>
-          <img src={user.profilePicture.url}/>
-        </div>
-      : <></> }
+    <div class="modal">
+      <button>Lickle Test yk</button>
     </div>
   );
 }

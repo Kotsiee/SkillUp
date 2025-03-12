@@ -11,14 +11,12 @@ export default function Conversations(pageProps: PageProps) {
   const url = supabaseInfo.getUrl();
   const key = supabaseInfo.getAnonKey();
 
-  const user = useUser();
-
   return (
     <Partial name="convo-messages">
-      <ChatLayout pageProps={pageProps} user={user}/>
+      <ChatLayout pageProps={pageProps} type="messages" extras={[["", "Chat"], ["attachments", "Attachments"]]}/>
       <ChatMessages
         pageProps={pageProps}
-        p={{ supabaseUrl: url, supabaseAnonKey: key, user: user! }}
+        p={{ supabaseUrl: url, supabaseAnonKey: key, type: "messages" }}
       />
     </Partial>
   );

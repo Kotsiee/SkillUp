@@ -22,6 +22,40 @@
     --font-normal: 16px;
     --font-large: 20px;
     font-size: var(--font-normal);
+
+
+
+    --red-hue: 340;
+    --red-saturation: 85%;
+    --red-lightness: 45%;
+
+    --red: hsl(var(--red-hue), var(--red-saturation), var(--red-lightness));
+    --red-dark: hsl(var(--red-hue), var(--red-saturation), 35%);
+    --red-darker: hsl(var(--red-hue), var(--red-saturation), 25%);
+    --red-light: hsl(var(--red-hue), var(--red-saturation), 55%);
+    --red-lighter: hsl(var(--red-hue), var(--red-saturation), 60%);
+
+    --yellow-hue: 35;
+    --yellow-saturation: 90%;
+    --yellow-lightness: 50%;
+
+    --yellow: hsl(var(--yellow-hue), var(--yellow-saturation), var(--yellow-lightness));
+    --yellow-dark: hsl(var(--yellow-hue), var(--yellow-saturation), 40%);
+    --yellow-darker: hsl(var(--yellow-hue), var(--yellow-saturation), 30%);
+    --yellow-light: hsl(var(--yellow-hue), var(--yellow-saturation), 60%);
+    --yellow-lighter: hsl(var(--yellow-hue), var(--yellow-saturation), 70%);
+
+    --green-hue: 350;
+    --green-saturation: 55%;
+    --green-lightness: 50%;
+
+    --blue-hue: 35;
+    --blue-saturation: 90%;
+    --blue-lightness: 50%;
+
+    --purple-hue: 350;
+    --purple-saturation: 55%;
+    --purple-lightness: 50%;
 }
 
 .light-mode {
@@ -59,6 +93,7 @@
     --text-color-lightness: 90%;
     --text-color: hsl(0, 0%, var(--text-color-lightness));
     --text-color-hover: hsl(0, 0%, 80%);
+    --text-color-active: hsl(0, 0%, 70%);
     --text-color-dark: hsl(0, 0%, 50%);
     --text-color-dark-hover: hsl(0, 0%, 40%);
 

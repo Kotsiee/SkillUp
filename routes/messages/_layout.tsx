@@ -5,8 +5,6 @@ import ChatResize from "../../islands/chat/ChatResize.tsx";
 import ChatList from "../../islands/chat/ChatsList.tsx";
 
 export default function Layout(pageProps: PageProps) {
-    const user = useUser()
-
     return (
         <div class="messages-layout" f-client-nav>
             <link rel="stylesheet" href="/styles/pages/messages/messages.css" />
@@ -38,7 +36,7 @@ export default function Layout(pageProps: PageProps) {
                         </ul>
                     </div>
 
-                    <ChatList pageProps={pageProps} user={user}/>
+                    <ChatList pageProps={pageProps}/>
                 </div>
             </div>
 

@@ -13,11 +13,11 @@ import { toHTML, toMessage } from "../../lib/utils/messages.ts";
 import { jsonTag } from "../../lib/types/messages.ts";
 import { useRef } from "preact/hooks";
 import { useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
+import { useUser } from "../contexts/UserProvider.tsx";
 
 interface IChatMessages {
   supabaseUrl: string;
   supabaseAnonKey: string;
-  user: User;
   type: "messages" | "projects";
 }
 
@@ -25,8 +25,12 @@ export default function ChatMessages(
   { pageProps, p }: { pageProps: PageProps; p: IChatMessages },
 ) {
   const [chat, setChat] = useState<Chat>();
-  const user = p.user;
   const supabase = createClient(p.supabaseUrl, p.supabaseAnonKey);
+
+  const user = useUser();
+
+  if (!user)
+    return(<></>)
 
   useEffect(() => {
     async function fetchMessages() {
@@ -187,12 +191,17 @@ const ChatSection = (
           )
           : (
             <div class="task-info">
-                <h4><span style={{color:`var(--primary-colour)`}}>{props.chat.task?.meta?.icon}</span> {props.chat.task?.title}</h4>
-                <div class="desc">
-                    <p>{props.chat.task?.description}</p>
-                    <button>Chat Info</button>
-                </div>
-                <hr/>
+              <h4>
+                <span style={{ color: `var(--primary-colour)` }}>
+                  {props.chat.task?.meta?.icon}
+                </span>{" "}
+                {props.chat.task?.title}
+              </h4>
+              <div class="desc">
+                <p>{props.chat.task?.description}</p>
+                <button>Chat Info</button>
+              </div>
+              <hr />
             </div>
           )}
 

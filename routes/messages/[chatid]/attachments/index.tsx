@@ -10,7 +10,7 @@ export default function Conversations(pageProps: PageProps) {
 
     return (
         <Partial name="convo-messages">
-            <ChatLayout pageProps={pageProps} user={user} />
+            <ChatLayout pageProps={pageProps} user={user} type="messages" extras={[["", "Chat"], ["attachments", "Attachments"]]}/>
             <div class="chat-messages-container">
                 <Attachments />
             </div>

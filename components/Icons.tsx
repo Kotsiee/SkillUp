@@ -1,6 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
 import { animate } from "https://esm.sh/motion@11.15.0";
-import { Component, createRef } from "preact";
+import { Component, createRef, JSX } from "preact";
 
 interface AIconProps{
   size?: number
@@ -11,7 +11,8 @@ interface AIconProps{
   onHover?: () => void;
   offHover?: () => void;
   initalState?: boolean;
-  className?: string
+  className?: string;
+  style?: string | JSX.CSSProperties | JSX.SignalLike<string | JSX.CSSProperties | undefined>;
 }
 
 interface AIconState extends AIconProps{
@@ -67,6 +68,13 @@ export default class AIcon extends Component<AIconProps, AIconState>{
     }
   }
 
+  override componentDidUpdate(prevProps: AIconProps) {
+    // Compare the old style with the new style
+    if (prevProps.style !== this.props.style) {
+      this.props.style = prevProps.style
+    }
+  }
+
   onMouseEnter = () => { if (this.state.onHover) this.state.onHover(); };
   onMouseLeave = () => { if (this.state.offHover) this.state.offHover(); };
 
@@ -90,6 +98,8 @@ export default class AIcon extends Component<AIconProps, AIconState>{
           onClick={() => this.click()}
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}
+
+          style={this.props.style}
         >
           {startPaths!.map((d, index) => {
             return(
@@ -143,6 +153,12 @@ export const Icons: Record<string, string[]> = {
   ],
   DownChevron: [
     'M 2 8 L 12 16 L 22 8'
+  ],
+  LeftChevron: [
+    'M 16 2 L 8 12 L 16 22'
+  ],
+  RightChevron: [
+    'M 8 2 L 16 12 L 8 22'
   ],
   SortSwitch: [
     'M 2 8 L 8 2 L 8 22',

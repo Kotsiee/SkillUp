@@ -2,18 +2,23 @@ import { useEffect, useState } from "preact/hooks";
 import { Chat, User } from "../../lib/types/index.ts";
 import { PageProps } from "$fresh/server.ts";
 import AIcon, { Icons } from "../../components/Icons.tsx";
+import { useUser } from "../contexts/UserProvider.tsx";
 
 interface IChatLayout {
   pageProps: PageProps;
-  user: User | null;
   type: "messages" | "projects";
   extras: [string, string][];
 }
 
 export default function ChatLayout(
-  { pageProps, user, type, extras }: IChatLayout,
+  { pageProps, type, extras }: IChatLayout,
 ) {
   const [chat, setChat] = useState<Chat>();
+
+  const user = useUser();
+  
+    if (!user)
+      return(<></>)
 
   useEffect(() => {
     async function fetchMessages() {
@@ -102,7 +107,7 @@ const SelectView = ({pageProps, extras} : {pageProps: PageProps, extras: [string
               return (<a
                 class="select-view-input"
                 href={`${path}${page[0] ? '/' + page[0] : '' }`}
-                f-partial={`/partials${path}/${page[0]}`}
+                f-partial={`${path}/partials/${page[0]}`}
               >
               </a>)
             })

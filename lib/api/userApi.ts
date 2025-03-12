@@ -1,6 +1,6 @@
 import { DateTime } from "https://esm.sh/luxon@3.5.0";
 import { User } from "../types/index.ts";
-import { getFileUrl } from "./fetchData.ts";
+import { getFileUrl } from "./filesApi.ts";
 import { getSupabaseClient } from "../supabase/client.ts";
 
 export async function fetchUsers(): Promise<User[] | null> {

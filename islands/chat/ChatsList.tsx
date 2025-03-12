@@ -3,10 +3,12 @@ import { Skeleton } from "../../components/Skeletons.tsx";
 import { Chat, User } from "../../lib/types/index.ts";
 import ChatCard from "../../components/cards/ChatCard.tsx";
 import type { PageProps } from "$fresh/server.ts";
+import { useUser } from "../contexts/UserProvider.tsx";
 
-export default function ChatList({pageProps, user} : {pageProps: PageProps, user: User | null}) {
+export default function ChatList({pageProps} : {pageProps: PageProps}) {
   const [chats, setChats] = useState<Chat[]>([]);
   const [loading, setLoading] = useState(true);
+  const user = useUser()
 
   useEffect(() => {
     fetch(`/api/chats`)

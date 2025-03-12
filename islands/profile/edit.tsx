@@ -1,13 +1,9 @@
+// deno-lint-ignore-file no-explicit-any
 import { JSX } from "preact/jsx-runtime";
-import { User } from "../../lib/types/index.ts";
-import { useEffect, useRef, useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import AIcon, { Icons } from "../../components/Icons.tsx";
-import CircleCrop from "../image/imageAdjust.tsx";
-import {
-  Signal,
-  useSignal,
-} from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 import { useUser } from "../contexts/UserProvider.tsx";
+import FileUploader from "../image/UploadFile.tsx";
 
 export default function EditProfile() {
   const { user } = useUser();
@@ -50,7 +46,8 @@ export default function EditProfile() {
 
                 <div class="content">
                   <section id="banner-section" class="banner">
-                    <div
+                    {
+                      /* <div
                       class="banner-img"
                       style={{
                         backgroundImage:
@@ -61,7 +58,8 @@ export default function EditProfile() {
                         <AIcon startPaths={Icons.Filter} />
                         <p>Change Photo</p>
                       </div>
-                    </div>
+                    </div> */
+                    }
 
                     <div
                       class="profile-img"
@@ -107,7 +105,15 @@ export default function EditProfile() {
               </div>
             </div>
 
-            <Modal user={user}/>
+            <FileUploader
+              multiple
+              path="profile/avatar"
+              title="Profile Picture"
+              user={user}
+              uploadType="profile"
+              fileType="image/*"
+            />
+            {/* <Modal multiple/> */}
           </div>
         )
         : <></>}
@@ -176,174 +182,60 @@ const SideNav = () => {
   );
 };
 
-const Modal = ( {user} : {user : User} ) => {
-  const selectedView = useSignal<string>("newphoto");
-  const inputImg = useSignal<string | null>(
-    "http://localhost:8000/api/image/proxy?url=https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-  );
-  const outputImg = useSignal<string | null>(null);
+/**
+ *
+ * <div class="rotate-control">
+                <div class="slider">
+                  <input
+                    type="range"
+                    min={-180}
+                    max={180}
+                    step={1}
+                    value={rotate.value}
+                    onInput={(val) =>
+                      rotate.value = Number.parseInt(val.currentTarget.value)}
+                  />
+                </div>
 
-  return (
-    <div class="modals">
-      <div class="changePhoto">
-        <h2>Change Photo</h2>
-        <div class="select-photo-section-container">
-          <ul>
-            <li>
-              <input
-                class="select-photo-section"
-                type="radio"
-                name="select-photo-section"
-                id="newphoto"
-                onChange={() => selectedView.value = "newphoto"}
-                checked={selectedView.value === "newphoto"}
-                hidden
-              />
-              <label for="newphoto">New Photo</label>
-            </li>
 
-            <li>
-              <input
-                class="select-photo-section"
-                type="radio"
-                name="select-photo-section"
-                id="adjust"
-                onChange={() => selectedView.value = "adjust"}
-                checked={selectedView.value === "adjust"}
-                hidden
-                disabled
-              />
-              <label for="adjust">Adjust & Crop</label>
-            </li>
+                <div class="number-container">
+                  <div class="number">
+                    <input
+                      type="number"
+                      min={-180}
+                      max={180}
+                      step={1}
+                      value={rotate.value}
+                      onInput={(val) =>
+                        rotate.value = Number.parseInt(val.currentTarget.value)}
+                    />
 
-            <li>
-              <input
-                class="select-photo-section"
-                type="radio"
-                name="select-photo-section"
-                id="review"
-                onChange={() => selectedView.value = "review"}
-                checked={selectedView.value === "review"}
-                hidden
-              />
-              <label for="review">Review</label>
-            </li>
-          </ul>
-        </div>
+                    <p>°</p>
+                  </div>
+                </div>
+              </div>
 
-        <div class="modal-content">
-          <NewImg
-            hidden={!(selectedView.value === "newphoto")}
-            inputImg={inputImg}
-          />
-          <AdjustImg
-            hidden={!(selectedView.value === "adjust")}
-            inputImg={inputImg}
-            outputImg={outputImg}
-          />
-          <Review
-            hidden={!(selectedView.value === "review")}
-            outputImg={outputImg}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
+              <div class="zoom-control">
+                <input
+                  class="zoom"
+                  type="range"
+                  min={1080}
+                  max={1080 * 3}
+                  value={zoom.value}
+                  onInput={(val) =>
+                    zoom.value = Number.parseInt(val.currentTarget.value)}
+                />
+              </div>
 
-interface IUpload {
-  hidden?: boolean;
-  inputImg?: Signal<string | null>;
-  outputImg?: Signal<string | null>;
-}
-
-const NewImg = ({ hidden, inputImg }: IUpload) => {
-  const handleFileUpload = (event: Event) => {
-    const input = event.target as HTMLInputElement;
-    if (!input.files?.length || !inputImg?.value) return;
-
-    const file = input.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      if (!e.target?.result) return;
-      inputImg.value = e.target.result as string; // ✅ Update image signal
-    };
-
-    reader.readAsDataURL(file);
-  };
-
-  return (
-    <div class="newphoto" hidden={hidden}>
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileUpload}
-      />
-    </div>
-  );
-};
-
-const Review = ({ hidden, outputImg }: IUpload) => {
-  return (
-    <div class="newphoto" hidden={hidden}>
-      {outputImg && outputImg.value ? <img src={outputImg.value} /> : <></>}
-    </div>
-  );
-};
-
-const AdjustImg = ({ hidden, inputImg, outputImg }: IUpload) => {
-  const zoom = useSignal<number>(1080);
-  const rotate = useSignal<number>(0);
-  const ref = useRef<any>(null);
-
-  return (
-    <div class="adjust" hidden={hidden}>
-      <div class="photo-area">
-        <CircleCrop
-          size={300}
-          img={inputImg?.value}
-          zoom={zoom}
-          rotate={rotate}
-          thisRef={ref}
-        />
-      </div>
-
-      <div class="controls">
-        <div class="rotate-control">
-          <input
-            type="range"
-            min={-180}
-            max={180}
-            value={rotate.value}
-            onInput={(val) =>
-              rotate.value = Number.parseInt(val.currentTarget.value)}
-          />
-        </div>
-
-        <div>
-          <input
-            class="zoom"
-            type="range"
-            min={1080}
-            max={1080 * 3}
-            value={zoom.value}
-            onInput={(val) =>
-              zoom.value = Number.parseInt(val.currentTarget.value)}
-          />
-        </div>
-
-        <button
-          onClick={() => {
-            ref.current.generatePreview()
-              .then((val: any) => {
-                if (outputImg) outputImg.value = val;
-              });
-          }}
-        >
-          click me
-        </button>
-      </div>
-    </div>
-  );
-};
+              <button
+                onClick={() => {
+                  ref.current.generatePreview()
+                    .then((val: any) => {
+                      if (outputFiles) outputFiles.value = val;
+                    });
+                }}
+              >
+                click me
+              </button>
+ *
+ */

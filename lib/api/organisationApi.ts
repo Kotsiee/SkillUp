@@ -1,6 +1,6 @@
 import { Organisation } from "../types/index.ts";
 import { DateTime } from "https://esm.sh/luxon@3.5.0";
-import { getFileUrl } from "./fetchData.ts";
+import { getFileUrl } from "./filesApi.ts";
 import { getSupabaseClient } from "../supabase/client.ts";
 
 export async function fetchOrganisations(): Promise<Organisation[] | null> {

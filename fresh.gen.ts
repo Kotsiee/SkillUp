@@ -33,12 +33,14 @@ import * as $api_chats_chatId_chat from "./routes/api/chats/[chatId]/chat.ts";
 import * as $api_chats_chatId_messages from "./routes/api/chats/[chatId]/messages.ts";
 import * as $api_chats_id_ from "./routes/api/chats/[id].ts";
 import * as $api_chats_index from "./routes/api/chats/index.ts";
+import * as $api_image_process from "./routes/api/image/process.ts";
 import * as $api_image_proxy from "./routes/api/image/proxy.ts";
 import * as $api_image_resize from "./routes/api/image/resize.ts";
 import * as $api_projects from "./routes/api/projects.ts";
 import * as $api_projects_project_chats from "./routes/api/projects/[project]/chats.ts";
 import * as $api_projects_project_index from "./routes/api/projects/[project]/index.ts";
 import * as $api_projects_index from "./routes/api/projects/index.ts";
+import * as $api_storage_files from "./routes/api/storage/files.ts";
 import * as $dashboard_index from "./routes/dashboard/index.tsx";
 import * as $explore_layout from "./routes/explore/_layout.tsx";
 import * as $explore_index from "./routes/explore/index.tsx";
@@ -51,8 +53,11 @@ import * as $messages_chatid_attachments_attId_ from "./routes/messages/[chatid]
 import * as $messages_chatid_attachments_index from "./routes/messages/[chatid]/attachments/index.tsx";
 import * as $messages_chatid_index from "./routes/messages/[chatid]/index.tsx";
 import * as $messages_chatid_info from "./routes/messages/[chatid]/info.tsx";
+import * as $messages_chatid_partials_attachments_attId_ from "./routes/messages/[chatid]/partials/attachments/[attId].tsx";
+import * as $messages_chatid_partials_attachments_index from "./routes/messages/[chatid]/partials/attachments/index.tsx";
+import * as $messages_chatid_partials_index from "./routes/messages/[chatid]/partials/index.tsx";
+import * as $messages_chatid_partials_info from "./routes/messages/[chatid]/partials/info.tsx";
 import * as $messages_layout from "./routes/messages/_layout.tsx";
-import * as $messages_c_id_ from "./routes/messages/c/[id].tsx";
 import * as $messages_index from "./routes/messages/index.tsx";
 import * as $partials_explore_project from "./routes/partials/explore/project.tsx";
 import * as $partials_messages_chatid_ from "./routes/partials/messages/[chatid].tsx";
@@ -99,6 +104,7 @@ import * as $contexts_UserProvider from "./islands/contexts/UserProvider.tsx";
 import * as $explore_ExploreFilter from "./islands/explore/ExploreFilter.tsx";
 import * as $explore_ProjectDetails from "./islands/explore/ProjectDetails.tsx";
 import * as $explore_ProjectList from "./islands/explore/ProjectList.tsx";
+import * as $image_UploadFile from "./islands/image/UploadFile.tsx";
 import * as $image_imageAdjust from "./islands/image/imageAdjust.tsx";
 import * as $profile_edit from "./islands/profile/edit.tsx";
 import * as $profile_profile from "./islands/profile/profile.tsx";
@@ -142,12 +148,14 @@ const manifest = {
     "./routes/api/chats/[chatId]/messages.ts": $api_chats_chatId_messages,
     "./routes/api/chats/[id].ts": $api_chats_id_,
     "./routes/api/chats/index.ts": $api_chats_index,
+    "./routes/api/image/process.ts": $api_image_process,
     "./routes/api/image/proxy.ts": $api_image_proxy,
     "./routes/api/image/resize.ts": $api_image_resize,
     "./routes/api/projects.ts": $api_projects,
     "./routes/api/projects/[project]/chats.ts": $api_projects_project_chats,
     "./routes/api/projects/[project]/index.ts": $api_projects_project_index,
     "./routes/api/projects/index.ts": $api_projects_index,
+    "./routes/api/storage/files.ts": $api_storage_files,
     "./routes/dashboard/index.tsx": $dashboard_index,
     "./routes/explore/_layout.tsx": $explore_layout,
     "./routes/explore/index.tsx": $explore_index,
@@ -162,8 +170,15 @@ const manifest = {
       $messages_chatid_attachments_index,
     "./routes/messages/[chatid]/index.tsx": $messages_chatid_index,
     "./routes/messages/[chatid]/info.tsx": $messages_chatid_info,
+    "./routes/messages/[chatid]/partials/attachments/[attId].tsx":
+      $messages_chatid_partials_attachments_attId_,
+    "./routes/messages/[chatid]/partials/attachments/index.tsx":
+      $messages_chatid_partials_attachments_index,
+    "./routes/messages/[chatid]/partials/index.tsx":
+      $messages_chatid_partials_index,
+    "./routes/messages/[chatid]/partials/info.tsx":
+      $messages_chatid_partials_info,
     "./routes/messages/_layout.tsx": $messages_layout,
-    "./routes/messages/c/[id].tsx": $messages_c_id_,
     "./routes/messages/index.tsx": $messages_index,
     "./routes/partials/explore/project.tsx": $partials_explore_project,
     "./routes/partials/messages/[chatid].tsx": $partials_messages_chatid_,
@@ -224,6 +239,7 @@ const manifest = {
     "./islands/explore/ExploreFilter.tsx": $explore_ExploreFilter,
     "./islands/explore/ProjectDetails.tsx": $explore_ProjectDetails,
     "./islands/explore/ProjectList.tsx": $explore_ProjectList,
+    "./islands/image/UploadFile.tsx": $image_UploadFile,
     "./islands/image/imageAdjust.tsx": $image_imageAdjust,
     "./islands/profile/edit.tsx": $profile_edit,
     "./islands/profile/profile.tsx": $profile_profile,

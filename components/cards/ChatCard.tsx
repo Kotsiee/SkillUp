@@ -7,7 +7,7 @@ export default function ChatCard(props: { chat: Chat, viewerID: string }) {
         <li class="chat-item">
             <a class={`chat-link`}
             href={`/messages/${props.chat.id}`} 
-            f-partial={`/partials/messages/${props.chat.id}`}
+            f-partial={`/messages/${props.chat.id}/partials`}
             >
                 <Card chat={props.chat} viewerID={props.viewerID}/>
             </a>

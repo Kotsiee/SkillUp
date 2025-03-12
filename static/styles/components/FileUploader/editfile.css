@@ -1,0 +1,134 @@
+.edit-file {
+    padding: 4px;
+
+    .select-file-container {
+        .select-file {
+            display: flex;
+            gap: 12px;
+            overflow-x: scroll;
+            padding: 4px;
+        }
+    }
+
+    .save {
+        display: flex;
+        gap: 12px;
+        width: 100%;
+        justify-content: space-between;
+        margin: 12px 0;
+
+        .fileName {
+            width: 100%;
+            text-indent: 12px;
+            background-color: var(--modal-colour-light);
+            outline: 1px solid var(--modal-colour-lighter);
+            border-radius: var(--border-radius-smaller);
+
+            &:focus {
+                background-color: var(--modal-colour);
+                outline: 1px solid var(--primary-colour);
+            }
+        }
+
+        .save-btn{
+            padding: 4px 16px;
+            background-color: var(--primary-colour);
+            border-radius: var(--border-radius-smaller);
+            font-weight: var(--weight-bold);
+        }
+    }
+}
+
+.edit-image {
+
+    .edit-area {
+        width: 100%;
+        height: 300px;
+        background-color: var(--modal-colour-dark);
+        border-radius: var(--border-radius-small);
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+
+        .bed {
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .controls {
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+
+        .rotation {
+            width: 200px;
+
+            .rotation-input-container {
+                display: flex;
+                margin-top: 8px;
+
+                .rotation-input {
+                    display: flex;
+                    padding: 2px 8px;
+                    background-color: var(--modal-colour-lighter);
+                    border-radius: var(--border-radius-smaller);
+
+                    input[type="number"] {
+                        width: 6em;
+                        background-color: #0000;
+                        text-align: right;
+
+                        &::-webkit-inner-spin-button,
+                        &::-webkit-outer-spin-button {
+                            appearance: none;
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+
+            .fixed-rotate {
+                margin-top: 8px;
+                display: flex;
+                gap: 8px;
+
+                button {
+                    padding: 8px;
+                    background-color: var(--modal-colour-lighter);
+                    border-radius: var(--border-radius-smaller);
+                }
+            }
+        }
+
+        .scale {
+            width: 200px;
+
+            .scale-input-container {
+                display: flex;
+                margin-top: 8px;
+
+                .scale-input {
+                    display: flex;
+                    padding: 2px 8px;
+                    background-color: var(--modal-colour-lighter);
+                    border-radius: var(--border-radius-smaller);
+
+                    input[type="number"] {
+                        width: 6em;
+                        background-color: #0000;
+                        text-align: right;
+
+                        &::-webkit-inner-spin-button,
+                        &::-webkit-outer-spin-button {
+                            appearance: none;
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
