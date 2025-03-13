@@ -3,10 +3,34 @@ import { JSX } from "preact/jsx-runtime";
 import { useEffect, useState } from "preact/hooks";
 import AIcon, { Icons } from "../../components/Icons.tsx";
 import { useUser } from "../contexts/UserProvider.tsx";
-import FileUploader from "../image/UploadFile.tsx";
+import FileUploader from "../upload/UploadFile.tsx";
+import { useRef } from "preact/hooks";
+import { useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
+import { Files, User } from "../../lib/types/index.ts";
+import { Signal } from 'https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js';
 
 export default function EditProfile() {
   const { user } = useUser();
+  const modalRef = useRef<any>(null);
+  const modalSettings = useSignal<any>(
+    {
+      title: "",
+      path: "",
+      uploadType: "",
+      fileType: "",
+      onUpload: () => {},
+    },
+  );
+
+  const editableUser = useSignal<User | null>(null);
+
+  useEffect(() => {
+    if (user) {
+      editableUser.value = user;
+    }
+
+    console.log(editableUser.value);
+  }, [user]);
 
   return (
     <div>
@@ -46,40 +70,63 @@ export default function EditProfile() {
 
                 <div class="content">
                   <section id="banner-section" class="banner">
-                    {
-                      /* <div
+                    <div
                       class="banner-img"
-                      style={{
-                        backgroundImage:
-                          `url(https://letsenhance.io/static/a31ab775f44858f1d1b80ee51738f4f3/11499/EnhanceAfter.jpg)`,
+                      onClick={() => {
+                        modalSettings.value = {
+                          ...modalSettings.value,
+                          title: "Banner Photo",
+                          path: "profile/banner",
+                          uploadType: "banner",
+                          fileType: "image/*",
+                        };
+                        modalRef.current.openModal();
                       }}
                     >
+                      <img src="https://letsenhance.io/static/a31ab775f44858f1d1b80ee51738f4f3/11499/EnhanceAfter.jpg" />
+
                       <div class="change-image">
                         <AIcon startPaths={Icons.Filter} />
                         <p>Change Photo</p>
                       </div>
-                    </div> */
-                    }
+                    </div>
 
                     <div
                       class="profile-img"
-                      style={{
-                        backgroundImage: `url(${user.profilePicture?.url})`,
+                      onClick={() => {
+                        modalSettings.value = {
+                          ...modalSettings.value,
+                          title: "Profile Photo",
+                          path: "profile/avatar",
+                          uploadType: "profile",
+                          fileType: "image/*",
+                          onUpload: async (files: Files) => {
+                            await fetch("/api/account/updateKV", {
+                              method: "GET",
+                            });
+                          },
+                        };
+                        modalRef.current.openModal();
                       }}
                     >
+                      <img src={user.profilePicture!.large!.publicURL} />
                       <div class="change-image">
                         <AIcon startPaths={Icons.Filter} />
                       </div>
                     </div>
                   </section>
                   <section id="profile-section">
-                    <div>
-                      <TextBox>First Name</TextBox>
-                      <TextBox>Last Name</TextBox>
+                    <div class="name">
+                      <TextBox user={editableUser} val="firstName" placeholder="First Name">
+                        First Name
+                      </TextBox>
+                      <TextBox user={editableUser} val="lastName" placeholder="Last Name">
+                        Last Name
+                      </TextBox>
                     </div>
 
-                    <TextBox>Username</TextBox>
-                    <TextBox resize>Headline</TextBox>
+                    <TextBox user={editableUser} val="username" placeholder="Username">Username</TextBox>
+                    <TextBox>Headline</TextBox>
                   </section>
 
                   <section id="about-section">
@@ -106,14 +153,14 @@ export default function EditProfile() {
             </div>
 
             <FileUploader
-              multiple
-              path="profile/avatar"
-              title="Profile Picture"
+              path={modalSettings.value.path}
+              title={modalSettings.value.title}
               user={user}
-              uploadType="profile"
-              fileType="image/*"
+              uploadType={modalSettings.value.uploadType}
+              fileType={modalSettings.value.fileType}
+              thisRef={modalRef}
+              onUpload={modalSettings.value.onUpload}
             />
-            {/* <Modal multiple/> */}
           </div>
         )
         : <></>}
@@ -122,14 +169,30 @@ export default function EditProfile() {
 }
 
 const TextBox = (
-  props: JSX.HTMLAttributes<HTMLDivElement> & { resize?: boolean },
+  props: JSX.HTMLAttributes<HTMLDivElement> & { resize?: boolean, val?: string, user?: Signal<User | null> },
 ) => {
+  if (!props.user?.value)
+    return null
+  const user = props.user.value
+
+  const attr = props.val as "firstName" | "lastName" | "username";
+  const newAttr = user?.[attr];
+
   return (
-    <div ref={props.ref} class={props.class}>
-      <p>{props.children}</p>
+    <div ref={props.ref} class={`textbox ${props.class}`}>
+      <p class="tb-title">{props.children}</p>
       {props.resize
-        ? <textarea class="text-input" />
-        : <input class="text-input" type="text" />}
+        ? <textarea class="text-input"
+        placeholder={props.placeholder} value={newAttr} />
+        : (
+          <input
+            class="text-input"
+            type="text"
+            placeholder={props.placeholder}
+            value={newAttr}
+            onInput={(newVal) => {props.user!.value = {...user, [attr]: newVal.currentTarget.value} }}
+          />
+        )}
     </div>
   );
 };

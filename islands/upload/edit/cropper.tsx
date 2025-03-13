@@ -206,9 +206,8 @@ export default function CircleCrop(
     tempCanvas.height = canvas.height!;
 
     const previewCanvas = new fabric.Canvas(tempCanvas);
-    previewCanvas.backgroundColor = "transparent";
+    previewCanvas.backgroundColor = "black";
 
-    // ✅ Wait for image cloning
     const img = await fabricImg.current!.clone();
 
     previewCanvas.add(img);

@@ -15,7 +15,8 @@ export const handler: Handlers = {
         if (!accessToken) return new Response("Missing userId", { status: 400 });
         const user = await kv.get(["user", accessToken]);
 
-        const files = await fetchFiles((user.value as any).user as User, ctx.url.searchParams.get("types"))
+        const u = ((user.value as any).user as User)
+        const files = await fetchFiles(u.id, ctx.url.searchParams.get("types"))
 
         return new Response(superjson.stringify(files), {
             headers: { "Content-Type": "application/json" },

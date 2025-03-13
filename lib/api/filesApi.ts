@@ -1,110 +1,13 @@
-import { verify } from "node:crypto";
+// deno-lint-ignore-file no-explicit-any no-unused-vars
 import { getSupabaseClient, SupabaseInfo } from "../supabase/client.ts";
-import { Files, Privacy, User } from "../types/index.ts";
+import { Files } from "../types/index.ts";
 import { DateTime } from "https://esm.sh/luxon@3.5.0";
-import {
-  createClient,
-  SupabaseClient,
-} from "https://esm.sh/@supabase/supabase-js@2.47.10/dist/module/index.js";
-import { boolean } from "https://esm.sh/@types/webidl-conversions@7.0.3/index.d.ts";
+import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.47.10/dist/module/index.js";
 
-export async function getFileUrl(filePath: string) {
-  const { data } = await getSupabaseClient()
-    .storage
-    .from("user_uploads")
-    .getPublicUrl(filePath);
-
-  return data.publicUrl;
-}
-
-export const getRealFileURL = (filePath: string) => {
-  const timestamp = new Date().getTime(); // Unique timestamp
-  return `/storage/v1/object/public/${filePath}?t=${timestamp}`;
-};
-
-export async function fetchFiles(
-  user: User,
-  fileType?: string | null,
-): Promise<Files[] | null> {
-  let mimeFilters: string[] = [];
-
-  if (fileType) {
-    mimeFilters = fileType.split(" ").map((type) => type.trim());
-  }
-
-  // Start building query
-  let query = getSupabaseClient().from("files").select("*").eq(
-    "user_id",
-    user.id,
-  );
-
-  if (mimeFilters.length > 0) {
-    query = query.or(
-      mimeFilters
-        .map((type) =>
-          type.endsWith("/*")
-            ? `mime_type.ilike.${type.replace("/*", "/%")}`
-            : `mime_type.eq.${type}`
-        )
-        .join(","),
-    );
-  }
-
-  const { data, error } = await query;
-
-  if (error) {
-    console.log("fetchFiles: error was found :( - " + error.cause);
-    return null;
-  }
-
-  const files: Files[] = await Promise.all(
-    data.map(async (d) => {
-
-      const timestamp = new Date().getTime();
-
-      return {
-        id: d.id,
-        user: user,
-        filePath: d.file_path,
-        storedName: d.stored_name,
-        publicName: d.public_name,
-        fileType: d.type,
-        mimeType: d.mime_type,
-        verified: d.verified,
-        privacyLvl: d.privacy_level,
-        meta: d.meta,
-        extension: d.extension,
-        createdAt: d.created_at,
-        publicURL: await getFileUrl(`profile/${user.id}/${d.file_path}/${d.stored_name}?t=${timestamp}`),
-      };
-    }),
-  );
-
-  return files;
-}
-
-export async function fetchFileByPath(user: User, path: string, name: string, simple?: boolean): Promise<Files | null> {
-  console.log(user.id, path, name)
-
-  let query = getSupabaseClient()
-  .from("files")
-  .select("*")
-  .eq("user_id", user.id)
-  .eq("file_path", path)
-  .eq("stored_name", name)
-  .single();
-
-  const { data, error } = await query;
-
-  if (error) {
-    console.log("fetchFileByPath: error was found :( - " + error.message);
-    return null;
-  }
-  const timestamp = new Date().getTime();
-
-  const files: Files = {
+function toFile (data: any): Files {
+  return {
     id: data.id,
-    user: user,
+    user: data.user_id,
     filePath: data.file_path,
     storedName: data.stored_name,
     publicName: data.public_name,
@@ -115,143 +18,168 @@ export async function fetchFileByPath(user: User, path: string, name: string, si
     meta: data.meta,
     extension: data.extension,
     createdAt: data.created_at,
-
   }
-
-  if (!simple)
-    files.publicURL = await getFileUrl(`profile/${user.id}/${data.file_path}/${data.stored_name}?t=${timestamp}`)
-
-  return files;
 }
 
-export async function insertFile(file: Files) {
-  const exists = (await fetchFileByPath(file.user as User, file.filePath!, file.storedName!, true))
+/**
+ * Retrieves the public URL of a file stored in Supabase.
+ * @param filePath - Path of the file in storage.
+ * @returns The public URL of the file.
+ */
+export async function getFileUrl(filePath: string): Promise<string | null> {
+  const { data  } = await getSupabaseClient()
+    .storage
+    .from("user_uploads")
+    .getPublicUrl(filePath);
 
-  if (exists){
-    console.log("exists")
-    const newFile = {
-      user_id: exists.user?.id,
-      file_path: exists.filePath,
-      public_name: file.publicName,
-      stored_name: exists.storedName,
-      type: file.fileType,
-      mime_type: file.mimeType,
-      created_at: DateTime.now(),
-      updated_at: DateTime.now(),
-      verified: file.verified,
-      extension: file.extension,
-      meta: {
-        size: file.meta?.size,
-        application: file.meta?.application,
-      },
-    };
+  return data.publicUrl;
+}
 
-    const { data, error } = await getSupabaseClient()
-    .from("files")
-    .update([
-      newFile,
-    ])
-    .eq("id", exists.id);
+/**
+ * Generates a real-time file URL with a unique timestamp.
+ * @param filePath - The relative file path.
+ * @returns A cache-busting file URL.
+ */
+export const getRealFileURL = (filePath: string): string => {
+  return `${filePath}?t=${Date.now()}`;
+};
 
-    if (error) {
-      console.log("insertFile: error was found :( - " + error.message);
-      return null;
+/**
+ * Fetches all files uploaded by a specific user with optional file type filtering.
+ * @param user - User ID.
+ * @param fileType - Optional file type filter.
+ * @returns A list of user files or null if an error occurs.
+ */
+export async function fetchFiles(user: string, fileType?: string | null): Promise<Files[] | null> {
+  try {
+    let query = getSupabaseClient().from("files").select("*").eq("user_id", user);
+    if (fileType) {
+      const mimeFilters = fileType.split(" ").map((type) => type.trim());
+      query = query.or(mimeFilters.map((type) => `mime_type.ilike.${type.replace("/*", "/%")}`).join(","));
     }
-  
-    return newFile;
-  }
+    const { data, error } = await query;
+    if (error) throw error;
 
-  console.log("does not exists")
-
-  const uuid = file.id;
-
-  const newFile = {
-    id: uuid,
-    user_id: file.user?.id,
-    file_path: file.filePath,
-    public_name: file.publicName,
-    stored_name: file.isUpload ? file.storedName : `${uuid}.${file.extension}`,
-    type: file.fileType,
-    mime_type: file.mimeType,
-    created_at: DateTime.now(),
-    updated_at: DateTime.now(),
-    privacy_level: file.privacyLvl || "private",
-    verified: file.verified,
-    extension: file.extension,
-    meta: {
-      size: file.meta?.size,
-      application: file.meta?.application,
-    },
-  };
-
-  const { data, error } = await getSupabaseClient().from("files").insert([
-    newFile,
-  ]);
-
-  if (error) {
-    console.log("insertFile: error was found :( - " + error.message);
+    return await Promise.all(
+      data.map(async (d: any) => {
+        return {
+          ...toFile(d),
+          publicURL: await getFileUrl(`profile/${user}/${d.file_path}/${d.stored_name}?t=${Date.now()}`) || undefined
+        }
+      })
+    );
+  } catch (error: any) {
+    console.error("fetchFiles: Error fetching files -", error.message);
     return null;
   }
-
-  return newFile;
 }
 
-export const deleteFile = async (
-  filePath: string,
-  supabase: SupabaseClient<any, "public", any>,
-) => {
-  const { error } = await supabase.storage.from("user_uploads")
-    .remove([filePath]);
+/**
+ * Fetches a single file by its path and name.
+ * @param user - User ID.
+ * @param path - File path.
+ * @param name - Stored file name.
+ * @param simple - If true, excludes the public URL.
+ * @returns The file data or null if not found.
+ */
+export async function fetchFileByPath(user: string, path: string, name: string, simple?: boolean): Promise<Files | null> {
+  try {
+    const { data, error } = await getSupabaseClient()
+      .from("files")
+      .select("*")
+      .eq("user_id", user)
+      .eq("file_path", path)
+      .eq("stored_name", name)
+      .single();
+    if (error) throw error;
 
-  if (error) {
-    console.error("Error deleting file:", error.message);
-  } else {
+    return {
+      ...toFile(data),
+      publicURL: simple ? undefined : await getFileUrl(`profile/${user}/${data.file_path}/${data.stored_name}?t=${Date.now()}`) || undefined,
+    };
+  } catch (error: any) {
+    console.error("fetchFileByPath: Error fetching file -", error.message);
+    return null;
+  }
+}
+
+/**
+ * Inserts or updates a file record in the database.
+ * @param file - The file metadata to insert.
+ * @returns The inserted/updated file data.
+ */
+export async function insertFile(file: Files) {
+  try {
+    const existingFile = await fetchFileByPath(file.user!, file.filePath!, file.storedName!, true);
+    const newFile = {
+      user_id: file.user,
+      file_path: file.filePath,
+      public_name: file.publicName,
+      stored_name: file.isUpload ? file.storedName : `${file.id}.${file.extension}`,
+      type: file.fileType,
+      mime_type: file.mimeType,
+      created_at: DateTime.now().toISO(),
+      updated_at: DateTime.now().toISO(),
+      privacy_level: file.privacyLvl || "private",
+      verified: file.verified,
+      extension: file.extension,
+      meta: file.meta,
+    };
+
+    const { data, error } = existingFile
+      ? await getSupabaseClient().from("files").update(newFile).eq("id", existingFile.id)
+      : await getSupabaseClient().from("files").insert(newFile);
+    if (error) throw error;
+    return newFile;
+  } catch (error: any) {
+    console.error("insertFile: Error inserting/updating file -", error.message);
+    return null;
+  }
+}
+
+/**
+ * Deletes a file from Supabase storage.
+ * @param filePath - File path to delete.
+ * @param supabase - Supabase client instance.
+ */
+export async function deleteFile(filePath: string, supabase: SupabaseClient) {
+  try {
+    const { error } = await supabase.storage.from("user_uploads").remove([filePath]);
+    if (error) throw error;
     console.log("File deleted successfully:", filePath);
+  } catch (error: any) {
+    console.error("deleteFile: Error deleting file -", error.message);
   }
-};
+}
 
-export const uploadFile = async (file: Files, accessToken: string) => {
-  const newFile = await insertFile(file);
-  if (!newFile) return;
+/**
+ * Uploads a file to Supabase storage.
+ * @param file - The file metadata.
+ * @param accessToken - Supabase access token.
+ * @returns The public URL of the uploaded file.
+ */
+export async function uploadFile(file: Files, accessToken: string): Promise<string | null> {
+  try {
+    const newFile = await insertFile(file);
+    if (!newFile) return null;
 
-  const supabase = new SupabaseInfo(getSupabaseClient());
-  const supabaseAuth = createClient(supabase.getUrl(), accessToken);
+    const supabaseAuth = createClient(new SupabaseInfo(getSupabaseClient()).getUrl(), accessToken);
+    if (!file.publicURL) throw new Error("No valid Base64 file data provided.");
 
-  if (!file.publicURL) {
-    console.error("No valid Base64 file data provided.");
-    return;
+    const base64Data = file.publicURL.split(",")[1];
+    if (!base64Data) throw new Error("Invalid Base64 format.");
+
+    const byteArray = Uint8Array.from(atob(base64Data), (c) => c.charCodeAt(0));
+    const fileBlob = new Blob([byteArray], { type: newFile.mime_type });
+    const filePath = `profile/${newFile.user_id}/${newFile.file_path}/${newFile.stored_name}`;
+
+    await deleteFile(filePath, supabaseAuth);
+    const { error } = await supabaseAuth.storage.from("user_uploads").upload(filePath, fileBlob, { upsert: true });
+    if (error) throw error;
+
+    return filePath
+  } catch (error: any) {
+    console.error("uploadFile: Upload error -", error.message);
+    return null;
   }
-
-  const base64Data = file.publicURL.split(",")[1];
-  if (!base64Data) {
-    console.error("Invalid Base64 format.");
-    return;
-  }
-
-  const byteCharacters = atob(base64Data);
-  const byteNumbers = new Array(byteCharacters.length);
-  for (let i = 0; i < byteCharacters.length; i++) {
-    byteNumbers[i] = byteCharacters.charCodeAt(i);
-  }
-  const byteArray = new Uint8Array(byteNumbers);
-  const fileBlob = new Blob([byteArray], { type: newFile.mime_type });
-
-  const filePath =
-    `profile/${newFile.user_id}/${newFile.file_path}/${newFile.stored_name}`;
-
-  await deleteFile(filePath, supabaseAuth);
-
-  const { data, error } = await supabaseAuth.storage
-    .from("user_uploads")
-    .upload(filePath, fileBlob, {
-      contentType: newFile.mime_type,
-      upsert: true,
-    });
-
-  if (error) {
-    console.error("Upload error:", error.message);
-    return;
-  }
-
-  return getRealFileURL(filePath);
-};
+}

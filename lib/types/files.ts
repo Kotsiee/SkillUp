@@ -3,7 +3,7 @@ import { Entity, Privacy, User } from "./index.ts";
 
 export interface Files {
   id?: string;
-  user?: User;
+  user?: string;
   filePath?: string;
   storedName?: string;
   publicName?: string;
@@ -22,6 +22,44 @@ export interface Files {
 interface FileMeta {
   application?: string;
   size?: number;
+
+  image?: {
+    height?: number;
+    width?: number;
+    colour?: {
+      average: string;
+      modal: string;
+    }
+  }
+
+  audio?: IAudio
+
+  video?: {
+    height?: number;
+    width?: number;
+    frameRate?: number;
+    duration?: number;
+    audio: IAudio;
+  }
+
+  text?: {
+    encoding: string;
+    count: {
+      word: number;
+      character: number;
+    }
+  }
+}
+
+interface IAudio{
+  bitrate?: number;
+  samplerate?: number;
+  duration?: number;
+  volume?: {
+    loudest?: number;
+    quitest?: number;
+    average?: number;
+  } 
 }
 
 export interface FileReference {

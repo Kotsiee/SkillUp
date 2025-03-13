@@ -21,6 +21,7 @@ import * as $account_forgotpassword from "./routes/account/forgotpassword.tsx";
 import * as $account_login from "./routes/account/login.tsx";
 import * as $account_signup from "./routes/account/signup.tsx";
 import * as $api_account_login from "./routes/api/account/login.ts";
+import * as $api_account_updateKV from "./routes/api/account/updateKV.ts";
 import * as $api_account_user from "./routes/api/account/user.ts";
 import * as $api_auth_log from "./routes/api/auth/log.ts";
 import * as $api_auth_login from "./routes/api/auth/login.ts";
@@ -104,8 +105,6 @@ import * as $contexts_UserProvider from "./islands/contexts/UserProvider.tsx";
 import * as $explore_ExploreFilter from "./islands/explore/ExploreFilter.tsx";
 import * as $explore_ProjectDetails from "./islands/explore/ProjectDetails.tsx";
 import * as $explore_ProjectList from "./islands/explore/ProjectList.tsx";
-import * as $image_UploadFile from "./islands/image/UploadFile.tsx";
-import * as $image_imageAdjust from "./islands/image/imageAdjust.tsx";
 import * as $profile_edit from "./islands/profile/edit.tsx";
 import * as $profile_profile from "./islands/profile/profile.tsx";
 import * as $projects_ProjectChatList from "./islands/projects/ProjectChatList.tsx";
@@ -113,6 +112,12 @@ import * as $projects_ProjectMessages from "./islands/projects/ProjectMessages.t
 import * as $projects_ProjectsHeader from "./islands/projects/ProjectsHeader.tsx";
 import * as $projects_ProjectsLayout from "./islands/projects/ProjectsLayout.tsx";
 import * as $projects_ProjectsList from "./islands/projects/ProjectsList.tsx";
+import * as $upload_UploadFile from "./islands/upload/UploadFile.tsx";
+import * as $upload_edit_audioEditor from "./islands/upload/edit/audioEditor.tsx";
+import * as $upload_edit_cropper from "./islands/upload/edit/cropper.tsx";
+import * as $upload_edit_imageEditor from "./islands/upload/edit/imageEditor.tsx";
+import * as $upload_edit_textEditor from "./islands/upload/edit/textEditor.tsx";
+import * as $upload_edit_videoEditor from "./islands/upload/edit/videoEditor.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -136,6 +141,7 @@ const manifest = {
     "./routes/account/login.tsx": $account_login,
     "./routes/account/signup.tsx": $account_signup,
     "./routes/api/account/login.ts": $api_account_login,
+    "./routes/api/account/updateKV.ts": $api_account_updateKV,
     "./routes/api/account/user.ts": $api_account_user,
     "./routes/api/auth/log.ts": $api_auth_log,
     "./routes/api/auth/login.ts": $api_auth_login,
@@ -239,8 +245,6 @@ const manifest = {
     "./islands/explore/ExploreFilter.tsx": $explore_ExploreFilter,
     "./islands/explore/ProjectDetails.tsx": $explore_ProjectDetails,
     "./islands/explore/ProjectList.tsx": $explore_ProjectList,
-    "./islands/image/UploadFile.tsx": $image_UploadFile,
-    "./islands/image/imageAdjust.tsx": $image_imageAdjust,
     "./islands/profile/edit.tsx": $profile_edit,
     "./islands/profile/profile.tsx": $profile_profile,
     "./islands/projects/ProjectChatList.tsx": $projects_ProjectChatList,
@@ -248,6 +252,12 @@ const manifest = {
     "./islands/projects/ProjectsHeader.tsx": $projects_ProjectsHeader,
     "./islands/projects/ProjectsLayout.tsx": $projects_ProjectsLayout,
     "./islands/projects/ProjectsList.tsx": $projects_ProjectsList,
+    "./islands/upload/UploadFile.tsx": $upload_UploadFile,
+    "./islands/upload/edit/audioEditor.tsx": $upload_edit_audioEditor,
+    "./islands/upload/edit/cropper.tsx": $upload_edit_cropper,
+    "./islands/upload/edit/imageEditor.tsx": $upload_edit_imageEditor,
+    "./islands/upload/edit/textEditor.tsx": $upload_edit_textEditor,
+    "./islands/upload/edit/videoEditor.tsx": $upload_edit_videoEditor,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

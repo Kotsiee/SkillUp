@@ -42,7 +42,7 @@ export default function ProfilePage({ user }: { user: User }) {
           />
           <img
             class="profile-img"
-            src={user.profilePicture?.url}
+            src={user.profilePicture?.large?.publicURL}
           />
         </section>
         <section class="user-info">

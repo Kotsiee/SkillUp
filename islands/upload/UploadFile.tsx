@@ -1,20 +1,20 @@
+// deno-lint-ignore-file no-explicit-any
 import {
   computed,
   Signal,
   useSignal,
 } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
-import {
-  editFile,
-  Files,
-  FileTypesImages,
-  User,
-} from "../../lib/types/index.ts";
+import { editFile, Files, User } from "../../lib/types/index.ts";
 import { useEffect, useImperativeHandle, useRef } from "preact/hooks";
 import { useState } from "preact/hooks";
 import { identifyFile } from "../../lib/utils/fileDetector.ts";
 import AIcon, { Icons } from "../../components/Icons.tsx";
 import { JSX } from "preact/jsx-runtime";
-import CircleCrop from "./imageAdjust.tsx";
+import ImageEditor from "./edit/imageEditor.tsx";
+import FileCard from "../../components/cards/FileCard.tsx";
+import VideoEditor from "./edit/videoEditor.tsx";
+import AudioEditor from "./edit/audioEditor.tsx";
+import TextEditor from "./edit/textEditor.tsx";
 
 interface IFileUploader {
   multiple?: boolean;
@@ -24,15 +24,35 @@ interface IFileUploader {
   user: User;
 
   uploadType?: string | "profile" | "banner";
+  onUpload?: (files?: Files[]) => void;
+  thisRef: any;
 }
 
 export default function FileUploader(
-  { multiple, title, fileType, user, path, uploadType }: IFileUploader,
+  { multiple, title, fileType, user, path, uploadType, thisRef, onUpload }:
+    IFileUploader,
 ) {
+  const close = useSignal<boolean>(true);
+
   const selectedView = useSignal<string>("upload");
   const selectedFiles = useSignal<Files[]>([]);
   const modificationHistory = useSignal<editFile[]>([]);
   const [storageFiles, setStorageFiles] = useState<Files[] | null>(null);
+
+  const openModal = () => {
+    modificationHistory.value = [];
+    selectedFiles.value = [];
+    selectedView.value = "upload";
+    close.value = false;
+  };
+
+  useImperativeHandle(thisRef, () => ({
+    openModal,
+  }));
+
+  if (close.value) {
+    return null;
+  }
 
   useEffect(() => {
     fetch(
@@ -51,8 +71,17 @@ export default function FileUploader(
 
   return (
     <div class="modals">
+      <div class="back"
+      onClick={() => { close.value = true }}/>
       <div class="new-file">
-        <h2>{title}</h2>
+        <div class="modal-title">
+          <h2>{title}</h2>
+          <AIcon
+            className="modal-exit-icon"
+            startPaths={Icons.X}
+            onClick={() => {close.value = true;}}
+          />
+        </div>
         <div class="new-file-selection-container">
           <ul>
             <li>
@@ -118,6 +147,8 @@ export default function FileUploader(
             modificationHistory={modificationHistory}
             selectedView={selectedView}
             uploadType={uploadType}
+            onUpload={onUpload}
+            close={close}
           />
         </div>
       </div>
@@ -167,7 +198,7 @@ const UploadFile = (
 
     const newFile: Files = {
       id: crypto.randomUUID(),
-      user: user,
+      user: user.id,
       filePath: path,
       storedName: file.name,
       publicName: file.name,
@@ -307,13 +338,17 @@ const UploadFile = (
   );
 };
 
+interface IReviewFile {
+  selectedFiles: Signal<Files[]>;
+  modificationHistory: Signal<editFile[]>;
+  selectedView: Signal<string>;
+  uploadType: string | undefined;
+  onUpload?: (files?: Files[]) => void;
+  close: Signal<boolean>
+}
+
 const ReviewFile = (
-  { selectedFiles, modificationHistory, selectedView, uploadType }: {
-    selectedFiles: Signal<Files[]>;
-    modificationHistory: Signal<editFile[]>;
-    selectedView: Signal<string>;
-    uploadType: string | undefined;
-  },
+  { selectedFiles, modificationHistory, selectedView, uploadType, onUpload, close }: IReviewFile,
 ) => {
   if (selectedView.value !== "review") return null;
 
@@ -336,19 +371,6 @@ const ReviewFile = (
 
   if (!outputFiles.value.length) return null;
 
-  function getBase64FileSize(base64String: string) {
-    // Remove metadata part (if present)
-    const base64WithoutPrefix = base64String.split(",")[1] || base64String;
-  
-    // Calculate padding (if any)
-    const padding = (base64WithoutPrefix.match(/=/g) || []).length;
-  
-    // Compute file size in bytes
-    const fileSizeInBytes = (base64WithoutPrefix.length * 3) / 4 - padding;
-  
-    return fileSizeInBytes; // Returns size in bytes
-  }
-
   const uploadFile = async (file: Files) => {
     const body = new FormData();
     body.set("file", JSON.stringify(file));
@@ -357,10 +379,9 @@ const ReviewFile = (
       method: "POST",
       body: body,
     });
-  }
+  };
 
   const profileUpload = async (file: Files) => {
-
     const fileTemplate: Files = {
       ...file,
       extension: "webp",
@@ -369,8 +390,8 @@ const ReviewFile = (
       privacyLvl: "public",
       verified: true,
 
-      isUpload: true
-    }
+      isUpload: true,
+    };
 
     const imageSmall = await standarisedImage(file.publicURL!, 32, 32, "webp");
     const fileSmall: Files = {
@@ -381,11 +402,16 @@ const ReviewFile = (
       storedName: "pp32.webp",
       meta: {
         application: "WebP Image",
-        size: getBase64FileSize(imageSmall)
-      }
+        size: getBase64FileSize(imageSmall),
+      },
     };
 
-    const imageMedium = await standarisedImage(file.publicURL!, 128, 128, "webp");
+    const imageMedium = await standarisedImage(
+      file.publicURL!,
+      128,
+      128,
+      "webp",
+    );
     const fileMedium: Files = {
       ...fileTemplate,
       id: crypto.randomUUID(),
@@ -394,11 +420,16 @@ const ReviewFile = (
       storedName: "pp128.webp",
       meta: {
         application: "WebP Image",
-        size: getBase64FileSize(imageMedium)
-      }
+        size: getBase64FileSize(imageMedium),
+      },
     };
 
-    const imageLarge = await standarisedImage(file.publicURL!, 512, 512, "webp");
+    const imageLarge = await standarisedImage(
+      file.publicURL!,
+      512,
+      512,
+      "webp",
+    );
     const fileLarge: Files = {
       ...fileTemplate,
       id: crypto.randomUUID(),
@@ -407,10 +438,9 @@ const ReviewFile = (
       storedName: "pp512.webp",
       meta: {
         application: "WebP Image",
-        size: getBase64FileSize(imageLarge)
-      }
+        size: getBase64FileSize(imageLarge),
+      },
     };
-    
 
     uploadFile(fileSmall);
     uploadFile(fileMedium);
@@ -460,15 +490,18 @@ const ReviewFile = (
           onClick={async () => {
             const fileArray = await profileUpload(outputFiles.value[0]);
 
-            img.value = fileArray.map(i => i.publicURL!)
+            img.value = fileArray.map((i) => i.publicURL!);
+
+            onUpload?.(fileArray)
+            close.value = true
           }}
         >
           Upload
         </button>
 
         <div>
-          {img.value.map(item => {
-            return (<img src={item}/>)
+          {img.value.map((item) => {
+            return <img src={item} />;
           })}
         </div>
       </div>
@@ -525,20 +558,18 @@ const EditFile = (props: EditFileProps) => {
     switch (type) {
       case "image":
         return (
-          <EditImage
+          <ImageEditor
             selectedFile={selectedFile.value}
             modificationHistory={modificationHistory}
             thisRef={ref}
-            onSave={() => {
-            }}
           />
         );
       case "video":
-        return <EditVideo />;
+        return <VideoEditor />;
       case "audio":
-        return <EditAudio />;
+        return <AudioEditor />;
       case "code":
-        return <EditText />;
+        return <TextEditor />;
       default:
         return <EditDefault />;
     }
@@ -629,402 +660,15 @@ const EditDefault = () => {
   );
 };
 
-interface EditImageProps {
-  selectedFile: Files;
-  modificationHistory: Signal<editFile[]>;
-  onSave?: (image?: string) => void;
+function getBase64FileSize(base64String: string) {
+  // Remove metadata part (if present)
+  const base64WithoutPrefix = base64String.split(",")[1] || base64String;
 
-  thisRef?: any;
+  // Calculate padding (if any)
+  const padding = (base64WithoutPrefix.match(/=/g) || []).length;
+
+  // Compute file size in bytes
+  const fileSizeInBytes = (base64WithoutPrefix.length * 3) / 4 - padding;
+
+  return fileSizeInBytes; // Returns size in bytes
 }
-
-const EditImage = (props: EditImageProps) => {
-  const ref = useRef<any>(null);
-  const { selectedFile, modificationHistory, onSave } = props;
-
-  // Local signals for transformations
-  const rotate = useSignal<number>(0);
-  const scale = useSignal<number>(100);
-  const flipX = useSignal<boolean>(false);
-  const flipY = useSignal<boolean>(false);
-  const lastPosX = useSignal<number>(0);
-  const lastPosY = useSignal<number>(0);
-
-  // On component mount (or whenever `selectedFile` changes),
-  // load transformations from modificationHistory if they exist
-  useEffect(() => {
-    const existingEntry = modificationHistory.value.find((item) =>
-      item.file.id === selectedFile.id
-    );
-    const t = existingEntry?.transformations?.image;
-
-    rotate.value = t?.rotation ?? 0;
-    scale.value = t?.scale ?? 100;
-    flipX.value = t?.flipX ?? false;
-    flipY.value = t?.flipY ?? false;
-    lastPosX.value = t?.lastPosX ?? 0;
-    lastPosY.value = t?.lastPosY ?? 0;
-  }, [selectedFile]);
-
-  // Whenever any transform changes, update the modificationHistory automatically
-  useEffect(() => {
-    // 1) Find or create the editFile entry
-    const existingIndex = modificationHistory.value.findIndex(
-      (item) => item.file.id === selectedFile.id,
-    );
-
-    let newHistory = [...modificationHistory.value];
-
-    // If there's no record for this file, create one
-    if (existingIndex === -1) {
-      newHistory.push({
-        file: selectedFile,
-        transformations: { image: {} },
-      });
-    }
-
-    // 2) Update transformations
-    newHistory = newHistory.map((item) => {
-      if (item.file.id !== selectedFile.id) return item;
-
-      return {
-        ...item,
-        transformations: {
-          ...item.transformations,
-          image: {
-            rotation: rotate.value,
-            scale: scale.value,
-            flipX: flipX.value,
-            flipY: flipY.value,
-            lastPosX: lastPosX.value,
-            lastPosY: lastPosY.value,
-          },
-        },
-      };
-    });
-
-    modificationHistory.value = newHistory;
-  }, [
-    rotate.value,
-    scale.value,
-    flipX.value,
-    flipY.value,
-    lastPosX.value,
-    lastPosY.value,
-  ]);
-
-  // Example "Save Changes" handler
-  const handleSave = async () => {
-    const existingIndex = modificationHistory.value.findIndex(
-      (item) => item.file.id === selectedFile.id,
-    );
-
-    if (existingIndex) {
-      const image = await ref.current.generatePreview();
-
-      const updated = modificationHistory.value.map((item) =>
-        item.file.id === selectedFile.id
-          ? {
-            ...item,
-            saved: true,
-            file: { ...item.file, publicURL: image, isUpload: true },
-          }
-          : item
-      );
-
-      modificationHistory.value = updated;
-
-      if (onSave) onSave(image);
-    }
-
-    // Optional callback if parent wants to do more on save
-    if (onSave) onSave();
-  };
-
-  useImperativeHandle(props.thisRef, () => ({
-    handleSave,
-  }));
-
-  return (
-    <div class="edit-image">
-      <div class="edit-area">
-        <div class="bed" />
-        <CircleCrop
-          size={300}
-          img={selectedFile.isUpload
-            ? selectedFile.publicURL
-            : `http://localhost:8000/api/image/proxy?url=${selectedFile.publicURL}`}
-          zoom={scale}
-          rotate={rotate}
-          flipX={flipX}
-          flipY={flipY}
-          xPos={lastPosX}
-          yPos={lastPosY}
-          thisRef={ref}
-        />
-        <div class="bed" />
-      </div>
-
-      <div class="controls">
-        <div class="rotation">
-          <p>Rotation</p>
-
-          <div class="rotation-input-container">
-            <div class="rotation-input">
-              <LabelSlider value={rotate} min={-180} max={180}>
-                <AIcon startPaths={Icons.Filter} size={16} />
-              </LabelSlider>
-
-              <input
-                type="number"
-                value={rotate.value}
-                min={-180}
-                max={180}
-                step={1}
-                onInput={(val) =>
-                  rotate.value = Number.parseInt(val.currentTarget.value)}
-              />
-              <p>°</p>
-            </div>
-          </div>
-
-          <div class="fixed-rotate">
-            <button
-              onClick={() => {
-                if ((rotate.value - 90) <= -180) {
-                  const remainer = 180 + (rotate.value - 90);
-                  rotate.value = 180 - remainer;
-                } else {
-                  rotate.value -= 90;
-                }
-              }}
-            >
-              <AIcon startPaths={Icons.Filter} size={16} />
-            </button>
-
-            <button
-              onClick={() => {
-                if ((rotate.value + 90) >= 180) {
-                  const remainer = 180 - (rotate.value + 90);
-                  rotate.value = -180 + remainer;
-                } else {
-                  rotate.value += 90;
-                }
-              }}
-            >
-              <AIcon startPaths={Icons.Filter} size={16} />
-            </button>
-
-            <button onClick={() => flipX.value = !flipX.value}>
-              <AIcon startPaths={Icons.Filter} size={16} />
-            </button>
-
-            <button
-              onClick={() => flipY.value = !flipY.value}
-            >
-              <AIcon startPaths={Icons.Filter} size={16} />
-            </button>
-          </div>
-        </div>
-
-        <div class="scale">
-          <p>Scale</p>
-
-          <div class="scale-input-container">
-            <div class="scale-input">
-              <LabelSlider value={scale} min={50} max={200}>
-                <AIcon startPaths={Icons.Filter} size={16} />
-              </LabelSlider>
-
-              <input
-                type="number"
-                value={scale.value}
-                min={50}
-                max={200}
-                onInput={(val) =>
-                  scale.value = Number.parseInt(val.currentTarget.value)}
-              />
-              <p>%</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const EditVideo = () => {
-  return (
-    <div>
-      <h1>Video</h1>
-    </div>
-  );
-};
-
-const EditAudio = () => {
-  return (
-    <div>
-      <h1>Audi</h1>
-    </div>
-  );
-};
-
-const EditText = () => {
-  return (
-    <div>
-      <h1>Text</h1>
-    </div>
-  );
-};
-
-interface IFileCard {
-  file: Files;
-  selected?: boolean;
-  onRemove?: (e?: any) => void;
-  onSelect?: (e?: any) => void;
-}
-
-const FileCard = ({ file, selected, onRemove, onSelect }: IFileCard) => {
-  return (
-    <div class={`file-card${selected ? " selected" : ""}`}>
-      <div
-        class="file-card-container"
-        onClick={(e) => onSelect ? onSelect(e) : null}
-      >
-        <div class="file-image">
-          <img class="background" src={fileImage(file)} loading="lazy" />
-          <img class="foreground" src={fileImage(file)} loading="lazy" />
-        </div>
-
-        <div class="file-details">
-          <p class="title">{file.publicName}</p>
-        </div>
-      </div>
-
-      {onRemove
-        ? (
-          <div class="file-actions-container">
-            <div class="file-actions">
-              <AIcon
-                onClick={() => onRemove()}
-                className="file-remove"
-                startPaths={Icons.X}
-              />
-            </div>
-          </div>
-        )
-        : null}
-    </div>
-  );
-};
-
-const fileImage = (file: Files) => {
-  if (file.verified && file.fileType === "Image") {
-    return file.publicURL;
-  } else if (file.fileType) {
-    return `/assets/images/${FileTypesImages[file.fileType]}`;
-  }
-};
-
-function LabelSlider(
-  { value, min, max, children, className }:
-    & JSX.HTMLAttributes<HTMLDivElement>
-    & { value: Signal<number>; min: number; max: number },
-) {
-  let isDragging = false;
-  let startX = 0;
-  let startValue = value.value;
-
-  const startDrag = (event: MouseEvent | TouchEvent) => {
-    isDragging = true;
-    startX = "touches" in event ? event.touches[0].clientX : event.clientX;
-    startValue = value.value;
-
-    document.addEventListener("mousemove", onDrag);
-    document.addEventListener("mouseup", stopDrag);
-    document.addEventListener("touchmove", onDrag);
-    document.addEventListener("touchend", stopDrag);
-  };
-
-  const onDrag = (event: MouseEvent | TouchEvent) => {
-    if (!isDragging) return;
-
-    const currentX = "touches" in event
-      ? event.touches[0].clientX
-      : event.clientX;
-    const delta = currentX - startX; // Calculate movement
-    const sensitivity = 0.5; // Adjust sensitivity (smaller = more precise)
-
-    let newValue = Math.min(
-      max,
-      Math.max(min, startValue + delta * sensitivity),
-    );
-    value.value = Math.round(newValue); // Ensure integer values
-  };
-
-  const stopDrag = () => {
-    isDragging = false;
-    document.removeEventListener("mousemove", onDrag);
-    document.removeEventListener("mouseup", stopDrag);
-    document.removeEventListener("touchmove", onDrag);
-    document.removeEventListener("touchend", stopDrag);
-  };
-
-  return (
-    <div class={`label-slider ${className}`}>
-      {/* Hidden Range Input (Still Functional) */}
-      <input
-        type="range"
-        id="test"
-        min={min}
-        max={max}
-        value={value.value}
-        onInput={(e) => (value.value = Number(e.currentTarget.value))}
-        hidden
-      />
-
-      {/* Label Becomes the Slider */}
-      <label
-        for="test"
-        onMouseDown={startDrag}
-        onTouchStart={startDrag}
-        style={{
-          cursor: "ew-resize",
-          userSelect: "none",
-        }}
-      >
-        {children}
-      </label>
-    </div>
-  );
-}
-
-/**
- *
- *
-                const base64Data = image.split(",")[1];
-                const byteCharacters = atob(base64Data);
-                const byteNumbers = new Array(byteCharacters.length).fill(0).map((_, i) => byteCharacters.charCodeAt(i));
-                const byteArray = new Uint8Array(byteNumbers);
-                const imageBlob = new Blob([byteArray], { type: "image/png" });
-
-                const file = new File([imageBlob], "image.png", { type: "image/png" });
-
-                // Append to FormData
-                const formData = new FormData();
-                formData.append("file", file, "image.png");
-
-                const newImage = await fetch(`/api/image/resize`, {
-                  method: "POST",
-                  body: formData,
-              })
-
-              const blob = await newImage.blob()
-
-              const reader = new FileReader();
-              reader.onloadend = () => {
-                console.log(reader.result)
-                img.value = reader.result as string
-              };
-              reader.readAsDataURL(blob)
- *
- */

@@ -108,7 +108,7 @@ export default function NavBar({
                       }
                     }}
                     class="profilePic"
-                    src={user?.profilePicture?.url}
+                    src={user?.profilePicture?.small?.publicURL}
                   />
 
                   <ProfileModal
@@ -277,7 +277,7 @@ const ProfileModal = ({
         <div class="top">
           <div class="switch-account">
             <div class="details">
-              <img class="profilePic" src={user?.profilePicture?.url} />
+              <img class="profilePic" src={user?.profilePicture?.small?.publicURL} />
 
               <div class="account">
                 <p class="username">{user?.username}</p>
