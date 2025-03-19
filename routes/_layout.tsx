@@ -1,6 +1,6 @@
 import { PageProps } from "$fresh/server.ts";
 import { UserProvider } from "../islands/contexts/UserProvider.tsx";
-import NavBar from "../islands/Navbar.tsx";
+import NavBar from "../islands/Navbar/Navbar.tsx";
 
 export default function Layout(pageProps: PageProps) {
   

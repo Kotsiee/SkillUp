@@ -1,10 +1,13 @@
 // deno-lint-ignore-file no-explicit-any no-unused-vars
 import { getSupabaseClient, SupabaseInfo } from "../supabase/client.ts";
-import { Files } from "../types/index.ts";
+import { FileReference, Files } from "../types/index.ts";
 import { DateTime } from "https://esm.sh/luxon@3.5.0";
-import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.47.10/dist/module/index.js";
+import {
+  createClient,
+  SupabaseClient,
+} from "https://esm.sh/@supabase/supabase-js@2.47.10/dist/module/index.js";
 
-function toFile (data: any): Files {
+function toFile(data: any): Files {
   return {
     id: data.id,
     user: data.user_id,
@@ -18,7 +21,7 @@ function toFile (data: any): Files {
     meta: data.meta,
     extension: data.extension,
     createdAt: data.created_at,
-  }
+  };
 }
 
 /**
@@ -27,7 +30,7 @@ function toFile (data: any): Files {
  * @returns The public URL of the file.
  */
 export async function getFileUrl(filePath: string): Promise<string | null> {
-  const { data  } = await getSupabaseClient()
+  const { data } = await getSupabaseClient()
     .storage
     .from("user_uploads")
     .getPublicUrl(filePath);
@@ -50,12 +53,21 @@ export const getRealFileURL = (filePath: string): string => {
  * @param fileType - Optional file type filter.
  * @returns A list of user files or null if an error occurs.
  */
-export async function fetchFiles(user: string, fileType?: string | null): Promise<Files[] | null> {
+export async function fetchFiles(
+  user: string,
+  fileType?: string | null,
+): Promise<Files[] | null> {
   try {
-    let query = getSupabaseClient().from("files").select("*").eq("user_id", user);
+    let query = getSupabaseClient().from("files").select("*").eq(
+      "user_id",
+      user,
+    );
     if (fileType) {
       const mimeFilters = fileType.split(" ").map((type) => type.trim());
-      query = query.or(mimeFilters.map((type) => `mime_type.ilike.${type.replace("/*", "/%")}`).join(","));
+      query = query.or(
+        mimeFilters.map((type) => `mime_type.ilike.${type.replace("/*", "/%")}`)
+          .join(","),
+      );
     }
     const { data, error } = await query;
     if (error) throw error;
@@ -64,9 +76,12 @@ export async function fetchFiles(user: string, fileType?: string | null): Promis
       data.map(async (d: any) => {
         return {
           ...toFile(d),
-          publicURL: await getFileUrl(`profile/${user}/${d.file_path}/${d.stored_name}?t=${Date.now()}`) || undefined
-        }
-      })
+          publicURL:
+            await getFileUrl(
+              `profile/${user}/${d.file_path}/${d.stored_name}?t=${Date.now()}`,
+            ) || undefined,
+        };
+      }),
     );
   } catch (error: any) {
     console.error("fetchFiles: Error fetching files -", error.message);
@@ -82,7 +97,12 @@ export async function fetchFiles(user: string, fileType?: string | null): Promis
  * @param simple - If true, excludes the public URL.
  * @returns The file data or null if not found.
  */
-export async function fetchFileByPath(user: string, path: string, name: string, simple?: boolean): Promise<Files | null> {
+export async function fetchFileByPath(
+  user: string,
+  path: string,
+  name: string,
+  simple?: boolean,
+): Promise<Files | null> {
   try {
     const { data, error } = await getSupabaseClient()
       .from("files")
@@ -91,14 +111,55 @@ export async function fetchFileByPath(user: string, path: string, name: string, 
       .eq("file_path", path)
       .eq("stored_name", name)
       .single();
+
     if (error) throw error;
 
     return {
       ...toFile(data),
-      publicURL: simple ? undefined : await getFileUrl(`profile/${user}/${data.file_path}/${data.stored_name}?t=${Date.now()}`) || undefined,
+      publicURL: simple
+        ? undefined
+        : await getFileUrl(
+          `profile/${user}/${data.file_path}/${data.stored_name}?t=${Date.now()}`,
+        ) || undefined,
     };
   } catch (error: any) {
-    console.error("fetchFileByPath: Error fetching file -", error.message);
+    if (error.code === "PGRST116") return null;
+
+    console.error("fetchFileByPath: Error fetching file -", error);
+    return null;
+  }
+}
+
+/**
+ * Fetches a single file by its path and name.
+ * @param user - User ID.
+ * @param id - File ID.
+ * @param simple - If true, excludes the public URL.
+ * @returns The file data or null if not found.
+ */
+export async function fetchFileById(
+  user: string,
+  id: string,
+  simple?: boolean,
+): Promise<Files | null> {
+  try {
+    const { data, error } = await getSupabaseClient()
+      .from("files")
+      .select("*")
+      .eq("id", id)
+      .single();
+    if (error) throw error;
+
+    return {
+      ...toFile(data),
+      publicURL: simple
+        ? undefined
+        : await getFileUrl(
+          `profile/${user}/${data.file_path}/${data.stored_name}?t=${Date.now()}`,
+        ) || undefined,
+    };
+  } catch (error: any) {
+    console.error("fetchFileById: Error fetching file -", error.message);
     return null;
   }
 }
@@ -110,12 +171,19 @@ export async function fetchFileByPath(user: string, path: string, name: string, 
  */
 export async function insertFile(file: Files) {
   try {
-    const existingFile = await fetchFileByPath(file.user!, file.filePath!, file.storedName!, true);
+    const existingFile = await fetchFileByPath(
+      file.user!,
+      file.filePath!,
+      file.storedName!,
+      true,
+    );
     const newFile = {
       user_id: file.user,
       file_path: file.filePath,
       public_name: file.publicName,
-      stored_name: file.isUpload ? file.storedName : `${file.id}.${file.extension}`,
+      stored_name: file.isUpload
+        ? file.storedName
+        : `${file.id}.${file.extension}`,
       type: file.fileType,
       mime_type: file.mimeType,
       created_at: DateTime.now().toISO(),
@@ -127,7 +195,10 @@ export async function insertFile(file: Files) {
     };
 
     const { data, error } = existingFile
-      ? await getSupabaseClient().from("files").update(newFile).eq("id", existingFile.id)
+      ? await getSupabaseClient().from("files").update(newFile).eq(
+        "id",
+        existingFile.id,
+      )
       : await getSupabaseClient().from("files").insert(newFile);
     if (error) throw error;
     return newFile;
@@ -144,7 +215,9 @@ export async function insertFile(file: Files) {
  */
 export async function deleteFile(filePath: string, supabase: SupabaseClient) {
   try {
-    const { error } = await supabase.storage.from("user_uploads").remove([filePath]);
+    const { error } = await supabase.storage.from("user_uploads").remove([
+      filePath,
+    ]);
     if (error) throw error;
     console.log("File deleted successfully:", filePath);
   } catch (error: any) {
@@ -158,12 +231,18 @@ export async function deleteFile(filePath: string, supabase: SupabaseClient) {
  * @param accessToken - Supabase access token.
  * @returns The public URL of the uploaded file.
  */
-export async function uploadFile(file: Files, accessToken: string): Promise<string | null> {
+export async function uploadFile(
+  file: Files,
+  accessToken: string,
+): Promise<string | null> {
   try {
     const newFile = await insertFile(file);
     if (!newFile) return null;
 
-    const supabaseAuth = createClient(new SupabaseInfo(getSupabaseClient()).getUrl(), accessToken);
+    const supabaseAuth = createClient(
+      new SupabaseInfo(getSupabaseClient()).getUrl(),
+      accessToken,
+    );
     if (!file.publicURL) throw new Error("No valid Base64 file data provided.");
 
     const base64Data = file.publicURL.split(",")[1];
@@ -171,15 +250,105 @@ export async function uploadFile(file: Files, accessToken: string): Promise<stri
 
     const byteArray = Uint8Array.from(atob(base64Data), (c) => c.charCodeAt(0));
     const fileBlob = new Blob([byteArray], { type: newFile.mime_type });
-    const filePath = `profile/${newFile.user_id}/${newFile.file_path}/${newFile.stored_name}`;
+    const filePath =
+      `profile/${newFile.user_id}/${newFile.file_path}/${newFile.stored_name}`;
 
     await deleteFile(filePath, supabaseAuth);
-    const { error } = await supabaseAuth.storage.from("user_uploads").upload(filePath, fileBlob, { upsert: true });
+    const { error } = await supabaseAuth.storage.from("user_uploads").upload(
+      filePath,
+      fileBlob,
+      { upsert: true },
+    );
     if (error) throw error;
 
-    return filePath
+    return filePath;
   } catch (error: any) {
     console.error("uploadFile: Upload error -", error.message);
     return null;
   }
+}
+
+export async function insertFileReference(
+  fileRef: FileReference,
+): Promise<FileReference | null> {
+  try {
+    const newFile = {
+      id: fileRef.id,
+      file_id: fileRef.file!.id,
+      type: fileRef.entityType,
+      entity_id: fileRef.entityId,
+      meta: fileRef.meta,
+      created_at: DateTime.now().toISO(),
+    };
+
+    const { data, error } = await getSupabaseClient().from("file references")
+      .insert(newFile);
+    if (error) throw error;
+    return fileRef;
+  } catch (error: any) {
+    console.error("insertFile: Error inserting/updating file -", error.message);
+    return null;
+  }
+}
+
+export async function fetchFileReference(
+  user: string,
+  type: string,
+  entityId: string,
+): Promise<FileReference[] | null> {
+  const { data, error } = await getSupabaseClient()
+    .from("file references")
+    .select("*")
+    .eq("type", type)
+    .eq("entity_id", entityId);
+
+  if (error) {
+    console.log("fetchFileReference: error was found :( - " + error.message);
+    return null;
+  }
+
+  const refs: FileReference[] = await Promise.all(
+    data.map(async (d) => {
+      await fetchFileById(user, d.file_id);
+
+      return {
+        id: d.id,
+        file: await fetchFileById(user, d.file_id),
+        entityType: type,
+        entityId,
+        meta: d.meta,
+        createdAt: DateTime.fromISO(d.created_at),
+      };
+    }),
+  );
+
+  return refs;
+}
+
+export async function fetchFileReferenceById(
+  user: string,
+  id: string,
+): Promise<FileReference | null> {
+  const { data, error } = await getSupabaseClient()
+    .from("file references")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.log("fetchFileReference: error was found :( - " + error.message);
+    return null;
+  }
+
+  await fetchFileById(user, data.file_id);
+  const ref: FileReference = {
+    id: data.id,
+    file: await fetchFileById(user, data.file_id),
+    entityType: data.type,
+    entityId: data.entity_id,
+    meta: data.meta,
+    createdAt: DateTime.fromISO(data.created_at),
+  };
+
+  return ref;
 }

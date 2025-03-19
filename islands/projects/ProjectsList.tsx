@@ -13,6 +13,7 @@ export default function ChatList({pageProps, user} : {pageProps: PageProps, user
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     if (pageProps.params.project)
     {
       fetch(`/api/projects/${pageProps.params.project}`)
@@ -57,7 +58,7 @@ export default function ChatList({pageProps, user} : {pageProps: PageProps, user
         ? (
           <div class="project-chat-list">
             <div class="head">
-                <a class="back" href="/projects" f-partial="/partials/projects">Back</a>
+                <a class="back" href="/projects" f-partial="/projects/partials">Back</a>
                 <AIcon className="menu" startPaths={Icons.DotMenu} size={20}/>
             </div>
 

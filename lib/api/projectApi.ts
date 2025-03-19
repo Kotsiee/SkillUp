@@ -15,7 +15,7 @@ export async function fetchProjects(searchValue?: string | null): Promise<Projec
     )
 
   if (error) {
-    console.log("error was found :( - " + data);
+    console.log("fetchProjects: error was found :( - " + error.message);
     return null;
   }
 
@@ -47,14 +47,12 @@ export async function fetchProjectByID(id: string): Promise<Project | null> {
         .eq('id', id)
 
     if(error){
-        console.log("error was found :( - " + error);
+        console.log("fetchProjectByID: error was found :( - " + error.message);
         return null;
     }
 
     const projects: Project[] = await Promise.all(
         data.map(async (d) => {
-            const attachments: string[] = d.attachments;
-
             return {
                 id: d.id,
                 organisation: await fetchOrganisationByID(d.organization_id),

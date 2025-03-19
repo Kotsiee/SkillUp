@@ -2,9 +2,6 @@
 @import "../../islands/messages/ChatResize.css";
 @import "../../components/messages/header.css";
 
-@import "./chat.css";
-@import "./attachments.css";
-
 :root {
     --messages-width: 380px;
     --header-height: 80px;
@@ -24,5 +21,4 @@
         margin-top: var(--header-height);
         padding: 20px;
     }
-    
 }

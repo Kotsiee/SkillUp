@@ -102,7 +102,7 @@
                 border-radius: calc(var(--header-height-desktop) - 20px);
                 transition: outline 200ms;
                 cursor: pointer;
-                outline: 1px solid var(--text-color-dark);
+                outline: 1px solid #9993;
 
                 &:hover {
                     outline: 1px solid var(--tertiary-colour);

@@ -1,7 +1,6 @@
 .chat-header{
     padding: 20px 20px 0 20px;
     position: fixed;
-    /* transition: width var(--width-transition); */
     width: calc(100% - var(--header-side-width-desktop) - var(--messages-width));
     max-height: var(--header-height);
     z-index: 5;
@@ -16,9 +15,12 @@
         justify-content: space-between;
 
         .left {
-            display: flex;
-            align-items: center;
             width: 100%;
+
+            .chat-title {
+                display: flex;
+                align-items: center;
+            }
 
             .chat-photo{
                 height: 30px;
@@ -86,8 +88,10 @@
                  }
             }
 
-            .select-view-input[data-current="true"] {
-                background-color: var(--primary-colour);
+            .select-view-input {
+                &[data-current="true"], &[data-ancestor="true"]{
+                    background-color: var(--primary-colour);
+                }
             }
         }
     }

@@ -1,5 +1,5 @@
 import { DateTime } from "https://esm.sh/luxon@3.5.0";
-import { Files, Logo, Privacy, Theme } from "./index.ts";
+import { Files, OrganisationRoles, Privacy, Theme } from "./index.ts";
 
 export interface User {
     id: string;
@@ -10,6 +10,24 @@ export interface User {
     profilePicture?: {small?: Files | null, med?: Files | null, large?: Files | null} | null;
     meta: UserMeta | null;
     createdAt: DateTime;
+    organisations?: OrganisationRoles[] | null;
+    profile?: {
+        headline?: string;
+        bio?: string;
+        skills?: string[];
+        languages?: string[];
+        experience?: UserExperience[]
+    }
+}
+
+export interface UserExperience {
+    title?: string;
+    startDate?: DateTime;
+    endDate?: DateTime;
+    location?: string;
+    description?: string;
+    skills?: string[];
+    attachments?: string[];
 }
 
 export interface UserMeta {

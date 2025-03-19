@@ -1,11 +1,34 @@
-import { useUser } from "./contexts/UserProvider.tsx";
+import { useState } from 'preact/hooks';
 
 export default function Test() {
-  const { user } = useUser()
+  const [vals, setVals] = useState("")
 
   return (
     <div class="modal">
-      <button>Lickle Test yk</button>
+      <button
+      onClick={async () => {
+        await fetch('/api/test',
+          {
+            method: "POST"
+          }
+        )
+
+        console.log("clicked POST")
+      }}
+      >POST</button>
+
+      <button
+      onClick={async () => {
+        const cc = await fetch('/api/test',
+          {
+            method: "GET"
+          }
+        )
+
+        console.log("clicked GET")
+        console.log(await cc.json())
+      }}
+      >GET</button>
     </div>
   );
 }

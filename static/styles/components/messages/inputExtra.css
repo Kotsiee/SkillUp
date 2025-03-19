@@ -1,0 +1,72 @@
+@import '../FileUploader/main.css';
+
+.additional-btn{
+    stroke-width: 3px;
+    margin-left: 12px;
+    margin-right: 8px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 250ms var(--easing);
+
+    &:hover {
+        transform: scale(0.8);
+    }
+}
+
+.chat-input-additional{
+    position: absolute;
+    bottom: var(--footer-height);
+    /* margin-bottom: 30px; */
+    border-radius: var(--border-radius-small);
+    outline: 1px solid var(--text-color-dark);
+    padding: 4px;
+    background-color: var(--bg-colour-primary);
+    display: none;
+
+    .item-select{
+        font-size: 0.8em;
+        text-align: center;
+    }
+
+    ul {
+        display: flex;
+
+        li {
+            border-radius: var(--border-radius-smaller);
+            min-width: 40px;
+            padding: 8px;
+            margin: 4px;
+            font-size: 0.8em;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+
+            &:hover {
+                background-color: var(--btn-active);
+
+                &.File { background-color: hsla(346, 84%, 61%, 0.25) }
+                &.Poll { background-color: hsla(42, 100%, 70%, 0.25) }
+                &.Project { background-color: hsla(164, 95%, 43%, 0.25) }
+                &.Person { background-color: hsla(195, 83%, 38%, 0.25) }
+                &.Post { background-color: hsla(39, 77%, 70%, 0.25) }
+            }
+
+            path{stroke: none}
+
+            &.File path { fill: hsl(346, 84%, 61%) }
+            &.Poll path { fill: hsl(42, 100%, 70%) }
+            &.Project path { fill: hsl(164, 95%, 43%) }
+            &.Person path { fill: hsl(195, 83%, 38%) }
+            &.Post path { fill: hsl(239, 77%, 70%) }
+        }
+    }
+
+    &.show {
+        display: block;
+        animation: popup 150ms;
+    }
+
+    &.hide {
+        animation: popup-reverse 150ms;
+    }
+}

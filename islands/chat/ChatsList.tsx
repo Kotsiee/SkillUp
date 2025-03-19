@@ -8,7 +8,7 @@ import { useUser } from "../contexts/UserProvider.tsx";
 export default function ChatList({pageProps} : {pageProps: PageProps}) {
   const [chats, setChats] = useState<Chat[]>([]);
   const [loading, setLoading] = useState(true);
-  const user = useUser()
+  const { user } = useUser();
 
   useEffect(() => {
     fetch(`/api/chats`)
@@ -33,7 +33,7 @@ export default function ChatList({pageProps} : {pageProps: PageProps}) {
         : (
           <ul>
             {chats.map((chat, _index) => {
-              return ( <ChatCard chat={chat} viewerID={user.id} /> );
+              return ( <ChatCard chat={chat} user={user} /> );
             })}
           </ul>
         )}

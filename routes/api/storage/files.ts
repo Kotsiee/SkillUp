@@ -3,7 +3,6 @@ import { getCookies } from "$std/http/cookie.ts";
 import superjson from "https://esm.sh/superjson@2.2.2";
 import { fetchFiles, uploadFile } from "../../../lib/api/filesApi.ts";
 import { User } from "../../../lib/types/index.ts";
-import { getSupabaseClient } from "../../../lib/supabase/client.ts";
 
 const kv = await Deno.openKv();
 
@@ -30,10 +29,10 @@ export const handler: Handlers = {
         const file = await req.formData()
         const newFile = JSON.parse(file.get("file")?.toString() || "")
 
-        await uploadFile(newFile, accessToken)
+        const files = await uploadFile(newFile, accessToken)
 
-        return new Response("mission complete", {
-            headers: { "Content-Type": "application/json" },
+        return new Response(superjson.stringify(files), {
+            headers: { "Content-Type": "text/plain" },
         });
     },
 };

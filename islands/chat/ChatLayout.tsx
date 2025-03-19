@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { Chat, User } from "../../lib/types/index.ts";
+import { Chat } from "../../lib/types/index.ts";
 import { PageProps } from "$fresh/server.ts";
 import AIcon, { Icons } from "../../components/Icons.tsx";
 import { useUser } from "../contexts/UserProvider.tsx";
@@ -7,18 +7,24 @@ import { useUser } from "../contexts/UserProvider.tsx";
 interface IChatLayout {
   pageProps: PageProps;
   type: "messages" | "projects";
-  extras: [string, string][];
+  extras?: [string, string][];
 }
 
 export default function ChatLayout(
-  { pageProps, type, extras }: IChatLayout,
+  { pageProps, type }: IChatLayout,
 ) {
   const [chat, setChat] = useState<Chat>();
+  const { user } = useUser();
+  const extras: [string, string][] = [
+    ["chat", "Chat"],
+    ["submissions", "Submissions"],
+    ["attachments", "Attachments"],
+    ["description", "Description"],
+  ];
 
-  const user = useUser();
-  
-    if (!user)
-      return(<></>)
+  if (!user) {
+    return <></>;
+  }
 
   useEffect(() => {
     async function fetchMessages() {
@@ -40,7 +46,7 @@ export default function ChatLayout(
       case "photo":
         return chat.photo != null
           ? chat.photo.url
-          : otherUser?.profilePicture?.url;
+          : otherUser?.profilePicture?.med?.publicURL;
       case "name":
         return chat.name ? chat.name : otherUser?.username;
     }
@@ -53,7 +59,7 @@ export default function ChatLayout(
           <div class="left">
             {type === "messages"
               ? (
-                <div>
+                <div class="chat-title">
                   <img class="chat-photo" src={getChatInfo("photo")} />
                   <div>
                     <h5>{getChatInfo("name")}</h5>
@@ -62,13 +68,15 @@ export default function ChatLayout(
               )
               : (
                 <div>
-                  <h5><span>{chat.task?.meta?.icon}</span> {chat.name}</h5>
+                  <h5>
+                    <span>{chat.task?.meta?.icon}</span> {chat.name}
+                  </h5>
                 </div>
-              ) }
+              )}
           </div>
 
           <div class="center">
-            <SelectView pageProps={pageProps} extras={extras} />
+            <SelectView pageProps={pageProps} type={type} extras={extras} />
           </div>
 
           <div class="right">
@@ -82,19 +90,22 @@ export default function ChatLayout(
   return <></>;
 }
 
-const SelectView = ({pageProps, extras} : {pageProps: PageProps, extras: [string, string][]}) => {
-  const route = pageProps.route.split('/')
-  let path = globalThis.location.pathname
-  let title = 'Chat'
+const SelectView = (
+  { pageProps, type, extras }: {
+    pageProps: PageProps;
+    type: string;
+    extras: [string, string][];
+  },
+) => {
+  const route = pageProps.route.split("/:chatid/")[0] + '/:chatid';
+  const newRoute = route.replace(':project', pageProps.params.project).replace(':chatid', pageProps.params.chatid)
+  console.log(newRoute)
+  let title = "Chat";
   extras.some(([first, second]) => {
-    if (first === route[route.length - 1])
-    {
-      title = second
-      path = path.replace(first, "")
-      path = path.slice(0, path.length - 1)
-      console.log(path)
+    if (pageProps.route.includes(first)) {
+      title = second;
     }
-  })
+  });
 
   return (
     <div class="select-view">
@@ -102,16 +113,16 @@ const SelectView = ({pageProps, extras} : {pageProps: PageProps, extras: [string
 
       <div class="lines-container">
         <div class="lines">
-          {
-            extras.map(page => {
-              return (<a
+          {extras.map((page) => {
+            return (
+              <a
                 class="select-view-input"
-                href={`${path}${page[0] ? '/' + page[0] : '' }`}
-                f-partial={`${path}/partials/${page[0]}`}
+                href={`${newRoute}/${page[0]}`}
+                f-partial={`${newRoute}/partials/${page[0]}`}
               >
-              </a>)
-            })
-          }
+              </a>
+            );
+          })}
         </div>
       </div>
     </div>

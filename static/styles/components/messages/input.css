@@ -1,4 +1,5 @@
 @import './textbox.css';
+@import './inputExtra.css';
 
 .chat-input {
     position: fixed;
@@ -18,7 +19,7 @@
         border-radius: var(--border-radius-large);
         width: 80%;
 
-        &:has(.ql-blank) {
+        &:has(.ql-blank), &:not(:has(.attachment-files)) {
             .message-sent {
                 display: none !important;
             }
@@ -29,7 +30,7 @@
         }
 
 
-        &:not(:has(.ql-blank)) {
+        &:not(:has(.ql-blank)), &:has(.attachment-files) {
             .message-sent {
                 display: flex !important;
             }
@@ -37,6 +38,15 @@
             .record-message {
                 display: none !important;
             }
+        }
+        
+
+        .attachment-files {
+            margin: 12px;
+            margin-bottom: 4px;
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
         }
     }
 
@@ -72,30 +82,39 @@
                     padding: 2px;
                 }
 
-                path { stroke: none }
+                path {
+                    stroke: none
+                }
 
-                &.advanced-text {                    
+                &.advanced-text {
                     .advanced-text-icon {
                         path {
-                            transition: fill 150ms; 
+                            transition: fill 150ms;
                             fill: white;
                         }
                     }
 
                     button {
                         &:hover {
-                            .advanced-text-icon path { fill: var(--text-color-hover) }
+                            .advanced-text-icon path {
+                                fill: var(--text-color-hover)
+                            }
                         }
                     }
 
-                    &.show { 
+                    &.show {
                         path {
                             fill: var(--secondary-colour)
                         }
 
                         button {
-                            &:hover .advanced-text-icon path{ fill: var(--secondary-colour-dark) }
-                            &:active .advanced-text-icon path{ fill: var(--secondary-colour-darker) }
+                            &:hover .advanced-text-icon path {
+                                fill: var(--secondary-colour-dark)
+                            }
+
+                            &:active .advanced-text-icon path {
+                                fill: var(--secondary-colour-darker)
+                            }
                         }
                     }
                 }
@@ -116,14 +135,19 @@
                         width: inherit;
                         border-radius: inherit;
                     }
-        
+
                     .record-icon {
                         padding: 2px;
                         fill: var(--text-color);
                     }
-        
-                    &:hover { background-color: var(--primary-colour-dark) }
-                    &:active { background-color: var(--primary-colour-darker) }
+
+                    &:hover {
+                        background-color: var(--primary-colour-dark)
+                    }
+
+                    &:active {
+                        background-color: var(--primary-colour-darker)
+                    }
                 }
 
                 &.message-sent {
@@ -131,6 +155,7 @@
                     border-radius: 40px;
                     height: 40px;
                     width: 60px;
+                    display: none;
 
                     button {
                         display: flex;
@@ -141,87 +166,16 @@
                         width: inherit;
                         border-radius: inherit;
                     }
-        
+
                     .send-icon {
                         fill: var(--text-color);
                     }
-        
+
                     &:hover {
-                        background-color: var(--primary-colour-hover);       
+                        background-color: var(--primary-colour-hover);
                     }
                 }
             }
-        }
-    }
-
-    .additional-btn{
-        stroke-width: 3px;
-        margin-left: 12px;
-        margin-right: 8px;
-        border-radius: 20px;
-        cursor: pointer;
-        transition: all 250ms var(--easing);
-
-        &:hover {
-            transform: scale(0.8);
-        }
-    }
-
-    .chat-input-additional{
-        position: absolute;
-        bottom: var(--footer-hight);
-        /* margin-bottom: 30px; */
-        border-radius: var(--border-radius-small);
-        outline: 1px solid var(--text-color-dark);
-        padding: 4px;
-        background-color: var(--bg-colour-primary);
-        display: none;
-
-        .item-select{
-            font-size: 0.8em;
-            text-align: center;
-        }
-
-        ul {
-            display: flex;
-
-            li {
-                border-radius: var(--border-radius-smaller);
-                min-width: 40px;
-                padding: 8px;
-                margin: 4px;
-                font-size: 0.8em;
-                cursor: pointer;
-                text-align: center;
-                position: relative;
-
-                &:hover {
-                    background-color: var(--btn-active);
-
-                    &.File { background-color: hsla(346, 84%, 61%, 0.25) }
-                    &.Poll { background-color: hsla(42, 100%, 70%, 0.25) }
-                    &.Project { background-color: hsla(164, 95%, 43%, 0.25) }
-                    &.Person { background-color: hsla(195, 83%, 38%, 0.25) }
-                    &.Post { background-color: hsla(39, 77%, 70%, 0.25) }
-                }
-
-                path{stroke: none}
-
-                &.File path { fill: hsl(346, 84%, 61%) }
-                &.Poll path { fill: hsl(42, 100%, 70%) }
-                &.Project path { fill: hsl(164, 95%, 43%) }
-                &.Person path { fill: hsl(195, 83%, 38%) }
-                &.Post path { fill: hsl(239, 77%, 70%) }
-            }
-        }
-
-        &.show {
-            display: block;
-            animation: popup 150ms;
-        }
-
-        &.hide {
-            animation: popup-reverse 150ms;
         }
     }
 }
@@ -239,49 +193,48 @@
     }
 }
 
-.ql-toolbar {
-    .advanced-text-area {
+
+.advanced-text-area {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    margin: 8px;
+    margin-bottom: 0;
+
+    ul {
         display: flex;
         align-items: center;
-        padding: 4px;
-        margin: 8px;
-        margin-bottom: 0;
+        justify-content: space-evenly;
+        gap: 8px;
+        margin-left: 20px;
+        padding-right: 20px;
 
-        ul {
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-            gap: 8px;
-            margin-left: 20px;
-            padding-right: 20px;
+        border-right: 1px solid #444;
 
-            border-right: 1px solid #444;
-            
-            li {
-                cursor: pointer;
-                
-                .icon {
-                    height: 18px;
-                    width: 18px;
+        li {
+            cursor: pointer;
+
+            .icon {
+                height: 18px;
+                width: 18px;
+            }
+
+            .icon path {
+                fill: white;
+                stroke: none;
+
+                transition: fill 150ms;
+            }
+
+            &:hover {
+                .icon path {
+                    fill: var(--text-color-hover);
                 }
+            }
 
-                .icon path{
-                    fill: white;
-                    stroke: none;
-
-                    transition: fill 150ms;
-                }
-
-                &:hover {
-                    .icon path{
-                        fill: var(--text-color-hover);
-                    }
-                }
-
-                &.enabled {
-                    .icon path{
-                        fill: var(--primary-colour);
-                    }
+            &.enabled {
+                .icon path {
+                    fill: var(--primary-colour);
                 }
             }
         }
@@ -294,6 +247,7 @@
         transform: translate(-50%, 50%);
         scale: 0;
     }
+
     100% {
         display: block;
         transform: translate(0, 0);
@@ -307,6 +261,7 @@
         transform: translate(0, 0);
         scale: 1;
     }
+
     100% {
         display: none;
         transform: translate(-50%, 50%);

@@ -6,7 +6,7 @@ export default function ProjectCard({project}: { project: ProjectRole }) {
         <li class="chat-item">
             <a class={`chat-link`}
             href={`/projects/${project.project?.id}`} 
-            f-partial={`/partials/projects/${project.project?.id}`}
+            f-partial={`/projects/partials/${project.project?.id}`}
             >
                 <Card project={project}/>
             </a>

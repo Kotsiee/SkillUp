@@ -136,16 +136,40 @@
             font-size: 1.2em;
         }
     }
+
+    .headline {
+        .text-input {
+            width: 100%;
+        }
+    }
+}
+
+#about-section {
+    .about {
+        .text-input {
+            width: 100%;
+            resize: vertical;
+            min-height: 4em;
+            height: 4em;
+            padding: 1em;
+        }
+    }
 }
 
 .textbox {
+    margin: 12px 0;
+
     .tb-title {
         font-size: 0.8em;
-        font-weight: bold;
         color: var(--text-color-dark-hover);
+        margin-bottom: 4px;
+        margin-left: 12px;
     }
 
     .text-input {
-        background-color: transparent;
+        background-color: hsla(0, 0%, 50%, 0.1);
+        border-radius: var(--border-radius-smaller);
+        padding: 4px 12px;
+        font-weight: bold;
     }
 }

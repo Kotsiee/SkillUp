@@ -3,11 +3,11 @@ import { JSX } from "preact/jsx-runtime";
 import { useEffect, useState } from "preact/hooks";
 import AIcon, { Icons } from "../../components/Icons.tsx";
 import { useUser } from "../contexts/UserProvider.tsx";
-import FileUploader from "../upload/UploadFile.tsx";
+import FileUploader from "../../components/FileUploader/FileUploader.tsx";
 import { useRef } from "preact/hooks";
 import { useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 import { Files, User } from "../../lib/types/index.ts";
-import { Signal } from 'https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js';
+import { Signal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 
 export default function EditProfile() {
   const { user } = useUser();
@@ -117,21 +117,52 @@ export default function EditProfile() {
                   </section>
                   <section id="profile-section">
                     <div class="name">
-                      <TextBox user={editableUser} val="firstName" placeholder="First Name">
+                      <TextBox
+                        user={editableUser}
+                        val="firstName"
+                        placeholder="First Name"
+                      >
                         First Name
                       </TextBox>
-                      <TextBox user={editableUser} val="lastName" placeholder="Last Name">
+                      <TextBox
+                        user={editableUser}
+                        val="lastName"
+                        placeholder="Last Name"
+                      >
                         Last Name
                       </TextBox>
                     </div>
 
-                    <TextBox user={editableUser} val="username" placeholder="Username">Username</TextBox>
-                    <TextBox>Headline</TextBox>
+                    <TextBox
+                      user={editableUser}
+                      val="username"
+                      placeholder="Username"
+                    >
+                      Username
+                    </TextBox>
+                    <TextBox
+                      class="headline"
+                      user={editableUser}
+                      val="profile"
+                      subVal="headline"
+                      placeholder="Headline"
+                    >
+                      Headline
+                    </TextBox>
                   </section>
 
                   <section id="about-section">
-                    <TextBox resize>About</TextBox>
-                    <TextBox>Interets</TextBox>
+                    <TextBox
+                      resize
+                      class="about"
+                      user={editableUser}
+                      val="profile"
+                      subVal="bio"
+                      placeholder="About"
+                    >
+                      About
+                    </TextBox>
+                    <TextBox>Interests</TextBox>
                   </section>
 
                   <section id="skills-section">
@@ -169,28 +200,55 @@ export default function EditProfile() {
 }
 
 const TextBox = (
-  props: JSX.HTMLAttributes<HTMLDivElement> & { resize?: boolean, val?: string, user?: Signal<User | null> },
+  props: JSX.HTMLAttributes<HTMLDivElement> & {
+    resize?: boolean;
+    val?: string;
+    subVal?: string;
+    user?: Signal<User | null>;
+  },
 ) => {
-  if (!props.user?.value)
-    return null
-  const user = props.user.value
+  if (!props.user?.value) {
+    return null;
+  }
+  const user = props.user.value;
 
-  const attr = props.val as "firstName" | "lastName" | "username";
-  const newAttr = user?.[attr];
+  const attr = props.val as "firstName" | "lastName" | "username" | "profile";
+  let newAttr = user?.[attr];
+
+  if (attr === "profile") {
+    const subAttr = props.subVal as "headline";
+    newAttr = user?.profile?.[subAttr];
+  }
 
   return (
     <div ref={props.ref} class={`textbox ${props.class}`}>
       <p class="tb-title">{props.children}</p>
       {props.resize
-        ? <textarea class="text-input"
-        placeholder={props.placeholder} value={newAttr} />
+        ? (
+          <textarea
+            class="text-input"
+            placeholder={props.placeholder}
+            value={newAttr as string}
+            onInput={(newVal) => {
+              props.user!.value = {
+                ...user,
+                [attr]: newVal.currentTarget.value,
+              };
+            }}
+          />
+        )
         : (
           <input
             class="text-input"
             type="text"
             placeholder={props.placeholder}
-            value={newAttr}
-            onInput={(newVal) => {props.user!.value = {...user, [attr]: newVal.currentTarget.value} }}
+            value={newAttr as string}
+            onInput={(newVal) => {
+              props.user!.value = {
+                ...user,
+                [attr]: newVal.currentTarget.value,
+              };
+            }}
           />
         )}
     </div>

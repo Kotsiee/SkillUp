@@ -10,8 +10,8 @@ export function UserProvider(
 ) {
   const [user, setUser] = useState<User | null>(null);
 
-  async function fetchUser() {
-    const response = await fetch(`/api/auth/log`);
+  async function fetchUser(formData: FormData) {
+    const response = await fetch(`/api/auth/log`, {method: 'POST', body: formData});
     const result = await response.json();
 
     if (result.error) {
@@ -21,26 +21,29 @@ export function UserProvider(
     }
   }
 
-  async function storeUser(formData: FormData) {
-    await fetch(`/api/auth/log`, {
-      method: "POST",
-      body: formData,
-      credentials: "include",
-    });
-
-    fetchUser();
+  async function storeUser() {
+    try {
+      const res = await fetch(`/api/auth/user`, {
+        method: "GET",
+        credentials: "include",
+      });
+      
+      if (!res.ok) {
+        throw new Error(`HTTP Error ${res.status}: ${res.statusText}`);
+      }
+  
+      const user = await res.json();
+      setUser(user);
+    }
+    catch (err: any) {
+      console.warn("Failed to fetch user:", err);
+    }
   }
 
   useEffect(() => {
-    if (!user)
-    fetch("/api/auth/log", {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setUser(res.user);
-      });
+    if (!user) {
+      storeUser()
+    }
   }, []);
 
   return (

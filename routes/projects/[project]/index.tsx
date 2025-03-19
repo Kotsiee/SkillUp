@@ -4,11 +4,9 @@ import { useUser } from "../../../islands/contexts/UserProvider.tsx";
 import ProjectsLayout from "../../../islands/projects/ProjectsLayout.tsx";
 
 export default function Projects(pageProps: PageProps) {
-  const user = useUser()
-
   return (
     <Partial name="projects">
-      <ProjectsLayout pageProps={pageProps} user={user}>
+      <ProjectsLayout pageProps={pageProps}>
         <div>
             <h1>Nothing to see here part 2</h1>
         </div>

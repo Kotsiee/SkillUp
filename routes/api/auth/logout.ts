@@ -1,26 +1,19 @@
-// routes/api/auth/login.ts
 import { Handlers } from "$fresh/server.ts";
-import { setCookie } from "$std/http/cookie.ts";
-import { SuperJSON } from "https://esm.sh/superjson@2.2.2";
-import { fetchChatByID } from "../../../lib/api/chatApi.ts";
-import { getSupabaseClient } from "../../../lib/supabase/client.ts";
-import { fetchUserByID } from "../../../lib/api/userApi.ts";
+import { deleteCookie, getCookies } from "$std/http/cookie.ts";
 
+const kv = await Deno.openKv();
 
-//log out
 export const handler: Handlers = {
-  async POST(req) {
-    // Get user from Supabase
-    await getSupabaseClient().auth.signOut()
-
-    // Return tokens in HTTP-only cookies (common approach)
+  async POST(req, _ctx) {
     const headers = new Headers();
-
-    headers.append("Set-Cookie", "accessToken=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0")
-    headers.append("Set-Cookie", "refreshToken=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0")
-    headers.append("Set-Cookie", "userID=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0")
-
-    localStorage.removeItem("user");
-    return new Response(JSON.stringify({ message: "Logged off" }), {headers});
+    const cookies = getCookies(req.headers);
+    const sessionId = cookies["session"];
+  
+    if (!sessionId) return new Response("Unauthorized", { status: 401 });
+  
+    await kv.delete(["sessions", sessionId]);
+    deleteCookie(headers, "session", { path: "/" });
+  
+    return new Response(JSON.stringify({ message: "Logged out" }), { status: 200, headers });
   },
 };

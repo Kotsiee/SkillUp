@@ -8,4 +8,3 @@ export * from './messages.ts';
 export * from './chatRoles.ts';
 export * from './projectRoles.ts';
 export * from './organisation.ts';
-export * from './organisationRoles.ts';

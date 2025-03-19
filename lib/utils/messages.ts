@@ -11,8 +11,9 @@ export const toMessage = (msg: any, chat: Chat): Messages => {
       c?.users?.find((u) => u.user?.id == msg.user?.id) as ChatRoles | null,
     chat: c as Chat | null,
     content: msg.content,
+    textContent: msg.textContent,
     attachments: msg.attachments,
-    sentAt: msg.sentAt,
+    sentAt: msg.sent_at || msg.sentAt,
   });
 };
 
@@ -151,4 +152,20 @@ export function toHTML(tagObj: jsonTag): HTMLElement {
 
   element.appendChild(fragment);
   return element;
+}
+
+
+export function jsonToString(json: jsonTag): string {
+  let content = "";
+
+  // Check if the root has children
+  if (json.Children && json.Children.length > 0) {
+    for (const child of json.Children) {
+      if (child.Content) {
+        content += child.Content + " ";
+      }
+    }
+  }
+
+  return content.trim();
 }

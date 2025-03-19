@@ -1,6 +1,5 @@
 import { PageProps } from "$fresh/server.ts";
 import AIcon, { Icons } from "../../components/Icons.tsx";
-import { useUser } from "../../islands/contexts/UserProvider.tsx";
 import ChatResize from "../../islands/chat/ChatResize.tsx";
 import ChatList from "../../islands/chat/ChatsList.tsx";
 

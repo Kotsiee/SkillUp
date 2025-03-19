@@ -12,7 +12,7 @@ export async function fetchProjectRoleByID(id: string): Promise<ProjectRole | nu
         .single()
 
     if(error){
-        console.log("error was found :( - " + error);
+        console.log("fetchProjectRoleByID: error was found :( - " + error.message);
         return null;
     }
 
@@ -33,7 +33,7 @@ export async function fetchProjectRoleByProject(id: string): Promise<ProjectRole
         .eq('project_id', id)
 
     if(error){
-        console.log("error was found :( - " + error);
+        console.log("fetchProjectRoleByProject: error was found :( - " + error.message);
         return null;
     }
 
@@ -58,7 +58,7 @@ export async function fetchProjectRoleByUser(id: string): Promise<ProjectRole[] 
         .eq('user_id', id)
 
     if(error){
-        console.log("error was found :( - " + error);
+        console.log("fetchProjectRoleByUser: error was found :( - " + error.message);
         return null;
     }
 

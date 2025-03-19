@@ -14,6 +14,9 @@
         padding: 20px;
         min-width: var(--messages-width);
         max-width: var(--messages-width);
+        background-color: var(--modal-colour-darker);
+        overflow: scroll;
+        height: 100vh;
     }
 
     .title {
@@ -70,11 +73,19 @@
                     padding: 12px;
                     border-radius: var(--border-radius-small);
         
+
                     .chat-photo {
-                        height: 30px;
-                        width: 30px;
-                        object-fit: cover;
-                        border-radius: 30px;
+                        display: flex;
+                        align-items: center;
+
+                        .chat-photo-image {
+                            height: 40px;
+                            width: 40px;
+                            object-fit: cover;
+                            border-radius: 30px;
+                            border: none;
+                            outline: none;
+                        }
                     }
 
                     .lastMessage {

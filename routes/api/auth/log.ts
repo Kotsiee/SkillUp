@@ -1,16 +1,17 @@
+// deno-lint-ignore-file no-explicit-any
 // routes/api/auth/login.ts
 import { Handlers } from "$fresh/server.ts";
-import { setCookie } from "$std/http/cookie.ts";
+import { getCookies, setCookie } from "$std/http/cookie.ts";
 import { getSupabaseClient } from "../../../lib/supabase/client.ts";
-import { fetchUserByID } from "../../../lib/api/userApi.ts";
-import { getCookies } from '$std/http/cookie.ts';
 
 const kv = await Deno.openKv();
 
 export const handler: Handlers = {
   async POST(req) {
-    const form = await req.formData();
+    const cookies = getCookies(req.headers);
+    const currentSession = cookies["session"];
 
+    const form = await req.formData();
     const email = form.get("email")?.toString();
     const password = form.get("password")?.toString();
 
@@ -34,45 +35,53 @@ export const handler: Handlers = {
       });
     }
 
+    const user = data.user;
+    const session = data.session;
+    const sessionId = currentSession || crypto.randomUUID(); // Unique session ID for this login
+    const refreshToken = session.refresh_token;
+    const accessToken = session.access_token;
+    const ip = req.headers.get("X-Forwarded-For") ||
+      req.headers.get("CF-Connecting-IP");
+    const userAgent = req.headers.get("User-Agent");
+
+    // Fetch existing linked accounts from KV
+    const existingSession = await kv.get(["sessions", sessionId]);
+    const accounts = (existingSession?.value as any)?.accounts || [];
+
+    // If user's main account isn't stored yet, add it
+    if (!accounts.some((acc: any) => acc.id === user.id)) {
+      accounts.push({ 
+        id: user.id, 
+        email: user.email,
+        refreshToken,
+        accessToken,
+        tokenUpdated: Date.now()
+      });
+    }
+
+    // Store session in KV
+    await kv.set(["sessions", sessionId], {
+      activeAccount: user.id,
+      accounts,
+      ip,
+      userAgent,
+      createdAt: Date.now(),
+    });
+
+    // Set HttpOnly cookies for session management
     const headers = new Headers();
     setCookie(headers, {
-      name: "accessToken",
-      value: data.session.access_token,
-      secure: true,
-      httpOnly: true,
-      sameSite: "Strict",
-      path: "/",
-      maxAge: data.session.expires_in,
-    });
-
-    setCookie(headers, {
-      name: "refreshToken",
-      value: data.session.refresh_token,
+      name: "session",
+      value: sessionId,
       secure: true,
       httpOnly: true,
       sameSite: "Strict",
       path: "/",
     });
 
-    const user = await fetchUserByID(data.user.id);
-    await kv.set(["user", data.session.refresh_token], { user });
-
-    return new Response(JSON.stringify(user), {
+    return new Response(JSON.stringify({ message: "Login successful", activeAccount: user.id }), {
       status: 200,
       headers,
-    });
-  },
-  async GET (req) {
-    const cookies = getCookies(req.headers)
-    const accessToken = cookies["refreshToken"];
-
-    if (!accessToken) return new Response("Missing userId", { status: 400 });
-
-    const user = await kv.get(["user", accessToken]);
-    if (!user.value) return new Response("User not found", { status: 404 });
-
-    return new Response(JSON.stringify(user.value), {
-      headers: { "Content-Type": "application/json" },
     });
   }
 };

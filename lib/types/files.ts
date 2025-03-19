@@ -1,5 +1,5 @@
 import { DateTime } from "https://esm.sh/luxon@3.5.0";
-import { Entity, Privacy, User } from "./index.ts";
+import { Privacy } from "./index.ts";
 
 export interface Files {
   id?: string;
@@ -63,16 +63,21 @@ interface IAudio{
 }
 
 export interface FileReference {
-  id: string;
-  fileId: Files;
-  entityType?: Entity | null;
-  entityID?: string | null;
-  createdAt: DateTime;
+  id?: string;
+  file: Files | null;
+  entityType?: string | null;
+  entityId?: string | null;
+  meta: FileReferenceMeta;
+  createdAt?: DateTime;
+}
+
+export interface FileReferenceMeta {
+  publicName?: string;
+  description?: string;
 }
 
 export interface editFile {
   file: Files;
-  saved?: boolean;
   transformations?: {
     image?: {
       rotation?: number;

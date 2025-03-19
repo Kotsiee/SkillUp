@@ -1,7 +1,8 @@
 import { DateTime } from "https://esm.sh/luxon@3.5.0";
 import { User } from "../types/index.ts";
-import { fetchFileByPath, getFileUrl } from "./filesApi.ts";
+import { fetchFileByPath } from "./filesApi.ts";
 import { getSupabaseClient } from "../supabase/client.ts";
+import { fetchOrganisationsByUser } from "./organisationApi.ts";
 
 export async function fetchUsers(): Promise<User[] | null> {
   const { data, error } = await getSupabaseClient()
@@ -9,7 +10,7 @@ export async function fetchUsers(): Promise<User[] | null> {
     .select("*");
 
   if (error) {
-    console.log("error was found :( - " + error);
+    console.log("fetchUsers: error was found :( - " + error.message);
     return null;
   }
 
@@ -22,23 +23,24 @@ export async function fetchUsers(): Promise<User[] | null> {
         firstName: d.first_name,
         lastName: d.last_name,
         meta: d.meta,
+        organisations: await fetchOrganisationsByUser(d.id),
         createdAt: DateTime.fromISO(d.created_at),
       };
 
       const ppSmall = await fetchFileByPath(
         newUser.id,
         `profile/avatar`,
-        "pp32.webp",
+        "ppSmall.webp",
       );
       const ppMed = await fetchFileByPath(
         newUser.id,
         `profile/avatar`,
-        "pp128.webp",
+        "ppMed.webp",
       );
       const ppLarge = await fetchFileByPath(
         newUser.id,
         `profile/avatar`,
-        "pp512.webp",
+        "ppLarge.webp",
       );
 
       newUser.profilePicture = { small: ppSmall, med: ppMed, large: ppLarge };
@@ -58,7 +60,7 @@ export async function fetchUserByID(id: string): Promise<User | null> {
     .single();
 
   if (error) {
-    console.log("error was found :( - " + error);
+    console.log("fetchUserByID: error was found :( - " + error.message);
     return null;
   }
 
@@ -69,12 +71,14 @@ export async function fetchUserByID(id: string): Promise<User | null> {
     firstName: data.first_name,
     lastName: data.last_name,
     meta: data.meta,
+    profile: data.profile,
+    organisations: await fetchOrganisationsByUser(data.id),
     createdAt: DateTime.fromISO(data.created_at),
   };
 
-  const ppSmall = await fetchFileByPath(user.id, `profile/avatar`, "pp32.webp");
-  const ppMed = await fetchFileByPath(user.id, `profile/avatar`, "pp128.webp");
-  const ppLarge = await fetchFileByPath(user.id, `profile/avatar`, "pp512.webp");
+  const ppSmall = await fetchFileByPath(user.id, `profile/avatar`, "ppSmall.webp");
+  const ppMed = await fetchFileByPath(user.id, `profile/avatar`, "ppMed.webp");
+  const ppLarge = await fetchFileByPath(user.id, `profile/avatar`, "ppLarge.webp");
 
   user.profilePicture = { small: ppSmall, med: ppMed, large: ppLarge };
 
@@ -91,7 +95,7 @@ export async function fetchUserByUsername(
     .single();
 
   if (error) {
-    console.log("error was found :( - " + error);
+    console.log("fetchUserByUsername: error was found :( - " + error.message);
     return null;
   }
 
@@ -102,12 +106,13 @@ export async function fetchUserByUsername(
     firstName: data.first_name,
     lastName: data.last_name,
     meta: data.meta,
+    organisations: await fetchOrganisationsByUser(data.id),
     createdAt: DateTime.fromISO(data.created_at),
   };
 
-  const ppSmall = await fetchFileByPath(user.id, `profile/avatar`, "pp32.webp");
-  const ppMed = await fetchFileByPath(user.id, `profile/avatar`, "pp128.webp");
-  const ppLarge = await fetchFileByPath(user.id, `profile/avatar`, "pp512.webp");
+  const ppSmall = await fetchFileByPath(user.id, `profile/avatar`, "ppSmall.webp");
+  const ppMed = await fetchFileByPath(user.id, `profile/avatar`, "ppMed.webp");
+  const ppLarge = await fetchFileByPath(user.id, `profile/avatar`, "ppLarge.webp");
 
   user.profilePicture = { small: ppSmall, med: ppMed, large: ppLarge };
 

@@ -31,7 +31,7 @@ export default function ChatList({pageProps, user} : {pageProps: PageProps, user
         : (
           <ul>
             {chats.map((chat, _index) => {
-              return ( <ChatCard chat={chat} viewerID={user.id} /> );
+              return ( <ChatCard chat={chat} user={user} /> );
             })}
           </ul>
         )}

@@ -23,9 +23,9 @@ export function identifyFile(file: File): FileIdentificationResult {
     const mimeType = file.type;
 
     const dotIndex = fileName.lastIndexOf(".");
-    let extension = dotIndex !== -1 ? fileName.substring(dotIndex + 1).toLowerCase() : "";
+    const extension = dotIndex !== -1 ? fileName.substring(dotIndex + 1).toLowerCase() : "";
   
-    let result: FileIdentificationResult = {
+    const result: FileIdentificationResult = {
       mimeType,
       extension,
       category: "Unknown",

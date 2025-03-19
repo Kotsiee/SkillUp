@@ -44,63 +44,56 @@
                 width: 20px;
                 border-radius: 20px;
 
-                path { stroke-width: 2; }
-                &:hover { background-color: var(--red-dark) }
-                &:active { background-color: var(--red-darker) }
+                path {
+                    stroke-width: 2;
+                }
+
+                &:hover {
+                    background-color: var(--red-dark)
+                }
+
+                &:active {
+                    background-color: var(--red-darker)
+                }
             }
         }
 
         .new-file-selection-container {
             margin-top: 12px;
+            display: flex;
 
-            ul {
-                display: flex;
+            label {
+                cursor: pointer;
+                padding: 8px 20px;
+                padding-bottom: 20px;
+                font-size: 0.8;
+                color: var(--text-color-dark);
 
-                li {
-                    input+label {
-                        cursor: pointer;
+                &:hover {
+                    background: linear-gradient(var(--tertiary-colour) 2px,
+                            hsla(var(--tertiary-hue),
+                                var(--tertiary-saturation),
+                                var(--tertiary-lightness), 0.4) 5%,
+                            #0000 50%);
+                }
 
-                        display: flex;
-                        height: 100%;
-                        width: 100%;
-                        padding: 8px 20px;
-                        padding-bottom: 20px;
-                        font-size: 0.8;
-                        color: var(--text-color-dark);
-                    }
+                &:has(input:checked) {
+                    background: linear-gradient(var(--secondary-colour) 2px,
+                            hsla(var(--secondary-hue),
+                                var(--secondary-saturation),
+                                var(--secondary-lightness), 0.4) 5%,
+                            #0000 50%);
 
-                    &:hover {
-                        background: linear-gradient(var(--tertiary-colour) 2px,
-                                hsla(var(--tertiary-hue),
-                                    var(--tertiary-saturation),
-                                    var(--tertiary-lightness), 0.4) 5%,
-                                #0000 50%);
+                    color: var(--text-color);
+                    font-weight: var(--weight-bold);
+                }
 
-                        label {
-                            font-weight: var(--weight-bold);
-                        }
-                    }
+                &:has(input:disabled) {
+                    background: none;
 
-                    &:has(input:checked) {
-                        background: linear-gradient(var(--secondary-colour) 2px,
-                                hsla(var(--secondary-hue),
-                                    var(--secondary-saturation),
-                                    var(--secondary-lightness), 0.4) 5%,
-                                #0000 50%);
-
-                        label {
-                            color: var(--text-color);
-                            font-weight: var(--weight-bold);
-                        }
-                    }
-
-                    &:has(input:disabled) {
-                        background: none;
-
-                        label {
-                            font-weight: var(--weight-normal);
-                            color: var(--text-color-dark-hover);
-                        }
+                    label {
+                        font-weight: var(--weight-normal);
+                        color: var(--text-color-dark-hover);
                     }
                 }
             }
@@ -125,8 +118,13 @@
         background-color: var(--modal-colour-lighter);
         border-radius: 20px;
 
-        &:hover { background-color: var(--modal-colour-light) }
-        &:active { background-color: var(--modal-colour-dark) }
+        &:hover {
+            background-color: var(--modal-colour-light)
+        }
+
+        &:active {
+            background-color: var(--modal-colour-dark)
+        }
     }
 
     path {
@@ -144,8 +142,14 @@
 
         .save {
             background-color: var(--primary-colour);
-            &:hover { background-color: var(--primary-colour-dark) }
-            &:active { background-color: var(--primary-colour-darker) }
+
+            &:hover {
+                background-color: var(--primary-colour-dark)
+            }
+
+            &:active {
+                background-color: var(--primary-colour-darker)
+            }
         }
 
         .next {

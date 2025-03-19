@@ -43,7 +43,7 @@ export default function FileCard ({ file, selected, onRemove, onSelect }: IFileC
   );
 };
 
-const fileImage = (file: Files) => {
+export const fileImage = (file: Files) => {
   if (file.verified && file.fileType === "Image") {
     return file.publicURL;
   } else if (file.fileType) {

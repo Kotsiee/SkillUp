@@ -102,26 +102,20 @@
         }
     }
 
-    .uploaded-files-container {
-        .uploaded-files {
+    .view-files-container{
+        
+        .view-files {
             display: flex;
             gap: 12px;
             overflow-x: scroll;
             padding: 4px;
         }
-    }
 
-    .storage-files-container {
-        .storage-files {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            padding: 4px;
+        h6 {
+            color: var(--text-color-dark-hover);
+            font-size: 0.8em;
+            margin-bottom: 4px;
+            margin-left: 4px;
         }
-    }
-
-    h6 {
-        color: var(--text-color-dark-hover);
-        font-size: 0.8em;
     }
 }

@@ -1,4 +1,4 @@
-.profile-popout {
+.profile-modal {
     position: absolute;
     background-color: var(--nav-bg);
     border-radius: var(--border-radius);
@@ -6,9 +6,15 @@
     right: 0;
     margin-top: 20px;
     padding: 20px;
+    border: 1px solid #9993;
+    box-shadow: 0 2px 20px #000;
 
     &:focus {
         outline: none;
+    }
+
+    * {
+        user-select: none;
     }
 
     .user-details {
@@ -68,30 +74,160 @@
         }
     }
 
+    .separator {
+        border: 1px solid #9993;
+        margin-bottom: 8px;
+    }
+
     .options {
+        width: 100%;
         hr {
             margin: 12px 0;
-            border-color: var(--text-color-dark);
         }
 
         .option {
-            border-radius: var(--border-radius-small);
-            cursor: pointer;
+            width: 100%;
             display: flex;
 
             a {
-                height: 100%;
                 width: 100%;
+                height: 100%;
                 padding: 8px;
+                border-radius: var(--border-radius-small);
+
+                &:hover {
+                    background-color: var(--modal-colour-light);
+                }
+    
+                &:active {
+                    background-color: var(--modal-colour-lighter);
+                }
             }
+        }
+    }
+}
+
+.profiles {
+    .profile-type {
+        display: flex;
+        gap: 12px;
+
+        label {
+            color: var(--text-color-dark);
+            cursor: pointer;
+
+            &:hover {
+                color: var(--text-color-dark-hover)
+            }
+
+            &:has(input:checked) {
+                color: var(--primary-colour);
+                font-weight: var(--weight-bold);
+            }
+        }
+    }
+
+    .view-all {
+        background-color: var(--modal-colour-dark);
+        padding: 4px 20px;
+        border-radius: 20px;
+        margin-top: 8px;
+    }
+
+    .view-profiles {
+        background-color: var(--modal-colour-dark);
+        border-radius: var(--border-radius-small);
+        padding: 8px;
+        margin-top: 12px;
+
+        .other-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+            border-radius: var(--border-radius-small);
+            cursor: pointer;
+            padding: 4px;
 
             &:hover {
                 background-color: var(--modal-colour);
             }
 
-            &.signout:hover {
-                background-color: hsl(350, 55%, 50%);
+            .profile-image {
+                display: flex;
+                align-items: center;
+
+                img {
+                    height: 40px;
+                    width: 40px;
+                    border-radius: 40px;
+                    background-color: black;
+                }
+            }
+
+            &.business-profile {
+                .profile-image img {
+                    border-radius: 8px;
+                }
+            }
+
+            .account {
+                .account-name {
+                    font-weight: var(--weight-bold);
+                    font-size: 0.8em;
+                }
+
+                .account-username,
+                .account-type {
+                    font-size: 0.6em;
+                    color: var(--text-color-dark);
+                }
             }
         }
+    }
+
+    .other-actions {
+        width: 100%;
+        margin-top: 8px;
+        display: flex;
+        gap: 8px;
+
+        .add-account,
+        .logout {
+            font-size: 0.8em;
+            padding: 8px;
+            width: 100%;
+            border-radius: var(--border-radius-small);
+            background-color: var(--modal-colour);
+            text-align: center;
+            font-weight: var(--weight-bold);
+
+            &:hover {
+                background-color: var(--modal-colour-light);
+            }
+
+            &:active {
+                background-color: var(--modal-colour-lighter);
+            }
+        }
+    }
+}
+
+.logout {
+    font-size: 0.8em;
+    padding: 8px;
+    width: 100%;
+    border-radius: var(--border-radius-small);
+    text-align: center;
+    font-weight: var(--weight-bold);
+
+    background-color: var(--red) !important;
+
+    &:hover {
+        background-color: var(--red-light) !important;
+    }
+
+    &:active {
+        background-color: var(--red-lighter) !important;
     }
 }

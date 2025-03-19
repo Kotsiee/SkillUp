@@ -36,12 +36,13 @@ export async function fetchChatByID(id: string, simplify?: boolean): Promise<Cha
 
 export async function fetchUserChatsByID(userId: string, simplify?: boolean): Promise<Chat[] | null> {
     const { data, error } = await getSupabaseClient()
-        .from('chat roles')
-        .select('user_id, chat_id(*)')
+        .from("chat roles")
+        .select('user_id, chat_id(*), chats!inner(chat_type)')
         .eq('user_id', userId)
+        .eq('chats.chat_type', 'private_chat')
 
     if(error){
-        console.log("fetchUserChatsByID: error was found :( - " + error.details);
+        console.log("fetchUserChatsByID: error was found :( - " + error.message);
         return null;
     }
 
@@ -54,7 +55,6 @@ export async function fetchUserChatsByID(userId: string, simplify?: boolean): Pr
                 task: await fetchTasksByID(d.task_id) || null,
                 name: d.chat_id.name,
                 meta: d.chat_id.meta,
-                // lastMessage?: Messages,
                 photo: null,
                 createdAt: DateTime.fromISO(d.chat_id.created_at)
             };

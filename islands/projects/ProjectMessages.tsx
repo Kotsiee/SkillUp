@@ -4,7 +4,7 @@ import { Chat, Messages, User } from "../../lib/types/index.ts";
 import { PageProps } from '$fresh/server.ts';
 import AIcon, { Icons } from "../../components/Icons.tsx";
 import { createClient, RealtimePostgresChangesPayload, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.47.10";
-import Textbox from "../Txtbox.tsx";
+import Textbox from "../Textbox.tsx";
 import { toHTML, toMessage } from "../../lib/utils/messages.ts";
 import { jsonTag } from "../../lib/types/messages.ts";
 import { useRef } from 'preact/hooks';

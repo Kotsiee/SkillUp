@@ -1,3 +1,5 @@
+@import '../../components/FileUploader/filecard.css';
+
 .attachments {
     .actions {
         display: flex;
@@ -26,49 +28,6 @@
 
         .items-container {
             display: flex;
-        }
-    }
-}
-
-.attachment-card {
-    background-color: var(--modal-colour-darker);
-    width: 160px;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: box-shadow 150ms;
-
-    &:hover {
-        box-shadow: 0 2px 20px #fff3;
-    }
-
-    .attachment-image {
-        height: 160px;
-        width: inherit;
-        background-color: var(--modal-colour-light);
-        border-radius: var(--border-radius);
-        padding: 16px;
-
-        img {
-            height: 100%;
-            width: 100%;
-            border-radius: var(--border-radius-small);
-            object-fit: cover;
-        }
-    }
-
-    .attachment-details {
-        padding: 16px;
-
-        .title {
-            font-weight: var(--weight-bold);
-            line-height: 1em;
-            margin-bottom: 4px;
-        }
-
-        .date {
-            font-weight: var(--weight-light);
-            font-size: 0.8em;
-            line-height: 1em;
         }
     }
 }
