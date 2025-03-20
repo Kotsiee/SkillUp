@@ -1,6 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
 import { Signal, useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
-import { editFile, Files } from "../../../lib/types/index.ts";
 import { useEffect, useImperativeHandle, useRef } from "preact/hooks";
 import CircleCrop from "./cropper.tsx";
 import LabelSlider from "../../LabelSlider.tsx";

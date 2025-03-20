@@ -3,12 +3,9 @@ import { PageProps } from "$fresh/server.ts";
 import {
   useSignal,
 } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
-import {
-  Chat,
-  FileMessage,
-} from "../../../lib/types/index.ts";
 import PreviewFile from "./PreviewFile.tsx";
 import FileList from "./FileList.tsx";
+import { Chat, FileMessage } from "../../../lib/types/index.ts";
 
 export default function Attachments({ pageProps }: { pageProps: PageProps }) {
   const [chat, setChat] = useState<Chat | null>(null);

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "preact/hooks";
-import { Project } from "../../lib/types/project.ts";
 import { Skeleton } from "../../components/Skeletons.tsx";
 import { ProjectCard } from "../../components/cards/ProjectCard.tsx";
 import { ProjectFilter, joinProjectFilter } from "../../lib/utils/parsers.ts";
+import { Project } from "../../lib/types/index.ts";
 
 export default function ProjectList(props : {filters: ProjectFilter | null}) {
   const [projects, setProjects] = useState<Project[]>([]);

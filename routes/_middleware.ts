@@ -1,7 +1,8 @@
 // deno-lint-ignore-file no-explicit-any
+/// <reference lib="deno.unstable" />
 import { FreshContext } from "$fresh/server.ts";
 import { getCookies } from '$std/http/cookie.ts';
-import { getSupabaseClient } from "../lib/supabase/client.ts";
+import { supabase } from "../lib/supabase/client.ts";
 
 // const PROTECTED_ROUTES = ["/messages", "/projects", "/dashboard"]
 const kv = await Deno.openKv();
@@ -56,7 +57,7 @@ export async function handler(req: Request, ctx: FreshContext) {
         console.log("🔄 Refreshing token...");
       
         try {
-          const { data, error } = await getSupabaseClient().auth.refreshSession({ refresh_token: currentUser.refreshToken });
+          const { data, error } = await supabase.auth.refreshSession({ refresh_token: currentUser.refreshToken });
   
           if (!error && data.session) {
             sessionData.accounts[currentUserIndex] = {

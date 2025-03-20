@@ -2,7 +2,6 @@ import {
   Signal,
   useSignal,
 } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
-import { Files, User } from "../../lib/types/index.ts";
 import FileCard from "../cards/FileCard.tsx";
 import { processFile } from "./utils/FileUtils.ts";
 import AIcon, { Icons } from "../Icons.tsx";

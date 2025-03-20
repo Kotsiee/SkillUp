@@ -1,5 +1,4 @@
 import { useEffect, useState } from "preact/hooks";
-import { Chat, User } from "../../lib/types/index.ts";
 import { PageProps } from "$fresh/server.ts";
 import AIcon, { Icons } from "../../components/Icons.tsx";
 

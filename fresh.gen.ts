@@ -2,7 +2,6 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
-import * as $_team_index from "./routes/[team]/index.tsx";
 import * as $_user_layout from "./routes/[user]/_layout.tsx";
 import * as $_user_middleware from "./routes/[user]/_middleware.ts";
 import * as $_user_edit from "./routes/[user]/edit.tsx";
@@ -24,29 +23,18 @@ import * as $account_partials_forgotpassword from "./routes/account/partials/for
 import * as $account_partials_login from "./routes/account/partials/login.tsx";
 import * as $account_partials_register from "./routes/account/partials/register.tsx";
 import * as $account_register from "./routes/account/register.tsx";
-import * as $api_auth_currentUsers from "./routes/api/auth/currentUsers.ts";
-import * as $api_auth_log from "./routes/api/auth/log.ts";
+import * as $api_auth_login from "./routes/api/auth/login.ts";
 import * as $api_auth_logout from "./routes/api/auth/logout.ts";
+import * as $api_auth_register from "./routes/api/auth/register.ts";
+import * as $api_auth_session from "./routes/api/auth/session.ts";
 import * as $api_auth_switchUser from "./routes/api/auth/switchUser.ts";
-import * as $api_auth_updateKV from "./routes/api/auth/updateKV.ts";
-import * as $api_auth_user from "./routes/api/auth/user.ts";
-import * as $api_cache_cache from "./routes/api/cache/cache.ts";
-import * as $api_cache_user from "./routes/api/cache/user.ts";
-import * as $api_chats_chatId_chat from "./routes/api/chats/[chatId]/chat.ts";
-import * as $api_chats_chatId_messages from "./routes/api/chats/[chatId]/messages.ts";
-import * as $api_chats_chatId_subscribe from "./routes/api/chats/[chatId]/subscribe.ts";
-import * as $api_chats_id_ from "./routes/api/chats/[id].ts";
+import * as $api_chats_id_index from "./routes/api/chats/[id]/index.ts";
+import * as $api_chats_id_messages from "./routes/api/chats/[id]/messages.ts";
+import * as $api_chats_id_subscribe from "./routes/api/chats/[id]/subscribe.ts";
 import * as $api_chats_index from "./routes/api/chats/index.ts";
-import * as $api_image_process from "./routes/api/image/process.ts";
-import * as $api_image_proxy from "./routes/api/image/proxy.ts";
-import * as $api_image_resize from "./routes/api/image/resize.ts";
-import * as $api_projects from "./routes/api/projects.ts";
-import * as $api_projects_project_chats from "./routes/api/projects/[project]/chats.ts";
-import * as $api_projects_project_index from "./routes/api/projects/[project]/index.ts";
-import * as $api_projects_index from "./routes/api/projects/index.ts";
-import * as $api_storage_attId_ from "./routes/api/storage/[attId].ts";
-import * as $api_storage_files from "./routes/api/storage/files.ts";
 import * as $api_test from "./routes/api/test.ts";
+import * as $api_user_id_ from "./routes/api/user/[id].ts";
+import * as $api_user_index from "./routes/api/user/index.ts";
 import * as $dashboard_index from "./routes/dashboard/index.tsx";
 import * as $explore_layout from "./routes/explore/_layout.tsx";
 import * as $explore_index from "./routes/explore/index.tsx";
@@ -137,7 +125,6 @@ import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
-    "./routes/[team]/index.tsx": $_team_index,
     "./routes/[user]/_layout.tsx": $_user_layout,
     "./routes/[user]/_middleware.ts": $_user_middleware,
     "./routes/[user]/edit.tsx": $_user_edit,
@@ -160,29 +147,18 @@ const manifest = {
     "./routes/account/partials/login.tsx": $account_partials_login,
     "./routes/account/partials/register.tsx": $account_partials_register,
     "./routes/account/register.tsx": $account_register,
-    "./routes/api/auth/currentUsers.ts": $api_auth_currentUsers,
-    "./routes/api/auth/log.ts": $api_auth_log,
+    "./routes/api/auth/login.ts": $api_auth_login,
     "./routes/api/auth/logout.ts": $api_auth_logout,
+    "./routes/api/auth/register.ts": $api_auth_register,
+    "./routes/api/auth/session.ts": $api_auth_session,
     "./routes/api/auth/switchUser.ts": $api_auth_switchUser,
-    "./routes/api/auth/updateKV.ts": $api_auth_updateKV,
-    "./routes/api/auth/user.ts": $api_auth_user,
-    "./routes/api/cache/cache.ts": $api_cache_cache,
-    "./routes/api/cache/user.ts": $api_cache_user,
-    "./routes/api/chats/[chatId]/chat.ts": $api_chats_chatId_chat,
-    "./routes/api/chats/[chatId]/messages.ts": $api_chats_chatId_messages,
-    "./routes/api/chats/[chatId]/subscribe.ts": $api_chats_chatId_subscribe,
-    "./routes/api/chats/[id].ts": $api_chats_id_,
+    "./routes/api/chats/[id]/index.ts": $api_chats_id_index,
+    "./routes/api/chats/[id]/messages.ts": $api_chats_id_messages,
+    "./routes/api/chats/[id]/subscribe.ts": $api_chats_id_subscribe,
     "./routes/api/chats/index.ts": $api_chats_index,
-    "./routes/api/image/process.ts": $api_image_process,
-    "./routes/api/image/proxy.ts": $api_image_proxy,
-    "./routes/api/image/resize.ts": $api_image_resize,
-    "./routes/api/projects.ts": $api_projects,
-    "./routes/api/projects/[project]/chats.ts": $api_projects_project_chats,
-    "./routes/api/projects/[project]/index.ts": $api_projects_project_index,
-    "./routes/api/projects/index.ts": $api_projects_index,
-    "./routes/api/storage/[attId].ts": $api_storage_attId_,
-    "./routes/api/storage/files.ts": $api_storage_files,
     "./routes/api/test.ts": $api_test,
+    "./routes/api/user/[id].ts": $api_user_id_,
+    "./routes/api/user/index.ts": $api_user_index,
     "./routes/dashboard/index.tsx": $dashboard_index,
     "./routes/explore/_layout.tsx": $explore_layout,
     "./routes/explore/index.tsx": $explore_index,

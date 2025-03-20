@@ -1,7 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
 import { DateTime } from "https://esm.sh/luxon@3.5.0";
 import { toJSON, toMessage } from "../../lib/utils/messages.ts";
-import { Chat, Files, Messages, User } from "../../lib/types/index.ts";
 
 export async function handleSendMessage(
   quillRef: any, setMessages: any, chat: Chat, user: User, fileUploader: any, attachments: Files[]

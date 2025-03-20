@@ -4,7 +4,6 @@ import { Partial } from "$fresh/runtime.ts";
 import { ProjectDetails } from "../../../islands/explore/ProjectDetails.tsx";
 import ProjectList from "../../../islands/explore/ProjectList.tsx";
 import ExploreFilters from "../../../islands/explore/ExploreFilter.tsx";
-import { fetchProjectByID } from "../../../lib/api/projectApi.ts";
 import { parseProjectFilter } from "../../../lib/utils/parsers.ts";
 
 export default defineRoute(async (req, _ctx) => {

@@ -1,6 +1,3 @@
-import { Chat, Project, ProjectRole } from "../../lib/types/index.ts";
-import { ChatType } from "../../lib/types/types.ts";
-
 export default function ProjectCard({project}: { project: ProjectRole }) {
     return (
         <li class="chat-item">

@@ -1,7 +1,7 @@
 // deno-lint-ignore-file no-explicit-any
 import { Handlers } from "$fresh/server.ts";
 import { getCookies } from "$std/http/cookie.ts";
-import { fetchUserByID } from "../../../lib/api/userApi.ts";
+import { fetchUserByID } from "../../../lib/api/user/user.ts";
 
 const kv = await Deno.openKv();
 

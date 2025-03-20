@@ -2,9 +2,9 @@ import { PageProps } from "$fresh/server.ts";
 import { useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 import AIcon, { Icons } from "../../components/Icons.tsx";
 import { getNavbarState, toggleNavbar } from "./utils.ts";
-import { User } from "../../lib/types/index.ts";
 import ProfileModal from "./ProfileModal.tsx";
 import UserSideNav from "./SideNav.tsx";
+import { User } from "../../lib/types/index.ts";
 
 export default function UserNavbar(
   { pageProps, user }: { pageProps: PageProps; user: User },

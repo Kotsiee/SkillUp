@@ -1,6 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
 import { JSX } from "preact/jsx-runtime";
-import { Chat, Files, Messages, User } from "../../lib/types/index.ts";
 import { MutableRef, useEffect, useRef } from "preact/hooks";
 import {
   Signal,

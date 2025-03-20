@@ -11,7 +11,7 @@ export function UserProvider(
   const [user, setUser] = useState<User | null>(null);
 
   async function fetchUser(formData: FormData) {
-    const response = await fetch(`/api/auth/log`, {method: 'POST', body: formData});
+    const response = await fetch(`/api/auth/login`, {method: 'POST', body: formData});
     const result = await response.json();
 
     if (result.error) {
@@ -23,7 +23,7 @@ export function UserProvider(
 
   async function storeUser() {
     try {
-      const res = await fetch(`/api/auth/user`, {
+      const res = await fetch(`/api/auth/session`, {
         method: "GET",
         credentials: "include",
       });

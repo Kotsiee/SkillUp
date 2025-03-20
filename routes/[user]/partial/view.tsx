@@ -1,8 +1,8 @@
 import { Handlers, PageProps } from '$fresh/server.ts';
 import { Partial } from "$fresh/runtime.ts";
 import ProfilePage from "../../../islands/profile/profile.tsx";
-import { fetchUserByUsername } from "../../../lib/api/userApi.ts";
-import { User } from "../../../lib/types/user.ts";
+import { fetchUserByUsername } from "../../../lib/api/user/user.ts";
+import { User } from "../../../lib/types/index.ts";
 
 export const handler: Handlers<User | null> = {
     async GET(_req, ctx) {

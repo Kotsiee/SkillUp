@@ -14,18 +14,11 @@ if (!supabaseUrl || !supabaseAnonKey) {
   );
 }
 
-let supabaseClient: SupabaseClient | null = null;
-
-export const getSupabaseClient: () => SupabaseClient = () => {
-  if (!supabaseClient) {
-    supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        persistSession: false,
-      },
-    });
-  }
-  return supabaseClient;
-};
+export const supabase: SupabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: false,
+  },
+});
 
 export class SupabaseInfo {
   private client;

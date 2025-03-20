@@ -1,4 +1,3 @@
-import { editFile, Files } from "../../lib/types/index.ts";
 import ImageEditor from "./edit/imageEditor.tsx";
 import VideoEditor from "./edit/videoEditor.tsx";
 import TextEditor from "./edit/textEditor.tsx";

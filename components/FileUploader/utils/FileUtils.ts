@@ -1,5 +1,4 @@
 // deno-lint-ignore-file no-explicit-any
-import { Files, User } from "../../../lib/types/index.ts";
 import { identifyFile } from "../../../lib/utils/fileDetector.ts";
 
 export function processFile(

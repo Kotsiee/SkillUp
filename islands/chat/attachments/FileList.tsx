@@ -1,9 +1,7 @@
 import { useEffect, useState } from "preact/hooks";
 import FileCard from "../../../components/cards/FileCard.tsx";
-import { Chat } from "../../../lib/types/chats.ts";
-import { FileReference } from "../../../lib/types/files.ts";
-import { FileMessage, Messages } from "../../../lib/types/messages.ts";
 import { Signal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
+import { Chat, FileMessage, Messages, FileReference } from "../../../lib/types/index.ts";
 
 interface IFileList {
   chat: Chat | null;

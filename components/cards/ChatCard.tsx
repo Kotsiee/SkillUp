@@ -1,6 +1,3 @@
-import { Chat, User } from "../../lib/types/index.ts";
-import { ChatType } from "../../lib/types/types.ts";
-
 export default function ChatCard({chat, user}: { chat: Chat, user: User }) {
     return (
         <li class="chat-item">

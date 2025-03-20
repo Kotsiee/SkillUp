@@ -1,17 +1,11 @@
 // deno-lint-ignore-file no-explicit-any
 import { useEffect, useRef, useState } from "preact/hooks";
 import FileUploader from "../../../components/FileUploader/FileUploader.tsx";
-import {
-  Chat,
-  ChatType,
-  Files,
-  Messages,
-  User,
-} from "../../../lib/types/index.ts";
 import ChatMessage from "./ChatMessage.tsx";
 import { useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 import Textbox from "../../../components/Textbox/Textbox.tsx";
 import { toMessage } from "../../../lib/utils/messages.ts";
+import { Chat, User, Messages, Files } from "../../../lib/types/index.ts";
 
 interface ChatSectionProps {
   chat: Chat;
@@ -74,7 +68,7 @@ export default function ChatSection({ chat, user }: ChatSectionProps) {
   const getChatInfo = (type: "photo" | "name") => {
     const otherUser = chat.users?.find((u) => u.user?.id !== user.id)?.user;
     return type === "photo"
-      ? chat.photo?.url || otherUser?.profilePicture?.small?.publicURL
+      ? chat.photo?.publicURL || otherUser?.profilePicture?.small?.publicURL
       : chat.name || otherUser?.username;
   };
 
@@ -100,7 +94,7 @@ export default function ChatSection({ chat, user }: ChatSectionProps) {
       </div>
 
       <div class="chat-messages-area">
-        {chat.chatType === ChatType.private_group && (
+        {chat.chatType === "group" && (
           <div class="top">
             <img
               class="chat-messages-photo"

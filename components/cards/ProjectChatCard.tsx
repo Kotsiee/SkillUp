@@ -1,5 +1,4 @@
 import { PageProps } from "$fresh/server.ts";
-import { Chat } from "../../lib/types/index.ts";
 
 export default function ProjectChatCard({ pageProps, chat }: { pageProps: PageProps, chat: Chat }) {
     return (

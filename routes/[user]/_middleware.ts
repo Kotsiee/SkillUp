@@ -1,7 +1,7 @@
 // deno-lint-ignore-file no-explicit-any
 import { FreshContext } from "$fresh/server.ts";;
-import { User } from "../../lib/types/index.ts";
 import { getCookies } from "$std/http/cookie.ts";
+import { User } from "../../lib/types/index.ts";
 
 const PROTECTED_ROUTES = ["/view", "/edit", "/manage"];
 const kv = await Deno.openKv();

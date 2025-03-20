@@ -3,9 +3,9 @@ import {
   useSignal,
 } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 import { useEffect, useRef, useState } from "preact/hooks";
-import { OrganisationRoles, User } from "../../lib/types/index.ts";
 import AIcon, { Icons } from "../../components/Icons.tsx";
 import { signOut } from "./utils.ts";
+import { TeamRoles, User } from "../../lib/types/index.ts";
 
 export default function ProfileModal(
   { user, isOpen }: { isOpen: Signal<boolean>; user: User },
@@ -146,7 +146,7 @@ function BusinessProfiles({ user }: { user: User }) {
   return (
     <div class="business-profiles">
       <PersonalProfile profile={user}/>
-      {user.organisations?.map((item) => {
+      {user.teams?.map((item) => {
         if (["owner", "co_owner", "manager"].includes(item.role)) {
           return <BusinessProfile profile={item} />;
         }
@@ -180,18 +180,18 @@ function PersonalProfile({ profile }: { profile: User }) {
   );
 }
 
-function BusinessProfile({ profile }: { profile: OrganisationRoles }) {
+function BusinessProfile({ profile }: { profile: TeamRoles }) {
   return (
     <div class="business-profile other-profile">
       <div class="profile-image">
         <img
-          src={profile.organisation?.logo?.publicURL ??
+          src={profile.team?.logo?.publicURL ??
             "/assets/images/audio.png"}
         />
       </div>
       <div class="account">
-        <p class="account-name">{profile.organisation?.name}</p>
-        <p class="account-username">@{profile.organisation?.name}</p>
+        <p class="account-name">{profile.team?.name}</p>
+        <p class="account-username">@{profile.team?.name}</p>
         <p class="account-type">{profile.role[0].toUpperCase() + profile.role.substring(1)}</p>
       </div>
     </div>

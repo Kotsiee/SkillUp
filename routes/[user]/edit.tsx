@@ -1,7 +1,7 @@
 import { Partial } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { fetchUserByUsername } from "../../lib/api/userApi.ts";
-import { User } from "../../lib/types/user.ts";
+import { fetchUserByUsername } from "../../lib/api/user/user.ts";
+import { User } from "../../lib/types/index.ts";
 import EditProfile from "./../../islands/profile/edit.tsx";
 
 export const handler: Handlers<User | null> = {

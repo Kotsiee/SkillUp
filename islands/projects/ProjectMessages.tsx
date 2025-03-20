@@ -1,12 +1,10 @@
 // deno-lint-ignore-file no-explicit-any
 import { useEffect, useState } from "preact/hooks";
-import { Chat, Messages, User } from "../../lib/types/index.ts";
 import { PageProps } from '$fresh/server.ts';
 import AIcon, { Icons } from "../../components/Icons.tsx";
 import { createClient, RealtimePostgresChangesPayload, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.47.10";
 import Textbox from "../Textbox.tsx";
 import { toHTML, toMessage } from "../../lib/utils/messages.ts";
-import { jsonTag } from "../../lib/types/messages.ts";
 import { useRef } from 'preact/hooks';
 import { useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 

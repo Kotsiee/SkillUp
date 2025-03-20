@@ -1,8 +1,8 @@
 import { useSignal } from 'https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js';
 import { JSX } from "preact/jsx-runtime";
 import { DateTime } from "https://esm.sh/luxon@3.5.0";
-import { Project } from "../../lib/types/index.ts";
 import { useEffect, useState } from "preact/hooks";
+import { Project } from "../../lib/types/index.ts";
 
 export function ProjectDetails( props: JSX.HTMLAttributes<HTMLDivElement> & { project: Project | null }) {
   const [project, setProject] = useState<Project | null>(props.project);
@@ -59,14 +59,14 @@ export function ProjectDetails( props: JSX.HTMLAttributes<HTMLDivElement> & { pr
           <div class="title-container-right">
             <img
               class="logo"
-              src={project.organisation.logo}
+              src={project.team?.logo?.publicURL ?? ""}
               loading="lazy"
-              alt={`${project.organisation.name} logo`}
+              alt={`${project.team?.name} logo`}
             />
             <div>
               <h2 class="title">{project.title}</h2>
               <p class="org">
-                {project.organisation.name}
+                {project.team?.name}
                 <b> • Posted {timeValue} {timeUnit} ago</b>
               </p>
             </div>

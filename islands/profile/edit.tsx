@@ -5,9 +5,8 @@ import AIcon, { Icons } from "../../components/Icons.tsx";
 import { useUser } from "../contexts/UserProvider.tsx";
 import FileUploader from "../../components/FileUploader/FileUploader.tsx";
 import { useRef } from "preact/hooks";
-import { useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
+import { Signal, useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 import { Files, User } from "../../lib/types/index.ts";
-import { Signal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 
 export default function EditProfile() {
   const { user } = useUser();
@@ -212,13 +211,8 @@ const TextBox = (
   }
   const user = props.user.value;
 
-  const attr = props.val as "firstName" | "lastName" | "username" | "profile";
+  const attr = props.val as "firstName" | "lastName" | "username";
   let newAttr = user?.[attr];
-
-  if (attr === "profile") {
-    const subAttr = props.subVal as "headline";
-    newAttr = user?.profile?.[subAttr];
-  }
 
   return (
     <div ref={props.ref} class={`textbox ${props.class}`}>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
 import { Skeleton } from "../../components/Skeletons.tsx";
-import { Chat, Project, ProjectRole, User } from "../../lib/types/index.ts";
 import type { PageProps } from "$fresh/server.ts";
 import ProjectCard from "../../components/cards/ProjectsCard.tsx";
 import AIcon, { Icons } from "../../components/Icons.tsx";

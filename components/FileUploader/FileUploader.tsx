@@ -1,7 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
 import { useEffect, useImperativeHandle, useState } from "preact/hooks";
 import AIcon, { Icons } from "../../components/Icons.tsx";
-import { editFile, Files, User } from "../../lib/types/index.ts";
 import UploadFile from "./UploadFile.tsx";
 import EditFile from "./EditFile.tsx";
 import ReviewFile from "./ReviewFile.tsx";

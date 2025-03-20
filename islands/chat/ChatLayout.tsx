@@ -1,8 +1,8 @@
 import { useEffect, useState } from "preact/hooks";
-import { Chat } from "../../lib/types/index.ts";
 import { PageProps } from "$fresh/server.ts";
 import AIcon, { Icons } from "../../components/Icons.tsx";
 import { useUser } from "../contexts/UserProvider.tsx";
+import { Chat } from "../../lib/types/index.ts";
 
 interface IChatLayout {
   pageProps: PageProps;
@@ -45,7 +45,7 @@ export default function ChatLayout(
     switch (type) {
       case "photo":
         return chat.photo != null
-          ? chat.photo.url
+          ? chat.photo.publicURL
           : otherUser?.profilePicture?.med?.publicURL;
       case "name":
         return chat.name ? chat.name : otherUser?.username;

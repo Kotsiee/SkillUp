@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "preact/hooks";
-import { Files, Messages, User } from "../../../lib/types/index.ts";
 import { toHTML } from "../../../lib/utils/messages.ts";
 import AIcon, { Icons } from "../../../components/Icons.tsx";
 import { useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 import { fileImage } from "../../../components/cards/FileCard.tsx";
+import { Files, Messages, User } from "../../../lib/types/index.ts";
 
 interface ChatMessageProps {
   msg: Messages;
@@ -30,7 +30,7 @@ export default function ChatMessage({ msg, user, prevUser }: ChatMessageProps) {
           <Options isSender={isSender}/>
           <div class="content">
             <TextContent msg={msg} />
-            <AttachmentContent files={msg.attachments} />
+            <AttachmentContent files={msg.attachments as Files[]} />
           </div>
           <Options isSender={!isSender}/>
         </div>

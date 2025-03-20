@@ -1,7 +1,7 @@
 import AIcon from "../../components/Icons.tsx";
 import { Icons } from "../../components/Icons.tsx";
 import { useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
-import type { User } from "../../lib/types/index.ts";
+import { User } from "../../lib/types/index.ts";
 
 export default function ProfilePage({ user }: { user: User }) {
   const tab = useSignal<string>("posts");

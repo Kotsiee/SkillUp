@@ -1,5 +1,4 @@
 import { Signal, computed } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
-import { Files, editFile } from "../../lib/types/index.ts";
 import FileCard from "../cards/FileCard.tsx";
 import { getBase64FileSize, standardizeImage } from "./utils/ImageUtils.ts";
 

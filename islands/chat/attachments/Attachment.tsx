@@ -1,7 +1,6 @@
-// deno-lint-ignore-file no-explicit-any
+// deno-lint-ignore-file no-explicit-any no-unused-vars
 import { PageProps } from "$fresh/server.ts";
 import { useEffect, useState } from "preact/hooks";
-import { FileReference, Files } from "../../../lib/types/index.ts";
 import {
   Signal,
   useSignal,
@@ -10,6 +9,7 @@ import { VNode } from "preact/src/index.d.ts";
 import { DateTime } from "https://esm.sh/luxon@3.5.0";
 import LabelSlider from "../../../components/LabelSlider.tsx";
 import AIcon, { Icons } from "../../../components/Icons.tsx";
+import { FileReference, Files } from "../../../lib/types/index.ts";
 
 export default function Attachment({ pageProps }: { pageProps: PageProps }) {
   const [file, setFile] = useState<FileReference | null>(null);

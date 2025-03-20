@@ -1,6 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
 import { MutableRef } from "preact/hooks/src/index.d.ts";
-import { Chat, Files, Messages, User } from "../../lib/types/index.ts";
 import { handleSendMessage } from "./MessagesUtils.ts";
 
 export function KeyboardBindings(

@@ -8,10 +8,7 @@ import {
   useSignal,
 } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 import { DateTime } from "https://esm.sh/luxon@3.5.0";
-import { ChatRoles } from "../lib/types/chatRoles.ts";
-import { Messages } from "../lib/types/messages.ts";
 import { toJSON, toMessage } from "../lib/utils/messages.ts";
-import { Chat, Files, User } from "../lib/types/index.ts";
 
 interface TextboxProps extends JSX.HTMLAttributes<HTMLDivElement> {
   chat: Chat;

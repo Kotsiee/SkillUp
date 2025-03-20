@@ -1,8 +1,8 @@
 import { useEffect, useState } from "preact/hooks";
 import { PageProps } from "$fresh/server.ts";
 import ChatSection from "./ChatSection.tsx";
-import { Chat } from "../../../lib/types/index.ts";
 import { useUser } from "../../contexts/UserProvider.tsx";
+import { Chat } from "../../../lib/types/index.ts";
 
 export default function ChatMessages({ pageProps }: { pageProps: PageProps }) {
   const [chat, setChat] = useState<Chat | null>(null);

@@ -1,5 +1,4 @@
 // deno-lint-ignore-file no-explicit-any
-import { Files, FileTypesImages } from "../../lib/types/index.ts";
 import AIcon, { Icons } from "../Icons.tsx";
 
 interface IFileCard {
