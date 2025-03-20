@@ -65,7 +65,6 @@ import * as $messages_chatid_partials_chat from "./routes/messages/[chatid]/part
 import * as $messages_chatid_partials_info from "./routes/messages/[chatid]/partials/info.tsx";
 import * as $messages_layout from "./routes/messages/_layout.tsx";
 import * as $messages_index from "./routes/messages/index.tsx";
-import * as $partials_explore_project from "./routes/partials/explore/project.tsx";
 import * as $projects_project_chatid_attachments_attId_ from "./routes/projects/[project]/[chatid]/attachments/[attId].tsx";
 import * as $projects_project_chatid_attachments_index from "./routes/projects/[project]/[chatid]/attachments/index.tsx";
 import * as $projects_project_chatid_chat from "./routes/projects/[project]/[chatid]/chat.tsx";
@@ -89,8 +88,10 @@ import * as $projects_partials_project_timeline from "./routes/projects/partials
 import * as $projects_partials_index from "./routes/projects/partials/index.tsx";
 import * as $projects_partials_project_id_ from "./routes/projects/partials/project/[id].tsx";
 import * as $projects_project_id_ from "./routes/projects/project/[id].tsx";
+import * as $teams_layout from "./routes/teams/_layout.tsx";
 import * as $teams_index from "./routes/teams/index.tsx";
 import * as $teams_newTeam from "./routes/teams/newTeam.tsx";
+import * as $teams_partials_index from "./routes/teams/partials/index.tsx";
 import * as $user_account_layout from "./routes/user/account/_layout.tsx";
 import * as $user_account_forgotpassword from "./routes/user/account/forgotpassword.tsx";
 import * as $user_account_login from "./routes/user/account/login.tsx";
@@ -99,10 +100,13 @@ import * as $user_profile_id_ from "./routes/user/profile/[id].tsx";
 import * as $user_profile_layout from "./routes/user/profile/_layout.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $ExploreFilter from "./islands/ExploreFilter.tsx";
+import * as $Navbar_GuestNav from "./islands/Navbar/GuestNav.tsx";
 import * as $Navbar_Navbar from "./islands/Navbar/Navbar.tsx";
 import * as $Navbar_ProfileModal from "./islands/Navbar/ProfileModal.tsx";
 import * as $Navbar_SideNav from "./islands/Navbar/SideNav.tsx";
+import * as $Navbar_UserNav from "./islands/Navbar/UserNav.tsx";
 import * as $Navbar_utils from "./islands/Navbar/utils.ts";
+import * as $Teams_Teams from "./islands/Teams/Teams.tsx";
 import * as $Test from "./islands/Test.tsx";
 import * as $Textbox from "./islands/Textbox.tsx";
 import * as $account_Login from "./islands/account/Login.tsx";
@@ -203,7 +207,6 @@ const manifest = {
       $messages_chatid_partials_info,
     "./routes/messages/_layout.tsx": $messages_layout,
     "./routes/messages/index.tsx": $messages_index,
-    "./routes/partials/explore/project.tsx": $partials_explore_project,
     "./routes/projects/[project]/[chatid]/attachments/[attId].tsx":
       $projects_project_chatid_attachments_attId_,
     "./routes/projects/[project]/[chatid]/attachments/index.tsx":
@@ -244,8 +247,10 @@ const manifest = {
     "./routes/projects/partials/project/[id].tsx":
       $projects_partials_project_id_,
     "./routes/projects/project/[id].tsx": $projects_project_id_,
+    "./routes/teams/_layout.tsx": $teams_layout,
     "./routes/teams/index.tsx": $teams_index,
     "./routes/teams/newTeam.tsx": $teams_newTeam,
+    "./routes/teams/partials/index.tsx": $teams_partials_index,
     "./routes/user/account/_layout.tsx": $user_account_layout,
     "./routes/user/account/forgotpassword.tsx": $user_account_forgotpassword,
     "./routes/user/account/login.tsx": $user_account_login,
@@ -256,10 +261,13 @@ const manifest = {
   islands: {
     "./islands/Counter.tsx": $Counter,
     "./islands/ExploreFilter.tsx": $ExploreFilter,
+    "./islands/Navbar/GuestNav.tsx": $Navbar_GuestNav,
     "./islands/Navbar/Navbar.tsx": $Navbar_Navbar,
     "./islands/Navbar/ProfileModal.tsx": $Navbar_ProfileModal,
     "./islands/Navbar/SideNav.tsx": $Navbar_SideNav,
+    "./islands/Navbar/UserNav.tsx": $Navbar_UserNav,
     "./islands/Navbar/utils.ts": $Navbar_utils,
+    "./islands/Teams/Teams.tsx": $Teams_Teams,
     "./islands/Test.tsx": $Test,
     "./islands/Textbox.tsx": $Textbox,
     "./islands/account/Login.tsx": $account_Login,

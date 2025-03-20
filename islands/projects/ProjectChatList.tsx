@@ -4,7 +4,7 @@ import { Chat, User } from "../../lib/types/index.ts";
 import ChatCard from "../../components/cards/ChatCard.tsx";
 import type { PageProps } from "$fresh/server.ts";
 
-export default function ChatList({pageProps, user} : {pageProps: PageProps, user: User | null}) {
+export default function ChatList({user} : {pageProps: PageProps, user: User | null}) {
   const [chats, setChats] = useState<Chat[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,7 +18,7 @@ export default function ChatList({pageProps, user} : {pageProps: PageProps, user
   }, []);
 
   if (!user)
-    return (<></>)
+    return null
 
   return (
     <div class="chat-list-container">

@@ -21,10 +21,7 @@ interface TextboxProps extends JSX.HTMLAttributes<HTMLDivElement> {
   attachments: Signal<Files[]>;
 }
 
-export default function Textbox(
-  { chat, user, setMessages, fileUploader, attachments, ...props }:
-    TextboxProps,
-) {
+export default function Textbox({ chat, user, setMessages, fileUploader, attachments, ...props }: TextboxProps) {
   const editorRef = useRef<HTMLDivElement>(null);
   const toolRef = useRef<HTMLDivElement>(null);
   const quillRef = useRef<Quill | null>(null);

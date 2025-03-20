@@ -39,7 +39,7 @@ export default function ChatMessages({pageProps, p}: { pageProps: PageProps, p: 
             { chat ? (
                 <ChatSection chat={chat} user={user} p={p} supabase={supabase}/>
             )
-            : (<></>)
+            : null
         }
         </div>
     );
@@ -119,7 +119,7 @@ const ChatSection = (props: {p: IChatMessages, chat: Chat, user: User, supabase:
 
         switch (type) {
             case 'photo':
-                return props.chat.photo != null ? props.chat.photo.url : otherUser?.profilePicture?.url;
+                return props.chat.photo != null ? props.chat.photo.url : otherUser?.profilePicture?.small?.publicURL;
             case 'name': 
                 return props.chat.name ? props.chat.name : otherUser?.username;
         }
@@ -175,7 +175,7 @@ const ChatMessage = (props: {msg: Messages, userId: string, prevUID?: string}) =
             <div class={isSender ? "isSender" : ""}>
                 { !isSender && props.prevUID == props.userId ? 
                     <div class="user">
-                        <img src={ props.msg.user?.user?.profilePicture?.url }/>
+                        <img src={ props.msg.user?.user?.profilePicture?.small?.publicURL }/>
                         <p> { props.msg.user?.user?.username } </p>
                     </div> : <></>
                 }

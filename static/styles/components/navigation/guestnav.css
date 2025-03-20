@@ -1,51 +1,27 @@
 .guest-nav {
-    .nav-list {
-        display: inline-flex;
-        margin: 0;
-        padding: 0;
-        align-items: center;
+    .nav-left {
 
-        li {
-            margin: 0 12px;
+    }
 
-            & a {
-                color: var(--text-color);
-                font-weight: var(--weight-normal);
-            }
-        }
+    .nav-right {
+        display: flex;
+        justify-content: right;
+        gap: 12px;
 
-        .nav-btn-link a {
-            color: var(--text-color);
+        a {
+            padding: 6px 28px;
+            border-radius: 30px;
 
-            &:hover {
-                color: var(--primary-colour);
-            }
-        }
-
-        .nav-btn-log {
-            padding: 6px 20px;
-            margin: 0 8px;
-            border-radius: 40px;
-            cursor: pointer;
-
-            &.btn-login {
+            &.nav-login {
                 background-color: var(--primary-colour);
-                margin-left: 12px;
-
-                &:hover { background-color: var(--primary-colour-dark); }
-                &:active { background-color: var(--primary-colour-darker); }
+                &:hover{background-color: var(--primary-colour-light);}
+                &:active{background-color: var(--primary-colour-lighter);}
             }
 
-            &.btn-signup {
-                background-color: hsl(0, 0%, 20%);
-
-                &:hover {
-                    background-color: hsl(0, 0%, 15%);
-                }
-            }
-
-            &:hover {
-                color: var(--text-color-hover);
+            &.nav-register {
+                background-color: var(--modal-colour);
+                &:hover{background-color: var(--modal-colour-light);}
+                &:active{background-color: var(--modal-colour-lighter);}
             }
         }
     }
