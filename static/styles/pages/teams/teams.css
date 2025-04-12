@@ -23,6 +23,8 @@
                 .profilePic {
                     outline: none;
                     border-radius: 40px;
+                    height: 40px;
+                    width: 40px;
                 }
 
                 .account {
@@ -51,6 +53,9 @@
             padding: 4px 20px;
             font-size: 1em;
             background-color: var(--primary-colour);
+
+            &:hover {background-color: var(--primary-colour-dark)}
+            &:active {background-color: var(--primary-colour-darker)}
         }
     }
 }

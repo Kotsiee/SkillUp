@@ -17,7 +17,7 @@ export default function Attachments({ pageProps }: { pageProps: PageProps }) {
     const fetchChat = async () => {
       try {
         const response = await fetch(
-          `/api/chats/${pageProps.params.chatid}/chat`,
+          `/api/chats/${pageProps.params.chatid}`,
         );
         if (!response.ok) throw new Error("Failed to fetch chat data");
         const { json } = await response.json();

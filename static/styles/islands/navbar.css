@@ -1,28 +1,31 @@
 @import '../components/navigation/guestnav.css';
 @import '../components/navigation/usernav.css';
 
-nav{
+nav {
   position: fixed;
   width: 100%;
   z-index: 10;
-  a {text-decoration: none;}
 
-  .chevron{
+  a {
+    text-decoration: none;
+  }
+
+  .chevron {
     stroke: var(--text-color-dark);
     stroke-width: 3;
     cursor: pointer;
     padding: 4px;
     border-radius: var(--border-radius-small);
   }
-  
-  .settings-btn{
+
+  .settings-btn {
     fill: var(--text-color-dark-hover);
     stroke: none;
     transition: transform 500ms ease;
     cursor: pointer;
     transition: transform 300ms var(--easing);
-  
-    &:hover{
+
+    &:hover {
       fill: var(--text-color-dark);
       transform: rotate(90deg);
     }
@@ -40,37 +43,39 @@ nav{
 
 .nav-center {
   .nav-search {
-      display: flex;
-      border-radius: 50px;
-      height: 36px;
-      width: 30vw;
-      justify-content: space-between;
-      align-items: center;
-      outline: 1px solid #9993;
+    display: flex;
+    border-radius: 50px;
+    height: 36px;
+    width: 30vw;
+    justify-content: space-between;
+    align-items: center;
+    outline: 1px solid #9993;
 
-      .search-btn {
-          margin: 0 10px;
+    .search-btn {
+      margin: 0 10px;
+    }
+
+    .search-input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background-color: #0000;
+      font-weight: 300;
+      letter-spacing: 0.6px;
+
+      &:placeholder-shown {
+        font-weight: 400;
       }
+    }
 
-      .search-input {
-          width: 100%;
-          border: none;
-          outline: none;
-          background-color: #0000;
-          font-weight: 300;
-          letter-spacing: 0.6px;
-
-          &:placeholder-shown{
-            font-weight: 400;
-          }
-      }
-
-      &:focus-within {
-          outline: 1px solid #127796;
-      }
+    &:focus-within {
+      outline: 1px solid #127796;
+    }
   }
 }
 
-.nav-left, .nav-center, .nav-right {
+.nav-left,
+.nav-center,
+.nav-right {
   width: 100%;
 }

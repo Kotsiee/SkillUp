@@ -1,0 +1,101 @@
+.budget {
+    width: 100%;
+
+    .budget-setter {
+        background-color: var(--modal-colour-lighter);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border-radius: var(--border-radius-smaller);
+        padding: 4px 8px;
+
+        label {
+            font-size: 0.9em;
+        }
+
+        input[type="number"] {
+            background-color: #0000;
+            width: 100px;
+            font-size: 0.9em;
+
+            &::-webkit-inner-spin-button,
+            &::-webkit-outer-spin-button {
+                appearance: none;
+                margin: 0;
+            }
+        }
+    }
+
+    .sub-budget {
+        margin: 12px 0;
+
+        .budget-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+
+            .budget-title {
+                display: flex;
+                align-items: center;
+                font-weight: var(--weight-bold);
+            }
+
+            label {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 16px;
+                width: max-content;
+
+                .budget-title-icon {
+                    cursor: pointer;
+                    transition: transform 300ms var(--easing);
+
+                    path {
+                        stroke: var(--secondary-colour);
+                        stroke-width: 2;
+                    }
+
+                    &:hover {
+                        transform: scale(0.8);
+
+                        path {
+                            stroke: var(--secondary-colour-dark);
+                            stroke-width: 4;
+                        }
+                    }
+                }
+            }
+        }
+
+        .sub-sub-budgets {
+            background-color: var(--modal-colour-lighter);
+            margin: 12px 0;
+            margin-left: 5%;
+            padding: 12px 20px;
+            border-radius: var(--border-radius-small);
+
+            .sub-budget {
+                margin: 4px 0;
+            }
+
+            .budget-title {
+                font-weight: var(--weight-normal);
+                font-size: 0.9em;
+            }
+
+            .budget-setter {
+                background-color: var(--modal-colour-dark);
+
+                input[type="number"] {
+                    width: 80px;
+                }
+            }
+        }
+    }
+
+    .total-budget {
+        text-align: right;
+    }
+}

@@ -1,3 +1,5 @@
+import { Chat, User } from "../../lib/types/index.ts";
+
 export default function ChatCard({chat, user}: { chat: Chat, user: User }) {
     return (
         <li class="chat-item">
@@ -14,11 +16,11 @@ export default function ChatCard({chat, user}: { chat: Chat, user: User }) {
 const Card = ({chat, user}: { chat: Chat, user: User }) => {
     let lastUser = null
 
-    if (chat.chatType === ChatType.private_chat) {
+    if (chat.chatType === "private") {
         lastUser = chat.users!.find(chat => chat.user?.id !== user.id)!.user
     }
 
-    let image = chat.photo ? chat.photo.url : lastUser?.profilePicture?.med?.publicURL
+    let image = chat.photo ? chat.photo.publicURL : lastUser?.profilePicture?.med?.publicURL
 
     if (!image)
         image = "https://gratisography.com/wp-content/uploads/2024/10/gratisography-cool-cat-800x525.jpg"

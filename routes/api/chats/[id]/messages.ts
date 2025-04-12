@@ -9,7 +9,7 @@ const kv = await Deno.openKv();
 export const handler: Handlers = {
   async GET(_req, ctx) {
     const hasAttachment = ctx.url.searchParams
-    const chats = await fetchMessagesByChat(ctx.params.chatId, !!hasAttachment.get("hasAttachments"));
+    const chats = await fetchMessagesByChat(ctx.params.id, !!hasAttachment.get("hasAttachments"));
 
     return new Response(superjson.stringify(chats), {
       headers: { "Content-Type": "application/json" },

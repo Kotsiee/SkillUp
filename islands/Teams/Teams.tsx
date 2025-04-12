@@ -21,7 +21,7 @@ export default function TeamsIsland() {
           </div>
         </div>
 
-        <button class="new-team">+ New Team</button>
+        <a class="new-team" href={'/teams/newTeam'} f-partial={'/teams/partials/newTeam'}>+ New Team</a>
       </div>
 
       <div class="teams-content">
@@ -38,8 +38,6 @@ function TeamsList({ user }: { user: User }) {
     user.teams ?? null,
   );
 
-  console.log(teams.value)
-
   return (
     <div class="teams-list">
       {teams.value?.map((team) => 
@@ -51,7 +49,7 @@ function TeamsList({ user }: { user: User }) {
 
 function TeamsCard({ team }: { team: TeamRoles }) {
   return (
-    <div class="team-card">
+    <a class="team-card" href={`/${team.team?.handle}`} f-client-nav={false}>
       <div class="team-images">
         <img class="banner" src={team.team?.banner?.publicURL}/>
         <img class="profilePic" src={team.team?.logo?.small?.publicURL}/>
@@ -71,6 +69,6 @@ function TeamsCard({ team }: { team: TeamRoles }) {
           <p class="projects">5 Projects</p>
         </div>
       </div>
-    </div>
+    </a>
   );
 }

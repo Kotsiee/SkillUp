@@ -200,11 +200,11 @@ export async function insertFile(file: Files) {
     };
 
     const { data, error } = existingFile
-      ? await supabase.from("files.files").update(newFile).eq(
+      ? await supabase.schema("files").from("files").update(newFile).eq(
         "id",
         existingFile.id,
       )
-      : await supabase.from("files.files").insert(newFile);
+      : await supabase.schema("files").from("files").insert(newFile);
     if (error) throw error;
     return newFile;
   } catch (error: any) {

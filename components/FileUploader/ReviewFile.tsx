@@ -1,10 +1,11 @@
 import { Signal, computed } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 import FileCard from "../cards/FileCard.tsx";
 import { getBase64FileSize, standardizeImage } from "./utils/ImageUtils.ts";
+import { EditFile, Files } from "../../lib/types/index.ts";
 
 interface ReviewFileProps {
   selectedFiles: Signal<Files[]>;
-  modificationHistory: Signal<editFile[]>;
+  modificationHistory: Signal<EditFile[]>;
   uploadType?: string;
   onUpload?: (files?: Files[]) => void;
   selectedView: Signal<string>;
@@ -64,15 +65,15 @@ async function processProfileImages(file: Files): Promise<Files[]> {
     ...file,
     extension: "webp",
     mimeType: "image/webp",
-    filePath: "/profile",
+    filePath: "profile/avatar",
     privacyLvl: "public",
     verified: true,
   };
 
   const sizes = [
-    { size: 32, name: "Profile Picture - Small", storedName: "pp32.webp" },
-    { size: 128, name: "Profile Picture - Medium", storedName: "pp128.webp" },
-    { size: 512, name: "Profile Picture - Large", storedName: "pp512.webp" },
+    { size: 128, name: "Profile Picture - Small", storedName: "ppSmall.webp" },
+    { size: 256, name: "Profile Picture - Medium", storedName: "ppMed.webp" },
+    { size: 512, name: "Profile Picture - Large", storedName: "ppLarge.webp" },
   ];
 
   const processedFiles = await Promise.all(
@@ -88,6 +89,8 @@ async function processProfileImages(file: Files): Promise<Files[]> {
       };
     })
   );
+
+  console.log("uploda profile")
 
   await Promise.all(processedFiles);
   return processedFiles;

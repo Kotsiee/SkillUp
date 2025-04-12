@@ -30,7 +30,7 @@
             }
         }
 
-        .save-btn{
+        .save-btn {
             padding: 4px 16px;
             background-color: var(--primary-colour);
             border-radius: var(--border-radius-smaller);

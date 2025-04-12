@@ -12,6 +12,7 @@ import AttachmentModal from "./AttachmentModal.tsx";
 import { handleSendMessage } from "./MessagesUtils.ts";
 import Quill from "https://esm.sh/quill@2.0.3";
 import FileCard from "../cards/FileCard.tsx";
+import { Chat, User, Messages, Files } from "../../lib/types/index.ts";
 
 interface TextboxProps extends JSX.HTMLAttributes<HTMLDivElement> {
   chat: Chat;

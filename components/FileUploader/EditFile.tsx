@@ -8,14 +8,15 @@ import {
 import FileCard from "../cards/FileCard.tsx";
 import { useRef } from "preact/hooks";
 import AudioEditor from "./edit/audioEditor.tsx";
+import { EditFile, Files } from "../../lib/types/index.ts";
 
 interface EditFileProps {
   selectedFiles: Signal<Files[]>;
-  modificationHistory: Signal<editFile[]>;
+  modificationHistory: Signal<EditFile[]>;
   selectedView: Signal<string>;
 }
 
-export default function EditFile({
+export default function EditFiles({
   selectedFiles,
   modificationHistory,
   selectedView

@@ -39,7 +39,7 @@
         display: flex;
         justify-content: right;
         position: relative;
-        
+
         .user-options {
             position: relative;
 
@@ -53,6 +53,27 @@
 
                 &:hover {
                     outline: 1px solid var(--tertiary-colour);
+                }
+            }
+
+            .logo-container {
+                cursor: pointer;
+                position: relative;
+
+                .logo {
+                    height: calc(var(--header-height-desktop) - 20px);
+                    width: calc(var(--header-height-desktop) - 20px);
+                    border-radius: 5px;
+                }
+
+                .teamProfilePic {
+                    position: absolute;
+                    top: -5px;
+                    left: -5px;
+                    height: 25px;
+                    width: 25px;
+                    border-radius: 20px;
+                    outline: 1px solid var(--bg-colour-secondary);
                 }
             }
         }

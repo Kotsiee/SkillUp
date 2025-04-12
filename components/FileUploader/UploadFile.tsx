@@ -5,6 +5,7 @@ import {
 import FileCard from "../cards/FileCard.tsx";
 import { processFile } from "./utils/FileUtils.ts";
 import AIcon, { Icons } from "../Icons.tsx";
+import { Files, User } from "../../lib/types/index.ts";
 
 interface UploadFileProps {
   storageFiles: Files[];

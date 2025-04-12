@@ -9,10 +9,10 @@ const kv = await Deno.openKv();
 
 export const handler: Handlers = {
     async GET(req, _ctx) {
-        const user = await getCachedUser(req, kv)
+        const {user} = await getCachedUser(req, kv)
         if (!user) return new Response(null);
 
-        const chats = await fetchUserChatsByID((user as any) .user.id)
+        const chats = await fetchUserChatsByID(user)
 
         return new Response(superjson.stringify(chats), {
             headers: { "Content-Type": "application/json" },

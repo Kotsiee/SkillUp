@@ -32,9 +32,23 @@ import * as $api_chats_id_index from "./routes/api/chats/[id]/index.ts";
 import * as $api_chats_id_messages from "./routes/api/chats/[id]/messages.ts";
 import * as $api_chats_id_subscribe from "./routes/api/chats/[id]/subscribe.ts";
 import * as $api_chats_index from "./routes/api/chats/index.ts";
+import * as $api_files_id_ from "./routes/api/files/[id].ts";
+import * as $api_files_index from "./routes/api/files/index.ts";
+import * as $api_files_process_image_proxy from "./routes/api/files/process/image/proxy.ts";
+import * as $api_files_process_image_resize from "./routes/api/files/process/image/resize.ts";
+import * as $api_projects_index from "./routes/api/projects/index.ts";
+import * as $api_projects_newProject from "./routes/api/projects/newProject.ts";
+import * as $api_teams_id_index from "./routes/api/teams/[id]/index.ts";
+import * as $api_teams_id_login from "./routes/api/teams/[id]/login.ts";
+import * as $api_teams_index from "./routes/api/teams/index.ts";
+import * as $api_teams_logged from "./routes/api/teams/logged.ts";
+import * as $api_teams_logout from "./routes/api/teams/logout.ts";
 import * as $api_test from "./routes/api/test.ts";
 import * as $api_user_id_ from "./routes/api/user/[id].ts";
 import * as $api_user_index from "./routes/api/user/index.ts";
+import * as $api_user_projects_id_chats from "./routes/api/user/projects/[id]/chats.ts";
+import * as $api_user_projects_id_index from "./routes/api/user/projects/[id]/index.ts";
+import * as $api_user_projects_index from "./routes/api/user/projects/index.ts";
 import * as $dashboard_index from "./routes/dashboard/index.tsx";
 import * as $explore_layout from "./routes/explore/_layout.tsx";
 import * as $explore_index from "./routes/explore/index.tsx";
@@ -70,30 +84,40 @@ import * as $projects_project_index from "./routes/projects/[project]/index.tsx"
 import * as $projects_project_timeline from "./routes/projects/[project]/timeline.tsx";
 import * as $projects_layout from "./routes/projects/_layout.tsx";
 import * as $projects_index from "./routes/projects/index.tsx";
+import * as $projects_newProject from "./routes/projects/newProject.tsx";
 import * as $projects_partials_project_description from "./routes/projects/partials/[project]/description.tsx";
 import * as $projects_partials_project_index from "./routes/projects/partials/[project]/index.tsx";
 import * as $projects_partials_project_timeline from "./routes/projects/partials/[project]/timeline.tsx";
 import * as $projects_partials_index from "./routes/projects/partials/index.tsx";
-import * as $projects_partials_project_id_ from "./routes/projects/partials/project/[id].tsx";
-import * as $projects_project_id_ from "./routes/projects/project/[id].tsx";
+import * as $projects_partials_newProject from "./routes/projects/partials/newProject.tsx";
 import * as $teams_layout from "./routes/teams/_layout.tsx";
 import * as $teams_index from "./routes/teams/index.tsx";
 import * as $teams_newTeam from "./routes/teams/newTeam.tsx";
 import * as $teams_partials_index from "./routes/teams/partials/index.tsx";
-import * as $user_account_layout from "./routes/user/account/_layout.tsx";
-import * as $user_account_forgotpassword from "./routes/user/account/forgotpassword.tsx";
-import * as $user_account_login from "./routes/user/account/login.tsx";
-import * as $user_account_signup from "./routes/user/account/signup.tsx";
-import * as $user_profile_id_ from "./routes/user/profile/[id].tsx";
-import * as $user_profile_layout from "./routes/user/profile/_layout.tsx";
+import * as $teams_partials_newTeam from "./routes/teams/partials/newTeam.tsx";
 import * as $Counter from "./islands/Counter.tsx";
+import * as $Edit_EditImages from "./islands/Edit/EditImages.tsx";
+import * as $Edit_EditLayout from "./islands/Edit/EditLayout.tsx";
+import * as $Edit_EditSideNav from "./islands/Edit/EditSideNav.tsx";
+import * as $Edit_EditTools from "./islands/Edit/EditTools.tsx";
+import * as $Edit_forms_profile from "./islands/Edit/forms/profile.tsx";
+import * as $Edit_forms_projects_budget from "./islands/Edit/forms/projects/budget.tsx";
+import * as $Edit_forms_projects_job from "./islands/Edit/forms/projects/job.tsx";
+import * as $Edit_forms_projects_projects from "./islands/Edit/forms/projects/projects.tsx";
+import * as $Edit_forms_projects_timeline from "./islands/Edit/forms/projects/timeline.tsx";
+import * as $Edit_forms_team from "./islands/Edit/forms/team.tsx";
 import * as $ExploreFilter from "./islands/ExploreFilter.tsx";
 import * as $Navbar_GuestNav from "./islands/Navbar/GuestNav.tsx";
 import * as $Navbar_Navbar from "./islands/Navbar/Navbar.tsx";
-import * as $Navbar_ProfileModal from "./islands/Navbar/ProfileModal.tsx";
 import * as $Navbar_SideNav from "./islands/Navbar/SideNav.tsx";
 import * as $Navbar_UserNav from "./islands/Navbar/UserNav.tsx";
+import * as $Navbar_profileModal_Profile from "./islands/Navbar/profileModal/Profile.tsx";
+import * as $Navbar_profileModal_ProfileModal from "./islands/Navbar/profileModal/ProfileModal.tsx";
+import * as $Navbar_profileModal_Profiles from "./islands/Navbar/profileModal/Profiles.tsx";
+import * as $Navbar_profileModal_UserNav from "./islands/Navbar/profileModal/UserNav.tsx";
+import * as $Navbar_profileModal_UserSwitch from "./islands/Navbar/profileModal/UserSwitch.tsx";
 import * as $Navbar_utils from "./islands/Navbar/utils.ts";
+import * as $Teams_NewTeam from "./islands/Teams/NewTeam.tsx";
 import * as $Teams_Teams from "./islands/Teams/Teams.tsx";
 import * as $Test from "./islands/Test.tsx";
 import * as $Textbox from "./islands/Textbox.tsx";
@@ -115,7 +139,9 @@ import * as $explore_ExploreFilter from "./islands/explore/ExploreFilter.tsx";
 import * as $explore_ProjectDetails from "./islands/explore/ProjectDetails.tsx";
 import * as $explore_ProjectList from "./islands/explore/ProjectList.tsx";
 import * as $profile_edit from "./islands/profile/edit.tsx";
+import * as $profile_layout from "./islands/profile/layout.tsx";
 import * as $profile_profile from "./islands/profile/profile.tsx";
+import * as $projects_NewProject from "./islands/projects/NewProject.tsx";
 import * as $projects_ProjectChatList from "./islands/projects/ProjectChatList.tsx";
 import * as $projects_ProjectMessages from "./islands/projects/ProjectMessages.tsx";
 import * as $projects_ProjectsHeader from "./islands/projects/ProjectsHeader.tsx";
@@ -156,9 +182,24 @@ const manifest = {
     "./routes/api/chats/[id]/messages.ts": $api_chats_id_messages,
     "./routes/api/chats/[id]/subscribe.ts": $api_chats_id_subscribe,
     "./routes/api/chats/index.ts": $api_chats_index,
+    "./routes/api/files/[id].ts": $api_files_id_,
+    "./routes/api/files/index.ts": $api_files_index,
+    "./routes/api/files/process/image/proxy.ts": $api_files_process_image_proxy,
+    "./routes/api/files/process/image/resize.ts":
+      $api_files_process_image_resize,
+    "./routes/api/projects/index.ts": $api_projects_index,
+    "./routes/api/projects/newProject.ts": $api_projects_newProject,
+    "./routes/api/teams/[id]/index.ts": $api_teams_id_index,
+    "./routes/api/teams/[id]/login.ts": $api_teams_id_login,
+    "./routes/api/teams/index.ts": $api_teams_index,
+    "./routes/api/teams/logged.ts": $api_teams_logged,
+    "./routes/api/teams/logout.ts": $api_teams_logout,
     "./routes/api/test.ts": $api_test,
     "./routes/api/user/[id].ts": $api_user_id_,
     "./routes/api/user/index.ts": $api_user_index,
+    "./routes/api/user/projects/[id]/chats.ts": $api_user_projects_id_chats,
+    "./routes/api/user/projects/[id]/index.ts": $api_user_projects_id_index,
+    "./routes/api/user/projects/index.ts": $api_user_projects_index,
     "./routes/dashboard/index.tsx": $dashboard_index,
     "./routes/explore/_layout.tsx": $explore_layout,
     "./routes/explore/index.tsx": $explore_index,
@@ -213,6 +254,7 @@ const manifest = {
     "./routes/projects/[project]/timeline.tsx": $projects_project_timeline,
     "./routes/projects/_layout.tsx": $projects_layout,
     "./routes/projects/index.tsx": $projects_index,
+    "./routes/projects/newProject.tsx": $projects_newProject,
     "./routes/projects/partials/[project]/description.tsx":
       $projects_partials_project_description,
     "./routes/projects/partials/[project]/index.tsx":
@@ -220,29 +262,39 @@ const manifest = {
     "./routes/projects/partials/[project]/timeline.tsx":
       $projects_partials_project_timeline,
     "./routes/projects/partials/index.tsx": $projects_partials_index,
-    "./routes/projects/partials/project/[id].tsx":
-      $projects_partials_project_id_,
-    "./routes/projects/project/[id].tsx": $projects_project_id_,
+    "./routes/projects/partials/newProject.tsx": $projects_partials_newProject,
     "./routes/teams/_layout.tsx": $teams_layout,
     "./routes/teams/index.tsx": $teams_index,
     "./routes/teams/newTeam.tsx": $teams_newTeam,
     "./routes/teams/partials/index.tsx": $teams_partials_index,
-    "./routes/user/account/_layout.tsx": $user_account_layout,
-    "./routes/user/account/forgotpassword.tsx": $user_account_forgotpassword,
-    "./routes/user/account/login.tsx": $user_account_login,
-    "./routes/user/account/signup.tsx": $user_account_signup,
-    "./routes/user/profile/[id].tsx": $user_profile_id_,
-    "./routes/user/profile/_layout.tsx": $user_profile_layout,
+    "./routes/teams/partials/newTeam.tsx": $teams_partials_newTeam,
   },
   islands: {
     "./islands/Counter.tsx": $Counter,
+    "./islands/Edit/EditImages.tsx": $Edit_EditImages,
+    "./islands/Edit/EditLayout.tsx": $Edit_EditLayout,
+    "./islands/Edit/EditSideNav.tsx": $Edit_EditSideNav,
+    "./islands/Edit/EditTools.tsx": $Edit_EditTools,
+    "./islands/Edit/forms/profile.tsx": $Edit_forms_profile,
+    "./islands/Edit/forms/projects/budget.tsx": $Edit_forms_projects_budget,
+    "./islands/Edit/forms/projects/job.tsx": $Edit_forms_projects_job,
+    "./islands/Edit/forms/projects/projects.tsx": $Edit_forms_projects_projects,
+    "./islands/Edit/forms/projects/timeline.tsx": $Edit_forms_projects_timeline,
+    "./islands/Edit/forms/team.tsx": $Edit_forms_team,
     "./islands/ExploreFilter.tsx": $ExploreFilter,
     "./islands/Navbar/GuestNav.tsx": $Navbar_GuestNav,
     "./islands/Navbar/Navbar.tsx": $Navbar_Navbar,
-    "./islands/Navbar/ProfileModal.tsx": $Navbar_ProfileModal,
     "./islands/Navbar/SideNav.tsx": $Navbar_SideNav,
     "./islands/Navbar/UserNav.tsx": $Navbar_UserNav,
+    "./islands/Navbar/profileModal/Profile.tsx": $Navbar_profileModal_Profile,
+    "./islands/Navbar/profileModal/ProfileModal.tsx":
+      $Navbar_profileModal_ProfileModal,
+    "./islands/Navbar/profileModal/Profiles.tsx": $Navbar_profileModal_Profiles,
+    "./islands/Navbar/profileModal/UserNav.tsx": $Navbar_profileModal_UserNav,
+    "./islands/Navbar/profileModal/UserSwitch.tsx":
+      $Navbar_profileModal_UserSwitch,
     "./islands/Navbar/utils.ts": $Navbar_utils,
+    "./islands/Teams/NewTeam.tsx": $Teams_NewTeam,
     "./islands/Teams/Teams.tsx": $Teams_Teams,
     "./islands/Test.tsx": $Test,
     "./islands/Textbox.tsx": $Textbox,
@@ -264,7 +316,9 @@ const manifest = {
     "./islands/explore/ProjectDetails.tsx": $explore_ProjectDetails,
     "./islands/explore/ProjectList.tsx": $explore_ProjectList,
     "./islands/profile/edit.tsx": $profile_edit,
+    "./islands/profile/layout.tsx": $profile_layout,
     "./islands/profile/profile.tsx": $profile_profile,
+    "./islands/projects/NewProject.tsx": $projects_NewProject,
     "./islands/projects/ProjectChatList.tsx": $projects_ProjectChatList,
     "./islands/projects/ProjectMessages.tsx": $projects_ProjectMessages,
     "./islands/projects/ProjectsHeader.tsx": $projects_ProjectsHeader,

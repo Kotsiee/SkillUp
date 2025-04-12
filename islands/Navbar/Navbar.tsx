@@ -6,7 +6,7 @@ import GuestNavbar from "./GuestNav.tsx";
 import { useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
 
 export default function NavBar({ pageProps }: { pageProps: PageProps }) {
-  const { user } = useUser();
+  const { user, team } = useUser();
   const isNavbarOpen = useSignal<boolean>(getNavbarState());
 
   return (
@@ -14,7 +14,7 @@ export default function NavBar({ pageProps }: { pageProps: PageProps }) {
       <link rel="stylesheet" href="/styles/islands/navbar.css" />
       <style>{`:root { --header-side-width-desktop: ${isNavbarOpen.value ? 300 : 76}px; }`}</style>
 
-      {user ? <UserNavbar pageProps={pageProps} user={user}/> : <GuestNavbar />}
+      {user ? <UserNavbar pageProps={pageProps} user={user} team={team}/> : <GuestNavbar />}
     </div>
   );
 }

@@ -1,10 +1,16 @@
-import { PageProps } from "$fresh/server.ts";
+import { defineLayout } from '$fresh/server.ts';
+import ProfileLayout from '../../islands/profile/layout.tsx';
+import { fetchProfile } from '../../lib/api/misc/profile.ts';
 
-export default function Layout(pageProps: PageProps) {
+export default defineLayout(async (req, ctx) => {
+  const account = await fetchProfile(ctx.params.user);
+  (ctx.state! as any).account = account;
+
   return (
-    <div f-client-nav>
+    <div class="layout">
       <link rel="stylesheet" href="/styles/pages/profile/profile.css" />
-      <pageProps.Component />
+      <ProfileLayout account={account} />
+      <ctx.Component />
     </div>
   );
-}
+});

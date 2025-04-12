@@ -1,20 +1,20 @@
-:root {  
+:root {
     --weight-light: 300;
     --weight-normal: 400;
     --weight-bold: 600;
     --weight-black: 800;
-  
+
     --border-radius: 16px;
     --border-radius-large: 24px;
     --border-radius-small: 8px;
     --border-radius-smaller: 4px;
-  
-    --easing: cubic-bezier(.0,.8,.5,2);
-  
+
+    --easing: cubic-bezier(.0, .8, .5, 2);
+
     --header-height-desktop: 56px;
-  
+
     --width-transition: 400ms;
-  
+
     --text-white: hsl(0, 0%, 90%);
     --text-black: hsl(0, 0%, 10%);
 
@@ -65,7 +65,7 @@
     --modal-colour-darker: hsl(0, 0%, 70%);
     --modal-colour-light: hsl(0, 0%, 75%);
     --modal-colour-lighter: hsl(0, 0%, 70%);
-  
+
     --text-color-lightness: 10%;
     --text-color: hsl(0, 0%, var(--text-color-lightness));
     --text-color-hover: hsl(0, 0%, 15%);
@@ -76,10 +76,9 @@
     --nav-bg: hsl(0, 0%, 65%)
 }
 
-.dark-mode {
-    --bg-colour-primary: hsl(0, 0%, 10%);
+.dark-mode {--bg-colour-primary: hsl(0, 0%, 10%);
     --bg-colour-secondary: hsl(0, 0%, 4%);
- 
+
     --modal-colour: hsl(0, 0%, 15%);
     --modal-colour-dark: hsl(0, 0%, 12%);
     --modal-colour-darker: hsl(0, 0%, 8%);
@@ -87,7 +86,8 @@
     --modal-colour-light: hsl(0, 0%, 17%);
     --modal-colour-lighter: hsl(0, 0%, 20%);
     --modal-colour-lighterer: hsl(0, 0%, 25%);
-  
+    --modal-colour-lightererer: hsl(0, 0%, 30%);
+
     --text-color-lightness: 90%;
     --text-color: hsl(0, 0%, var(--text-color-lightness));
     --text-color-hover: hsl(0, 0%, 80%);

@@ -4,7 +4,7 @@ import { fetchChatByID } from "../../../../lib/api/messages/chats.ts";
 
 export const handler: Handlers = {
   async GET(_req, ctx) {
-    const chats = await fetchChatByID(ctx.params.chatId)
+    const chats = await fetchChatByID(ctx.params.id)
 
     return new Response(superjson.stringify(chats), {
       headers: { "Content-Type": "application/json" },

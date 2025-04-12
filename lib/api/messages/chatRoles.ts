@@ -6,7 +6,8 @@ import { fetchUserByID } from "../user/user.ts";
 
 export async function fetchChatRole(userId: string, chatId: string, simplify?: boolean): Promise<ChatRoles | null> {
     const { data, error } = await supabase
-        .from("messages.roles")
+    .schema("messages")
+        .from("roles")
         .select('*, chat_id(*)')
         .eq('user_id', userId)
         .eq('chat_id', chatId)
@@ -30,7 +31,8 @@ export async function fetchChatRole(userId: string, chatId: string, simplify?: b
 
 export async function fetchChatRolesByUserID(userId: string, simplify?: boolean): Promise<ChatRoles[] | null> {
     const { data, error } = await supabase
-        .from("messages.roles")
+    .schema("messages")
+        .from("roles")
         .select('*')
         .eq('user_id', userId)
 
@@ -56,7 +58,8 @@ export async function fetchChatRolesByUserID(userId: string, simplify?: boolean)
 
 export async function fetchChatRolesByChatID(chatId: string, simplify?: boolean): Promise<ChatRoles[] | null> {
     const { data, error } = await supabase
-        .from("messages.roles")
+        .schema("messages")
+        .from("roles")
         .select('*, chat_id(*)')
         .eq('chat_id', chatId)
 

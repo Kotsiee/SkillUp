@@ -1,4 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
+import { User, Files } from "../../../lib/types/index.ts";
 import { identifyFile } from "../../../lib/utils/fileDetector.ts";
 
 export function processFile(
@@ -40,7 +41,7 @@ export function processFile(
 export async function fetchStorageFiles(fileType?: string) {
   try {
     const response = await fetch(
-      `/api/storage/files${
+      `/api/files${
         fileType ? `?types=${fileType.replace(" ", "+")}` : ""
       }`,
     );
@@ -56,7 +57,7 @@ export async function uploadFile(file: any) {
   body.set("file", JSON.stringify(file));
 
   try {
-    await fetch("/api/storage/files", {
+    await fetch("/api/files", {
       method: "POST",
       body: body,
     });

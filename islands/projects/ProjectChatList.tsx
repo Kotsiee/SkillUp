@@ -2,6 +2,7 @@ import { useEffect, useState } from "preact/hooks";
 import { Skeleton } from "../../components/Skeletons.tsx";
 import ChatCard from "../../components/cards/ChatCard.tsx";
 import type { PageProps } from "$fresh/server.ts";
+import { User, Chat } from "../../lib/types/index.ts";
 
 export default function ChatList({user} : {pageProps: PageProps, user: User | null}) {
   const [chats, setChats] = useState<Chat[]>([]);

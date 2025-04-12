@@ -1,0 +1,101 @@
+@import '../../components/FileUploader/main.css';
+@import '../../components/optionSwitch.css';
+@import '../../components//timeline/main.css';
+
+.editLayout {
+    padding: 20px;
+    display: flex;
+    width: 100%;
+
+    .side-nav {
+        margin-right: 20px;
+        width: 100%;
+        max-width: 250px;
+
+        ul {
+            position: sticky;
+            top: 60px;
+
+            li {
+                width: 100%;
+                display: flex;
+
+                a {
+                    text-decoration: none;
+                    padding: 4px 16px;
+                    padding-right: 100px;
+                    width: 100%;
+                    border-radius: var(--border-radius-smaller);
+
+                    &.active {
+                        background-color: hsla(var(--primary-hue), var(--primary-saturation), var(--primary-lightness), 0.5);
+                    }
+
+                }
+            }
+        }
+    }
+
+    .content {
+        position: relative;
+        width: 100%;
+
+        section {
+            border-radius: var(--border-radius);
+            background-color: var(--modal-colour-dark);
+            padding: 28px 40px;
+            margin-bottom: 40px;
+
+            .textbox {
+                margin: 12px 0;
+
+                .tb-title {
+                    font-size: 0.8em;
+                    color: var(--text-color-dark-hover);
+                    margin-bottom: 4px;
+                    margin-left: 12px;
+                }
+
+                textarea {
+                    width: 100%;
+                }
+
+                .text-input {
+                    background-color: hsla(0, 0%, 50%, 0.1);
+                    border-radius: var(--border-radius-smaller);
+                    padding: 4px 12px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    .new-attachments {
+        .new-attachment {
+            display: flex;
+
+            .new-attachment-label {
+                padding: 8px 20px;
+                font-size: 0.8;
+                font-weight: var(--weight-bold);
+                color: var(--text-color-dark);
+                text-align: center;
+                cursor: pointer;
+                border-radius: var(--border-radius-small);
+                background-color: var(--modal-colour-light);
+
+                &:hover {
+                    background-color: var(--modal-colour-lighter);
+                    color: var(--text-color-dark-hover);
+                }
+            }
+        }
+
+        .new-files {
+            padding-top: 12px;
+            display: flex;
+            overflow-x: scroll;
+            gap: 12px;
+        }
+    }
+}

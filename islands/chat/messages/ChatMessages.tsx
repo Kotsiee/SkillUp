@@ -11,7 +11,7 @@ export default function ChatMessages({ pageProps }: { pageProps: PageProps }) {
   useEffect(() => {
     const fetchChat = async () => {
       try {
-        const response = await fetch(`/api/chats/${pageProps.params.chatid}/chat`);
+        const response = await fetch(`/api/chats/${pageProps.params.chatid}`);
         if (!response.ok) throw new Error("Failed to fetch chat data");
         const { json } = await response.json();
         setChat(json);

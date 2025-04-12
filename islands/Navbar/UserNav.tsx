@@ -1,14 +1,20 @@
-import { PageProps } from "$fresh/server.ts";
-import { useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
-import AIcon, { Icons } from "../../components/Icons.tsx";
-import { getNavbarState, toggleNavbar } from "./utils.ts";
-import ProfileModal from "./ProfileModal.tsx";
-import UserSideNav from "./SideNav.tsx";
-import { User } from "../../lib/types/index.ts";
+import { PageProps } from '$fresh/server.ts';
+import { useSignal } from 'https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js';
+import AIcon, { Icons } from '../../components/Icons.tsx';
+import { getNavbarState, toggleNavbar } from './utils.ts';
+import ProfileModal from './profileModal/ProfileModal.tsx';
+import UserSideNav from './SideNav.tsx';
+import { Team, User } from '../../lib/types/index.ts';
 
-export default function UserNavbar(
-  { pageProps, user }: { pageProps: PageProps; user: User },
-) {
+export default function UserNavbar({
+  pageProps,
+  user,
+  team,
+}: {
+  pageProps: PageProps;
+  user: User;
+  team: Team;
+}) {
   if (!user) return null;
 
   const isNavbarOpen = useSignal<boolean>(getNavbarState());
@@ -40,22 +46,38 @@ export default function UserNavbar(
         {/* Right Section - User Profile */}
         <div class="nav-list nav-right">
           <div class="user-options">
-            <img
-              onClick={() => openProfileModal.value = !openProfileModal.value}
-              class="profilePic"
-              src={user?.profilePicture?.small?.publicURL}
-              alt="Profile"
-            />
-            <ProfileModal isOpen={openProfileModal} user={user} />
+            {team ? (
+              <div class="logo-container">
+                <img
+                  onClick={() => (openProfileModal.value = !openProfileModal.value)}
+                  class="logo"
+                  src={team?.logo?.small?.publicURL}
+                  alt="logo"
+                />
+
+                <img
+                  onClick={() => (openProfileModal.value = !openProfileModal.value)}
+                  class="teamProfilePic"
+                  src={user?.profilePicture?.small?.publicURL}
+                  alt="Profile"
+                />
+              </div>
+            ) : (
+              <img
+                onClick={() => (openProfileModal.value = !openProfileModal.value)}
+                class="profilePic"
+                src={user?.profilePicture?.small?.publicURL}
+                alt="Profile"
+              />
+            )}
+
+            <ProfileModal isOpen={openProfileModal} user={user} team={team} />
           </div>
         </div>
       </div>
 
       {/* Side Navigation for Logged-in Users */}
-      <UserSideNav
-        pageProps={pageProps}
-        isNavbarOpen={isNavbarOpen}
-      />
+      <UserSideNav pageProps={pageProps} isNavbarOpen={isNavbarOpen} />
     </nav>
   );
 }

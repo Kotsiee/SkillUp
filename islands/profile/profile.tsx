@@ -1,59 +1,28 @@
-import AIcon from "../../components/Icons.tsx";
-import { Icons } from "../../components/Icons.tsx";
-import { useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
-import { User } from "../../lib/types/index.ts";
+import AIcon from '../../components/Icons.tsx';
+import { Icons } from '../../components/Icons.tsx';
+import { useSignal } from 'https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js';
+import { AccountProfile } from '../../lib/types/index.ts';
 
-export default function ProfilePage({ user }: { user: User }) {
-  const tab = useSignal<string>("posts");
+export default function ProfilePage({ account }: { account: AccountProfile }) {
+  const tab = useSignal<string>('posts');
 
   return (
     <div>
-      <ul class="profile-nav">
-        <li>
-          <a
-            href={`/${user.username}/view`}
-            f-partial={`/${user.username}/partial/view`}
-          >
-            View
-          </a>
-        </li>
-        <li>
-          <a
-            href={`/${user.username}/edit`}
-            f-partial={`/${user.username}/partial/edit`}
-          >
-            Edit
-          </a>
-        </li>
-        <li>
-          <a
-            href={`/${user.username}/manage`}
-            f-partial={`/${user.username}/partial/manage`}
-          >
-            Manage
-          </a>
-        </li>
-      </ul>
       <div class="profileLayout">
         <section class="banner">
           <img
             class="banner-img"
             src="https://letsenhance.io/static/a31ab775f44858f1d1b80ee51738f4f3/11499/EnhanceAfter.jpg"
           />
-          <img
-            class="profile-img"
-            src={user.profilePicture?.large?.publicURL}
-          />
+          <img class="profile-img" src={account.profile.logo?.large?.publicURL} />
         </section>
         <section class="user-info">
           <div class="user-info-container">
             <div class="contents">
               <div class="details">
-                <h3>{`${user.firstName} ${user.lastName}`}</h3>
-                <p>@{user.username}</p>
-                <p>
-                  Software Developer | C#, Unity, C++, Unreal | Tech Enthusiast
-                </p>
+                <h3>{account.profile.name}</h3>
+                <p>@{account.profile.handle}</p>
+                <p>Software Developer | C#, Unity, C++, Unreal | Tech Enthusiast</p>
               </div>
 
               <div class="actions">
@@ -86,8 +55,8 @@ export default function ProfilePage({ user }: { user: User }) {
                   id="posts"
                   value="posts"
                   hidden
-                  checked={tab.value == "posts"}
-                  onChange={(val) => {
+                  checked={tab.value == 'posts'}
+                  onChange={val => {
                     tab.value = val.currentTarget.value;
                   }}
                 />
@@ -100,9 +69,9 @@ export default function ProfilePage({ user }: { user: User }) {
                   name="activity-select"
                   id="projects"
                   value="projects"
-                  checked={tab.value == "projects"}
+                  checked={tab.value == 'projects'}
                   hidden
-                  onChange={(val) => {
+                  onChange={val => {
                     tab.value = val.currentTarget.value;
                   }}
                 />
@@ -115,9 +84,9 @@ export default function ProfilePage({ user }: { user: User }) {
                   name="activity-select"
                   id="experience"
                   value="experience"
-                  checked={tab.value == "experience"}
+                  checked={tab.value == 'experience'}
                   hidden
-                  onChange={(val) => {
+                  onChange={val => {
                     tab.value = val.currentTarget.value;
                   }}
                 />
@@ -130,9 +99,9 @@ export default function ProfilePage({ user }: { user: User }) {
                   name="activity-select"
                   id="teams"
                   value="teams"
-                  checked={tab.value == "teams"}
+                  checked={tab.value == 'teams'}
                   hidden
-                  onChange={(val) => {
+                  onChange={val => {
                     tab.value = val.currentTarget.value;
                   }}
                 />
@@ -141,16 +110,8 @@ export default function ProfilePage({ user }: { user: User }) {
             </ul>
 
             <div class="filter">
-              <AIcon
-                startPaths={Icons.Search}
-                size={20}
-                className="search-icon"
-              />
-              <AIcon
-                startPaths={Icons.Filter}
-                size={20}
-                className="filter-icon"
-              />
+              <AIcon startPaths={Icons.Search} size={20} className="search-icon" />
+              <AIcon startPaths={Icons.Filter} size={20} className="filter-icon" />
             </div>
           </div>
 
@@ -165,13 +126,13 @@ export default function ProfilePage({ user }: { user: User }) {
 
 const ActivityTab = (props: { tab: string }) => {
   switch (props.tab) {
-    case "posts":
+    case 'posts':
       return <div class="actvity-posts">Posts</div>;
-    case "projects":
+    case 'projects':
       return <div class="actvity-projects">Projects</div>;
-    case "experience":
+    case 'experience':
       return <div class="actvity-experience">XP</div>;
-    case "teams":
+    case 'teams':
       return <div class="actvity-teams">Teams</div>;
 
     default:

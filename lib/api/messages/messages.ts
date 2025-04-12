@@ -8,7 +8,8 @@ import { fetchChatByID } from "./chats.ts";
 
 export async function fetchMessagesByChat(chatId: string, hasAttachment?: boolean): Promise<Messages[] | null> {
     let query = supabase
-    .from("messages.messages")
+    .schema("messages")
+    .from("messages")
     .select('*, chat_id(*)')
     .eq('chat_id', chatId)
     .order('sent_at', {ascending: true})
@@ -21,7 +22,7 @@ export async function fetchMessagesByChat(chatId: string, hasAttachment?: boolea
 
 
     if(error){
-        console.log("fetchMessagesByChat: error was found :( - " + error);
+        console.log("fetchMessagesByChat: error was found :( - " + error.message);
         return null;
     }
 
@@ -57,7 +58,8 @@ export async function fetchMessagesByChat(chatId: string, hasAttachment?: boolea
 
 export async function newMessage(msg: Messages, accessToken: string): Promise<Messages | null> {
     const { data, error } = await supabase
-    .from("messages.messages")
+    .schema("messages")
+    .from("messages")
     .insert([
         {
             id: msg.id,

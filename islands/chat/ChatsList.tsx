@@ -32,7 +32,7 @@ export default function ChatList({pageProps} : {pageProps: PageProps}) {
         )
         : (
           <ul>
-            {chats.map((chat, _index) => {
+            {chats?.map((chat, _index) => {
               return ( <ChatCard chat={chat} user={user} /> );
             })}
           </ul>

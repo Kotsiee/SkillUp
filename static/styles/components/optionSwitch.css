@@ -1,0 +1,39 @@
+.option-switch-container {
+    position: relative;
+    width: max-content;
+
+    .option-switch {
+        position: relative;
+        display: flex;
+        background-color: var(--modal-colour-light);
+        border-radius: 20px;
+        overflow: hidden;
+
+        .switch-box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 50%;
+            /* assumes 2 options */
+            background-color: var(--primary-colour);
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+            z-index: 0;
+        }
+
+        .options {
+            display: flex;
+            position: relative;
+            z-index: 1;
+
+            .option-wrapper {
+                padding: 6px 20px;
+                text-align: center;
+                width: 100%;
+                cursor: pointer;
+                flex: 1;
+            }
+        }
+    }
+}

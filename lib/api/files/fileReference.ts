@@ -79,6 +79,8 @@ export async function insertFileReference(
       console.log("fetchFileReference: error was found :( - " + error.message);
       return null;
     }
+
+    console.log(data)
   
     await fetchFileById(user, data.file_id);
     const ref: FileReference = {

@@ -1,0 +1,121 @@
+@import './budget.css';
+
+.new-job-btn {
+    display: flex;
+
+    p {
+        padding: 8px 20px;
+        font-size: 0.8;
+        font-weight: var(--weight-bold);
+        color: var(--text-color-dark);
+        text-align: center;
+        cursor: pointer;
+        border-radius: var(--border-radius-small);
+        background-color: var(--modal-colour-light);
+
+        &:hover {
+            background-color: var(--modal-colour-lighter);
+            color: var(--text-color-dark-hover);
+        }
+    }
+}
+
+.new-job-modal-container {
+    position: fixed;
+    z-index: 11;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    .back {
+        background-color: hsla(0, 0%, 0%, 0.6);
+        height: 100%;
+        width: 100%;
+
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+    }
+
+    .new-job-modal {
+        position: absolute;
+        background-color: var(--modal-colour);
+        width: 90vw;
+        height: 100vh;
+        right: 0;
+        overflow: auto;
+    }
+}
+
+body:has(.new-job-modal-container) {
+    overflow: hidden;
+}
+
+.job-card {
+    border-radius: var(--border-radius);
+    background-color: var(--modal-colour);
+    padding: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+
+    .job-card-header {
+        .job-card-title {}
+
+        .job-card-desc {}
+    }
+
+    .job-card-dates {
+        margin-top: 16px;
+
+        .job-card-dates-header {
+            font-size: 0.7em;
+            font-weight: var(--weight-bold);
+            color: var(--text-color-dark);
+        }
+
+        .job-card-dates-data {
+            font-size: 0.8em;
+            font-weight: var(--weight-light);
+        }
+    }
+
+    .job-card-tasks {
+        margin-top: 16px;
+
+        .job-card-tasks-header {
+            font-size: 0.7em;
+            font-weight: var(--weight-bold);
+            color: var(--text-color-dark);
+        }
+
+        .job-card-tasks-data {
+            font-size: 0.8em;
+            font-weight: var(--weight-light);
+        }
+    }
+
+    .job-card-metrics {
+        margin-top: 16px;
+
+        .job-card-metrics-header {
+            font-size: 0.7em;
+            font-weight: var(--weight-bold);
+            color: var(--text-color-dark);
+        }
+
+        .job-card-metrics-data p {
+            font-size: 0.8em;
+            font-weight: var(--weight-light);
+
+            b {
+                color: var(--tertiary-colour)
+            }
+        }
+    }
+
+    &:hover {
+        background-color: var(--modal-colour-light);
+    }
+}

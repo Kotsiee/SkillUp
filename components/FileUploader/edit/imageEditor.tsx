@@ -1,19 +1,23 @@
 // deno-lint-ignore-file no-explicit-any
-import { Signal, useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
-import { useEffect, useImperativeHandle, useRef } from "preact/hooks";
-import CircleCrop from "./cropper.tsx";
-import LabelSlider from "../../LabelSlider.tsx";
-import AIcon, { Icons } from "../../Icons.tsx";
+import {
+  Signal,
+  useSignal,
+} from 'https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js';
+import { useEffect, useImperativeHandle, useRef } from 'preact/hooks';
+import CircleCrop from './cropper.tsx';
+import LabelSlider from '../../Sliders/LabelSlider.tsx';
+import AIcon, { Icons } from '../../Icons.tsx';
+import { EditFile, Files } from '../../../lib/types/index.ts';
 
 interface EditImageProps {
   selectedFile: Files;
-  modificationHistory: Signal<editFile[]>;
+  modificationHistory: Signal<EditFile[]>;
   onSave?: (image?: string) => void;
 
   thisRef?: any;
 }
 
-export default function ImageEditor (props: EditImageProps) {
+export default function ImageEditor(props: EditImageProps) {
   const ref = useRef<any>(null);
   const { selectedFile, modificationHistory, onSave } = props;
 
@@ -28,9 +32,7 @@ export default function ImageEditor (props: EditImageProps) {
   // On component mount (or whenever `selectedFile` changes),
   // load transformations from modificationHistory if they exist
   useEffect(() => {
-    const existingEntry = modificationHistory.value.find((item) =>
-      item.file.id === selectedFile.id
-    );
+    const existingEntry = modificationHistory.value.find(item => item.file.id === selectedFile.id);
     const t = existingEntry?.transformations?.image;
 
     rotate.value = t?.rotation ?? 0;
@@ -45,7 +47,7 @@ export default function ImageEditor (props: EditImageProps) {
   useEffect(() => {
     // 1) Find or create the editFile entry
     const existingIndex = modificationHistory.value.findIndex(
-      (item) => item.file.id === selectedFile.id,
+      item => item.file.id === selectedFile.id
     );
 
     let newHistory = [...modificationHistory.value];
@@ -59,7 +61,7 @@ export default function ImageEditor (props: EditImageProps) {
     }
 
     // 2) Update transformations
-    newHistory = newHistory.map((item) => {
+    newHistory = newHistory.map(item => {
       if (item.file.id !== selectedFile.id) return item;
 
       return {
@@ -79,30 +81,23 @@ export default function ImageEditor (props: EditImageProps) {
     });
 
     modificationHistory.value = newHistory;
-  }, [
-    rotate.value,
-    scale.value,
-    flipX.value,
-    flipY.value,
-    lastPosX.value,
-    lastPosY.value,
-  ]);
+  }, [rotate.value, scale.value, flipX.value, flipY.value, lastPosX.value, lastPosY.value]);
 
   // Example "Save Changes" handler
   const handleSave = async () => {
     const existingIndex = modificationHistory.value.findIndex(
-      (item) => item.file.id === selectedFile.id,
+      item => item.file.id === selectedFile.id
     );
 
     if (existingIndex !== -1) {
       const image = await ref.current.generatePreview();
 
-      const updated = modificationHistory.value.map((item) =>
+      const updated = modificationHistory.value.map(item =>
         item.file.id === selectedFile.id
           ? {
-            ...item,
-            file: { ...item.file, publicURL: image, isUpload: true },
-          }
+              ...item,
+              file: { ...item.file, publicURL: image, isUpload: true },
+            }
           : item
       );
 
@@ -126,9 +121,11 @@ export default function ImageEditor (props: EditImageProps) {
         <div class="bed" />
         <CircleCrop
           size={300}
-          img={selectedFile.isUpload
-            ? selectedFile.publicURL
-            : `http://localhost:8000/api/image/proxy?url=${selectedFile.publicURL}`}
+          img={
+            selectedFile.isUpload
+              ? selectedFile.publicURL
+              : `http://localhost:8000/api/files/process/image/proxy?url=${selectedFile.publicURL}`
+          }
           zoom={scale}
           rotate={rotate}
           flipX={flipX}
@@ -156,8 +153,7 @@ export default function ImageEditor (props: EditImageProps) {
                 min={-180}
                 max={180}
                 step={1}
-                onInput={(val) =>
-                  rotate.value = Number.parseInt(val.currentTarget.value)}
+                onInput={val => (rotate.value = Number.parseInt(val.currentTarget.value))}
               />
               <p>°</p>
             </div>
@@ -166,7 +162,7 @@ export default function ImageEditor (props: EditImageProps) {
           <div class="fixed-rotate">
             <button
               onClick={() => {
-                if ((rotate.value - 90) <= -180) {
+                if (rotate.value - 90 <= -180) {
                   const remainer = 180 + (rotate.value - 90);
                   rotate.value = 180 - remainer;
                 } else {
@@ -179,7 +175,7 @@ export default function ImageEditor (props: EditImageProps) {
 
             <button
               onClick={() => {
-                if ((rotate.value + 90) >= 180) {
+                if (rotate.value + 90 >= 180) {
                   const remainer = 180 - (rotate.value + 90);
                   rotate.value = -180 + remainer;
                 } else {
@@ -190,13 +186,11 @@ export default function ImageEditor (props: EditImageProps) {
               <AIcon startPaths={Icons.Filter} size={16} />
             </button>
 
-            <button onClick={() => flipX.value = !flipX.value}>
+            <button onClick={() => (flipX.value = !flipX.value)}>
               <AIcon startPaths={Icons.Filter} size={16} />
             </button>
 
-            <button
-              onClick={() => flipY.value = !flipY.value}
-            >
+            <button onClick={() => (flipY.value = !flipY.value)}>
               <AIcon startPaths={Icons.Filter} size={16} />
             </button>
           </div>
@@ -216,8 +210,7 @@ export default function ImageEditor (props: EditImageProps) {
                 value={scale.value}
                 min={50}
                 max={200}
-                onInput={(val) =>
-                  scale.value = Number.parseInt(val.currentTarget.value)}
+                onInput={val => (scale.value = Number.parseInt(val.currentTarget.value))}
               />
               <p>%</p>
             </div>
@@ -226,4 +219,4 @@ export default function ImageEditor (props: EditImageProps) {
       </div>
     </div>
   );
-};
+}

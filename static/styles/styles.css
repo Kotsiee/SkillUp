@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Cookie&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import './variables.css';
+@import './skeltons.css';
 
 html {
   scroll-behavior: smooth;
@@ -17,11 +18,11 @@ html {
   font-family: Poppins, serif;
   color: var(--text-color);
   list-style: none;
-  transition: background-color 100ms, box-shadow 150ms, box-filter 250ms;
+  transition: background-color 100ms, color 100ms, box-shadow 150ms, box-filter 250ms;
   object-fit: cover;
 }
 
-body{
+body {
   background-color: var(--bg-colour-primary);
 }
 
@@ -33,7 +34,7 @@ body{
   stroke: var(--text-color);
 }
 
-.body{
+.body {
   position: absolute;
   min-height: calc(100% - var(--header-height-desktop));
   width: 100%;
@@ -45,22 +46,42 @@ body{
   left: var(--header-side-width-desktop);
 }
 
-h1{
+h1 {
   font-weight: var(--weight-black);
   font-size: 2.5em;
 }
 
-h2, h3, h4, h5, h6{
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: var(--weight-bold);
 }
 
-h2{ font-size: 2em; }
-h3{ font-size: 1.75em; }
-h4{ font-size: 1.5em; }
-h5{ font-size: 1.25em; }
-h6{ font-size: 1em; }
+h2 {
+  font-size: 2em;
+}
 
-input, button, textarea {
+h3 {
+  font-size: 1.75em;
+}
+
+h4 {
+  font-size: 1.5em;
+}
+
+h5 {
+  font-size: 1.25em;
+}
+
+h6 {
+  font-size: 1em;
+}
+
+input,
+button,
+textarea {
   border: none;
   outline: none;
 }
@@ -69,19 +90,23 @@ button {
   background: none;
 }
 
-a, button {
+a,
+button {
   cursor: pointer;
 }
 
 /* Scrollbar width */
 ::-webkit-scrollbar {
-  width: 6px; /* Vertical scrollbar width */
-  height: 6px; /* Horizontal scrollbar height */
+  width: 6px;
+  /* Vertical scrollbar width */
+  height: 6px;
+  /* Horizontal scrollbar height */
 }
 
 /* Track (the background) */
 ::-webkit-scrollbar-track {
-  background: #0000; /* Light grey background */
+  background: #0000;
+  /* Light grey background */
   border-radius: 10px;
 }
 

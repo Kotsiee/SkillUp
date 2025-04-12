@@ -1,24 +1,25 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import ProfilePage from "../../islands/profile/profile.tsx";
 import { Partial } from "$fresh/runtime.ts";
-import { fetchUserByUsername } from "../../lib/api/user/user.ts";
-import { User } from "../../lib/types/index.ts";
+import { AccountProfile, Team, User } from "../../lib/types/index.ts";
+import { fetchProfile } from "../../lib/api/misc/profile.ts";
 
-export const handler: Handlers<User | null> = {
+export const handler: Handlers<AccountProfile | null | undefined> = {
   async GET(_req, ctx) {
-    const user = await fetchUserByUsername(ctx.params.user);
+    const account = await fetchProfile(ctx.params.user);
 
-    return ctx.render(user);
+    return ctx.render(account);
   },
 };
 
-export default function Profile(props: PageProps<User | null>) {
+export default function Profile(props: PageProps<AccountProfile | null | undefined>) {
+  console.log(props.data)
   return (
     <Partial name="profile">
       {props.data
         ? (
           <div>
-            <ProfilePage user={props.data} />
+            <ProfilePage account={props.data} />
           </div>
         )
         : (

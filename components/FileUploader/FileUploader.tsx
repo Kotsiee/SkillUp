@@ -2,10 +2,11 @@
 import { useEffect, useImperativeHandle, useState } from "preact/hooks";
 import AIcon, { Icons } from "../../components/Icons.tsx";
 import UploadFile from "./UploadFile.tsx";
-import EditFile from "./EditFile.tsx";
+import EditFiles from "./EditFile.tsx";
 import ReviewFile from "./ReviewFile.tsx";
 import { fetchStorageFiles } from "./utils/FileUtils.ts";
 import { useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
+import { User, Files, EditFile } from "../../lib/types/index.ts";
 
 interface FileUploaderProps {
   multiple?: boolean;
@@ -32,7 +33,7 @@ export default function FileUploader({
   const selectedView = useSignal<string>("upload");
   const selectedFiles = useSignal<Files[]>([]);
   const uploadedFiles = useSignal<Files[]>([]);
-  const modificationHistory = useSignal<editFile[]>([]);
+  const modificationHistory = useSignal<EditFile[]>([]);
   const [storageFiles, setStorageFiles] = useState<Files[]>([]);
 
   const openModal = () => {
@@ -75,7 +76,7 @@ export default function FileUploader({
 
       case "edit":
         return (
-          <EditFile
+          <EditFiles
             selectedFiles={selectedFiles}
             modificationHistory={modificationHistory}
             selectedView={selectedView}

@@ -17,3 +17,5 @@ export * from './projects/tasks.ts';
 
 export * from './teams/teams.ts';
 export * from './teams/teamRoles.ts';
+
+export * from './misc/profile.ts';

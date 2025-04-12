@@ -22,19 +22,18 @@ export default function ChatLayout(
     ["description", "Description"],
   ];
 
-  if (!user) {
-    return <></>;
-  }
+  if (!user) return null;
 
   useEffect(() => {
     async function fetchMessages() {
-      const res = await fetch(`/api/chats/${pageProps.params.chatid}/chat`);
+      const res = await fetch(`/api/chats/${pageProps.params.chatid}`);
       const data = await res.json();
       const thisChat: Chat = data.json;
       setChat(thisChat);
     }
 
-    fetchMessages();
+    if (pageProps.params.chatid)
+      fetchMessages();
   }, [pageProps.params.chatid]);
 
   const getChatInfo = (type: "photo" | "name") => {
@@ -87,7 +86,7 @@ export default function ChatLayout(
     );
   }
 
-  return <></>;
+  return null;
 }
 
 const SelectView = (

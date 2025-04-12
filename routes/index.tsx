@@ -1,10 +1,7 @@
-import Test from "../islands/Test.tsx";
-
 export default function Home() {
   return (
     <div class="home">
       <link rel="stylesheet" href="/styles/test.css" />
-      <Test />
 
       <div class="coloursTest colours">
         <div id="col-1"></div>

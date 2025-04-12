@@ -13,7 +13,7 @@ export async function standardizeImage(
   const formData = new FormData();
   formData.set("url", url);
 
-  let apiURL = "/api/image/process";
+  let apiURL = "/api/files/process/image/resize";
   if (width || height || format) {
     apiURL += "?";
     if (width) apiURL += `w=${width}&`;

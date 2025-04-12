@@ -1,3 +1,5 @@
+import { ProjectRole } from "../../lib/types/index.ts";
+
 export default function ProjectCard({project}: { project: ProjectRole }) {
     return (
         <li class="chat-item">
@@ -19,7 +21,7 @@ const Card = ({project}: { project: ProjectRole}) => {
             </div>
             <div>
                 <p>{project.project?.title}</p>
-                <p className="lastMessage">{project.project?.organisation?.name}</p>
+                <p className="lastMessage">{project.project?.team?.name}</p>
             </div>
         </div>
     )

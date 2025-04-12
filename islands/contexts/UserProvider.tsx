@@ -1,7 +1,7 @@
 // deno-lint-ignore-file no-explicit-any
 import { createContext } from "preact";
 import { useContext, useEffect, useState } from "preact/hooks";
-import { User } from "../../lib/types/index.ts";
+import { Team, User } from "../../lib/types/index.ts";
 
 const UserContext = createContext<any>(null);
 
@@ -9,6 +9,7 @@ export function UserProvider(
   { children }: { children: preact.ComponentChildren },
 ) {
   const [user, setUser] = useState<User | null>(null);
+  const [team, setTeam] = useState<Team | null>(null);
 
   async function fetchUser(formData: FormData) {
     const response = await fetch(`/api/auth/login`, {method: 'POST', body: formData});
@@ -23,13 +24,13 @@ export function UserProvider(
 
   async function storeUser() {
     try {
-      const res = await fetch(`/api/auth/session`, {
+      const res = await fetch(`/api/auth/session?type=user`, {
         method: "GET",
         credentials: "include",
       });
       
       if (!res.ok) {
-        throw new Error(`HTTP Error ${res.status}: ${res.statusText}`);
+        throw new Error(`HTTP Error ${res.status}: ${res.statusText}`);   
       }
   
       const user = await res.json();
@@ -40,14 +41,38 @@ export function UserProvider(
     }
   }
 
+  async function storeTeam() {
+    try {
+      const res = await fetch(`/api/auth/session?type=team`, {
+        method: "GET",
+        credentials: "include",
+      });
+      
+      if (!res.ok) {
+        throw new Error(`HTTP Error ${res.status}: ${res.statusText}`);   
+      }
+  
+      const team = await res.json();
+      if (team)
+        setTeam(team);
+    }
+    catch (err: any) {
+      console.warn("Failed to fetch user:", err);
+    }
+  }
+
   useEffect(() => {
     if (!user) {
       storeUser()
     }
+
+    if (!team) {
+      storeTeam()
+    }
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, fetchUser, storeUser }}>
+    <UserContext.Provider value={{ user, team, fetchUser, storeUser }}>
       {children}
     </UserContext.Provider>
   );
