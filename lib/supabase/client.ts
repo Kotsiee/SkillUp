@@ -1,17 +1,17 @@
 // deno-lint-ignore-file no-explicit-any
-import "https://deno.land/std@0.224.0/dotenv/load.ts";
-import {
-  createClient,
-  SupabaseClient,
-} from "https://esm.sh/@supabase/supabase-js@2.47.10";
 
-export const supabaseUrl = Deno.env.get("SUPABASE_URL");
-const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY");
+// Only load .env locally (not on Deno Deploy)
+if (!Deno.env.get('DENO_DEPLOYMENT_ID')) {
+  await import('https://deno.land/std@0.224.0/dotenv/load.ts');
+}
+
+import { createClient, SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.47.10';
+
+export const supabaseUrl = Deno.env.get('SUPABASE_URL');
+const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY');
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    "Missing environment variables SUPABASE_URL or SUPABASE_ANON_KEY",
-  );
+  throw new Error('Missing environment variables SUPABASE_URL or SUPABASE_ANON_KEY');
 }
 
 export const supabase: SupabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
@@ -28,12 +28,10 @@ export class SupabaseInfo {
   }
 
   getUrl() {
-    // Safe abstraction of protected property
     return (this.client as any).supabaseUrl;
   }
 
   getAnonKey() {
-    // Safe abstraction of protected property
     return (this.client as any).supabaseKey;
   }
 }
