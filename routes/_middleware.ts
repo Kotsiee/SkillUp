@@ -5,9 +5,9 @@ import { getCookies } from '$std/http/cookie.ts';
 import { getSupabaseClient } from '../lib/supabase/client.ts';
 
 // const PROTECTED_ROUTES = ["/messages", "/projects", "/dashboard"]
-const kv = await Deno.openKv();
 
 export async function handler(req: Request, ctx: FreshContext) {
+  const kv = await Deno.openKv();
   const cookies = getCookies(req.headers);
   const session = cookies['session'];
 
