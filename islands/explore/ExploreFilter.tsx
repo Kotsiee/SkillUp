@@ -41,15 +41,6 @@ export default function ExploreFilters(
     return `${url.pathname}?${joinProjectFilter(outQuery)}`;
   };
 
-  useEffect(() => {
-    fetch('/api/auth/log', {
-      method: 'GET',
-      credentials: 'include',
-    })
-      .then(res => res.json())
-      .then(res => console.log(res));
-  }, []);
-
   return (
     <div class="explore-filter-container">
       <div class="explore-filter">

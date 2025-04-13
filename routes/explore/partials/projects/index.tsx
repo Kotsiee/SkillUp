@@ -1,7 +1,7 @@
 // deno-lint-ignore-file no-explicit-any
 import { PageProps } from '$fresh/server.ts';
 import { Partial } from '$fresh/runtime.ts';
-import ExploreProjects from '../../../islands/explore/Projects/ExploreProjects.tsx';
+import ExploreProjects from '../../../../islands/explore/Projects/ExploreProjects.tsx';
 
 export default function Projects(pageProps: PageProps) {
   return (

@@ -10,9 +10,13 @@ export interface Project {
   title?: string;
   description?: string;
   attachments?: Files[] | FileReference[];
+  is_public?: boolean;
+  status?: string;
+
+  startDate?: DateTime;
+  endDate?: DateTime;
   createdAt?: DateTime;
   updatedAt?: DateTime;
-  is_public?: boolean;
 
   totalBudget?: number; // Full budget
   budgetLocked?: number; // Budget in escrow. i.e., the money held by the platform until payout time
@@ -22,9 +26,7 @@ export interface Project {
   jobs?: Task[];
 
   meta?: {
-    startDate?: DateTime;
-    endDate?: DateTime;
-    no_contributors?: number;
+    no_submissions?: number;
   };
 }
 

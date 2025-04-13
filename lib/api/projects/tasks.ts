@@ -74,18 +74,12 @@ interface MetricTemplate {
 export async function newJob(task: Task, accessToken: string): Promise<Task | null> {
   const metrics: MetricTemplate = task.metrics ?? {};
 
-  const taskWeights: Record<string, number> = Object.values(metrics).reduce(
-    (acc: Record<string, number>, metric: MetricTemplateInner) => {
-      if (metric.tasks) {
-        for (const [taskName, weight] of Object.entries(metric.tasks)) {
-          if (weight != null) {
-            acc[taskName] = weight;
-          }
-        }
-      }
+  const metricWeights: Record<string, number> = Object.entries(metrics).reduce(
+    (acc, [metricName, metricData]) => {
+      acc[metricName] = metricData.weight;
       return acc;
     },
-    {}
+    {} as Record<string, number>
   );
 
   function extractTaskWeightsByMetric(
@@ -116,9 +110,9 @@ export async function newJob(task: Task, accessToken: string): Promise<Task | nu
         status: 'In Progress',
         start_date: task.startDate,
         end_date: task.endDate,
-        metrics: taskWeights,
+        metrics: metricWeights,
         budget_allocated: task.budgetAllocated,
-        hasTasks: task.tasks && task.tasks?.length > 0,
+        hasTasks: task.tasks && task.tasks?.length > 0 ? true : false,
       },
     ])
     .select('*')
@@ -168,8 +162,6 @@ export async function newTasks(task: Task, accessToken: string): Promise<Task | 
     console.log('newTasks: error was found :( - ' + error.message);
     return null;
   }
-
-  console.log(data);
 
   return data;
 }

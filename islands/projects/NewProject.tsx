@@ -38,22 +38,22 @@ export default function NewProject() {
           creativity: {
             weight: 0.3,
             tasks: {
-              '12345abcde': 0.3,
-              '1234abcd': 0.3,
+              '12345abcde': 0.5,
+              '1234abcd': 0.5,
             },
           },
           colour: {
             weight: 0.3,
             tasks: {
-              '12345abcde': 0.3,
+              '12345abcde': 0.2,
               '1234abcd': 0.3,
             },
           },
           relevance: {
             weight: 0.4,
             tasks: {
-              '12345abcde': 0.4,
-              '1234abcd': 0.4,
+              '12345abcde': 0.3,
+              '1234abcd': 0.2,
             },
           },
         },
@@ -87,13 +87,13 @@ export default function NewProject() {
 
         metrics: {
           creativity: {
-            weight: 0.3,
+            weight: 0.2,
           },
-          colour: {
-            weight: 0.3,
+          functionality: {
+            weight: 0.6,
           },
           relevance: {
-            weight: 0.4,
+            weight: 0.2,
           },
         },
       },
@@ -155,8 +155,6 @@ export default function NewProject() {
       totalBudget:
         editableProject.value?.jobs?.reduce((sum, job) => sum + (job.budgetAllocated ?? 0), 0) || 0,
     };
-
-    console.log(editableProject.value);
 
     const formData = new FormData();
     formData.set('project', JSON.stringify(editableProject.value));

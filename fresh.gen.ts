@@ -36,6 +36,7 @@ import * as $api_files_id_ from "./routes/api/files/[id].ts";
 import * as $api_files_index from "./routes/api/files/index.ts";
 import * as $api_files_process_image_proxy from "./routes/api/files/process/image/proxy.ts";
 import * as $api_files_process_image_resize from "./routes/api/files/process/image/resize.ts";
+import * as $api_projects_id_newRole from "./routes/api/projects/[id]/newRole.ts";
 import * as $api_projects_index from "./routes/api/projects/index.ts";
 import * as $api_projects_newProject from "./routes/api/projects/newProject.ts";
 import * as $api_teams_id_index from "./routes/api/teams/[id]/index.ts";
@@ -52,6 +53,7 @@ import * as $api_user_projects_index from "./routes/api/user/projects/index.ts";
 import * as $dashboard_index from "./routes/dashboard/index.tsx";
 import * as $explore_layout from "./routes/explore/_layout.tsx";
 import * as $explore_index from "./routes/explore/index.tsx";
+import * as $explore_partials_projects_index from "./routes/explore/partials/projects/index.tsx";
 import * as $explore_people_index from "./routes/explore/people/index.tsx";
 import * as $explore_posts_index from "./routes/explore/posts/index.tsx";
 import * as $explore_projects_index from "./routes/explore/projects/index.tsx";
@@ -137,7 +139,9 @@ import * as $contexts_KVProvider from "./islands/contexts/KVProvider.tsx";
 import * as $contexts_UserProvider from "./islands/contexts/UserProvider.tsx";
 import * as $explore_ExploreFilter from "./islands/explore/ExploreFilter.tsx";
 import * as $explore_ProjectDetails from "./islands/explore/ProjectDetails.tsx";
-import * as $explore_ProjectList from "./islands/explore/ProjectList.tsx";
+import * as $explore_Projects_ExploreProjects from "./islands/explore/Projects/ExploreProjects.tsx";
+import * as $explore_Projects_ExploreProjectsDetails from "./islands/explore/Projects/ExploreProjectsDetails.tsx";
+import * as $explore_Projects_ExploreProjectsList from "./islands/explore/Projects/ExploreProjectsList.tsx";
 import * as $profile_edit from "./islands/profile/edit.tsx";
 import * as $profile_layout from "./islands/profile/layout.tsx";
 import * as $profile_profile from "./islands/profile/profile.tsx";
@@ -187,6 +191,7 @@ const manifest = {
     "./routes/api/files/process/image/proxy.ts": $api_files_process_image_proxy,
     "./routes/api/files/process/image/resize.ts":
       $api_files_process_image_resize,
+    "./routes/api/projects/[id]/newRole.ts": $api_projects_id_newRole,
     "./routes/api/projects/index.ts": $api_projects_index,
     "./routes/api/projects/newProject.ts": $api_projects_newProject,
     "./routes/api/teams/[id]/index.ts": $api_teams_id_index,
@@ -203,6 +208,8 @@ const manifest = {
     "./routes/dashboard/index.tsx": $dashboard_index,
     "./routes/explore/_layout.tsx": $explore_layout,
     "./routes/explore/index.tsx": $explore_index,
+    "./routes/explore/partials/projects/index.tsx":
+      $explore_partials_projects_index,
     "./routes/explore/people/index.tsx": $explore_people_index,
     "./routes/explore/posts/index.tsx": $explore_posts_index,
     "./routes/explore/projects/index.tsx": $explore_projects_index,
@@ -314,7 +321,12 @@ const manifest = {
     "./islands/contexts/UserProvider.tsx": $contexts_UserProvider,
     "./islands/explore/ExploreFilter.tsx": $explore_ExploreFilter,
     "./islands/explore/ProjectDetails.tsx": $explore_ProjectDetails,
-    "./islands/explore/ProjectList.tsx": $explore_ProjectList,
+    "./islands/explore/Projects/ExploreProjects.tsx":
+      $explore_Projects_ExploreProjects,
+    "./islands/explore/Projects/ExploreProjectsDetails.tsx":
+      $explore_Projects_ExploreProjectsDetails,
+    "./islands/explore/Projects/ExploreProjectsList.tsx":
+      $explore_Projects_ExploreProjectsList,
     "./islands/profile/edit.tsx": $profile_edit,
     "./islands/profile/layout.tsx": $profile_layout,
     "./islands/profile/profile.tsx": $profile_profile,
