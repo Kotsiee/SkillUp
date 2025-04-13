@@ -1,12 +1,12 @@
 // deno-lint-ignore-file no-explicit-any
 import { DateTime } from 'https://esm.sh/luxon@3.5.0';
-import { supabase } from '../../supabase/client.ts';
+import { getSupabaseClient } from '../../supabase/client.ts';
 import { Task } from '../../types/index.ts';
 
 export async function fetchJobByID(id: string): Promise<Task | null> {
   if (!id) return null;
 
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .schema('projects')
     .from('jobs')
     .select('*')
@@ -32,7 +32,7 @@ export async function fetchJobByID(id: string): Promise<Task | null> {
 }
 
 export async function fetchJobsByProject(id: string): Promise<Task[] | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .schema('projects')
     .from('jobs')
     .select('*')
@@ -98,7 +98,7 @@ export async function newJob(task: Task, accessToken: string): Promise<Task | nu
     return result;
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .schema('projects')
     .from('jobs')
     .insert([
@@ -139,7 +139,7 @@ export async function newJob(task: Task, accessToken: string): Promise<Task | nu
 }
 
 export async function newTasks(task: Task, accessToken: string): Promise<Task | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .schema('projects')
     .from('tasks')
     .insert([

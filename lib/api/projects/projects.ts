@@ -1,13 +1,13 @@
 import { DateTime } from 'https://esm.sh/luxon@3.5.0';
 import { Project, ProjectRole } from '../../types/index.ts';
-import { supabase } from '../../supabase/client.ts';
+import { getSupabaseClient } from '../../supabase/client.ts';
 import { fetchTeamByID } from '../teams/teams.ts';
 import { fetchJobsByProject, newJob } from './tasks.ts';
 
 export async function fetchProjects(searchValue?: string | null): Promise<Project[] | null> {
   const search = searchValue ? searchValue : '';
 
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .schema('projects')
     .from('projects')
     .select('*')
@@ -44,7 +44,7 @@ export async function fetchProjects(searchValue?: string | null): Promise<Projec
 }
 
 export async function fetchProjectByID(id: string): Promise<Project | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .schema('projects')
     .from('projects')
     .select('*')
@@ -77,7 +77,7 @@ export async function fetchProjectByID(id: string): Promise<Project | null> {
 }
 
 export async function newProject(project: Project, accessToken: string): Promise<Project | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .schema('projects')
     .from('projects')
     .insert([
@@ -118,7 +118,7 @@ export async function newProjectRole(
   project: ProjectRole,
   accessToken: string
 ): Promise<ProjectRole | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .schema('projects')
     .from('roles')
     .insert([

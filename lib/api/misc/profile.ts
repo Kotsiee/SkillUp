@@ -1,11 +1,11 @@
 // deno-lint-ignore-file no-explicit-any
-import { supabase } from '../../supabase/client.ts';
+import { getSupabaseClient } from '../../supabase/client.ts';
 import { AccountProfile, Team, User } from '../../types/index.ts';
 import { fetchTeamByID } from '../teams/teams.ts';
 import { fetchUserByID } from '../user/user.ts';
 
 export async function fetchProfile(handle: string): Promise<AccountProfile | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .rpc('search_identities', {
       query: handle,
     })

@@ -1,10 +1,10 @@
 // deno-lint-ignore-file no-explicit-any
 import { DateTime } from 'https://esm.sh/luxon@3.5.0';
-import { supabase } from '../../supabase/client.ts';
+import { getSupabaseClient } from '../../supabase/client.ts';
 import { Team, TeamRoles, User } from '../../types/index.ts';
 
 export async function fetchTeams(): Promise<Team[] | null> {
-  const { data, error } = await supabase.schema('teams').from('teams').select('*');
+  const { data, error } = await getSupabaseClient().schema('teams').from('teams').select('*');
 
   if (error) {
     console.log('fetchTeams: error was found :( - ' + error.message);
@@ -28,7 +28,7 @@ export async function fetchTeams(): Promise<Team[] | null> {
 }
 
 export async function fetchTeamByID(id: string, simplify?: boolean): Promise<Team | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .schema('teams')
     .from('teams')
     .select('*')
@@ -80,7 +80,7 @@ export async function newTeam(
   users: string,
   accessToken: string
 ): Promise<Team | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .schema('teams')
     .from('teams')
     .insert([
@@ -113,7 +113,7 @@ export async function newTeam(
 }
 
 export async function newRole(role: TeamRoles): Promise<TeamRoles | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .schema('teams')
     .from('roles')
     .insert([

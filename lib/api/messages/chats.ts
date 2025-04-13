@@ -1,13 +1,13 @@
 // deno-lint-ignore-file no-explicit-any
 import { DateTime } from 'https://esm.sh/luxon@3.5.0';
 import { Chat } from '../../types/index.ts';
-import { supabase } from '../../supabase/client.ts';
+import { getSupabaseClient } from '../../supabase/client.ts';
 import { fetchChatRolesByChatID } from './chatRoles.ts';
 import { fetchJobByID } from '../projects/tasks.ts';
 
 export async function fetchChatByID(id: string, simplify?: boolean): Promise<Chat | null> {
   console.log(id);
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .schema('messages')
     .from('chats')
     .select('*')
@@ -39,7 +39,7 @@ export async function fetchUserChatsByID(
   userId: string,
   simplify?: boolean
 ): Promise<Chat[] | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabaseClient()
     .schema('messages')
     .from('roles')
     .select('user_id, chat_id(*), chats!inner(type)')
@@ -76,7 +76,9 @@ export async function fetchUserChatsByProject(
   id: string,
   simplify?: boolean
 ): Promise<Chat[] | null> {
-  const { data, error } = await supabase.rpc('get_chats_by_project_id', { project_uuid: id });
+  const { data, error } = await getSupabaseClient().rpc('get_chats_by_project_id', {
+    project_uuid: id,
+  });
 
   if (error) {
     console.log('fetchUserChatsByProject: error was found :( - ' + error.details);
