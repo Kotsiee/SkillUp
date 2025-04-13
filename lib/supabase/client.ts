@@ -1,5 +1,4 @@
 // lib/supabase/client.ts
-
 import { createClient, SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.47.10';
 
 export function getSupabaseClient(): SupabaseClient {
