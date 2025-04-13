@@ -30,7 +30,7 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "skillup"
-          entrypoint: "--unstable-kv main.ts"
+          entrypoint: "main.ts"
           root: "."
           
           
