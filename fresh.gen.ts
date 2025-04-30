@@ -17,12 +17,14 @@ import * as $_layout from "./routes/_layout.tsx";
 import * as $_middleware from "./routes/_middleware.ts";
 import * as $about_index from "./routes/about/index.tsx";
 import * as $account_layout from "./routes/account/_layout.tsx";
+import * as $account_confirm from "./routes/account/confirm.tsx";
 import * as $account_forgotpassword from "./routes/account/forgotpassword.tsx";
 import * as $account_login from "./routes/account/login.tsx";
 import * as $account_partials_forgotpassword from "./routes/account/partials/forgotpassword.tsx";
 import * as $account_partials_login from "./routes/account/partials/login.tsx";
 import * as $account_partials_register from "./routes/account/partials/register.tsx";
 import * as $account_register from "./routes/account/register.tsx";
+import * as $api_auth_confirm from "./routes/api/auth/confirm.ts";
 import * as $api_auth_login from "./routes/api/auth/login.ts";
 import * as $api_auth_logout from "./routes/api/auth/logout.ts";
 import * as $api_auth_register from "./routes/api/auth/register.ts";
@@ -30,26 +32,34 @@ import * as $api_auth_session from "./routes/api/auth/session.ts";
 import * as $api_auth_switchUser from "./routes/api/auth/switchUser.ts";
 import * as $api_chats_id_index from "./routes/api/chats/[id]/index.ts";
 import * as $api_chats_id_messages from "./routes/api/chats/[id]/messages.ts";
+import * as $api_chats_id_messages_delete from "./routes/api/chats/[id]/messages/delete.ts";
+import * as $api_chats_id_messages_new from "./routes/api/chats/[id]/messages/new.ts";
+import * as $api_chats_id_messages_update from "./routes/api/chats/[id]/messages/update.ts";
 import * as $api_chats_id_subscribe from "./routes/api/chats/[id]/subscribe.ts";
 import * as $api_chats_index from "./routes/api/chats/index.ts";
-import * as $api_files_id_ from "./routes/api/files/[id].ts";
+import * as $api_explore_users from "./routes/api/explore/users.ts";
 import * as $api_files_index from "./routes/api/files/index.ts";
 import * as $api_files_process_image_proxy from "./routes/api/files/process/image/proxy.ts";
 import * as $api_files_process_image_resize from "./routes/api/files/process/image/resize.ts";
-import * as $api_projects_id_newRole from "./routes/api/projects/[id]/newRole.ts";
+import * as $api_files_process_tobase64 from "./routes/api/files/process/tobase64.ts";
+import * as $api_projects_id_ from "./routes/api/projects/[id].ts";
+import * as $api_projects_create_project from "./routes/api/projects/create/project.ts";
+import * as $api_projects_create_role from "./routes/api/projects/create/role.ts";
+import * as $api_projects_create_submission from "./routes/api/projects/create/submission.ts";
 import * as $api_projects_index from "./routes/api/projects/index.ts";
-import * as $api_projects_newProject from "./routes/api/projects/newProject.ts";
-import * as $api_teams_id_index from "./routes/api/teams/[id]/index.ts";
-import * as $api_teams_id_login from "./routes/api/teams/[id]/login.ts";
+import * as $api_projects_submissions_jobid_ from "./routes/api/projects/submissions/[jobid].ts";
+import * as $api_projects_submissions_submission_submissionid_ from "./routes/api/projects/submissions/submission/[submissionid].ts";
+import * as $api_projects_user_projects from "./routes/api/projects/user/projects.ts";
+import * as $api_projects_user_roles from "./routes/api/projects/user/roles.ts";
+import * as $api_teams_teamid_index from "./routes/api/teams/[teamid]/index.ts";
+import * as $api_teams_teamid_login from "./routes/api/teams/[teamid]/login.ts";
+import * as $api_teams_create from "./routes/api/teams/create.ts";
 import * as $api_teams_index from "./routes/api/teams/index.ts";
-import * as $api_teams_logged from "./routes/api/teams/logged.ts";
 import * as $api_teams_logout from "./routes/api/teams/logout.ts";
+import * as $api_teams_user from "./routes/api/teams/user.ts";
 import * as $api_test from "./routes/api/test.ts";
 import * as $api_user_id_ from "./routes/api/user/[id].ts";
 import * as $api_user_index from "./routes/api/user/index.ts";
-import * as $api_user_projects_id_chats from "./routes/api/user/projects/[id]/chats.ts";
-import * as $api_user_projects_id_index from "./routes/api/user/projects/[id]/index.ts";
-import * as $api_user_projects_index from "./routes/api/user/projects/index.ts";
 import * as $dashboard_index from "./routes/dashboard/index.tsx";
 import * as $explore_layout from "./routes/explore/_layout.tsx";
 import * as $explore_index from "./routes/explore/index.tsx";
@@ -57,57 +67,43 @@ import * as $explore_partials_projects_index from "./routes/explore/partials/pro
 import * as $explore_people_index from "./routes/explore/people/index.tsx";
 import * as $explore_posts_index from "./routes/explore/posts/index.tsx";
 import * as $explore_projects_index from "./routes/explore/projects/index.tsx";
-import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
 import * as $messages_chatid_attachments_attId_ from "./routes/messages/[chatid]/attachments/[attId].tsx";
 import * as $messages_chatid_attachments_index from "./routes/messages/[chatid]/attachments/index.tsx";
 import * as $messages_chatid_chat from "./routes/messages/[chatid]/chat.tsx";
 import * as $messages_chatid_info from "./routes/messages/[chatid]/info.tsx";
-import * as $messages_chatid_partials_attachments_attId_ from "./routes/messages/[chatid]/partials/attachments/[attId].tsx";
-import * as $messages_chatid_partials_attachments_index from "./routes/messages/[chatid]/partials/attachments/index.tsx";
-import * as $messages_chatid_partials_chat from "./routes/messages/[chatid]/partials/chat.tsx";
-import * as $messages_chatid_partials_info from "./routes/messages/[chatid]/partials/info.tsx";
 import * as $messages_layout from "./routes/messages/_layout.tsx";
 import * as $messages_index from "./routes/messages/index.tsx";
-import * as $projects_project_chatid_attachments_attId_ from "./routes/projects/[project]/[chatid]/attachments/[attId].tsx";
-import * as $projects_project_chatid_attachments_index from "./routes/projects/[project]/[chatid]/attachments/index.tsx";
-import * as $projects_project_chatid_chat from "./routes/projects/[project]/[chatid]/chat.tsx";
-import * as $projects_project_chatid_description from "./routes/projects/[project]/[chatid]/description.tsx";
-import * as $projects_project_chatid_info from "./routes/projects/[project]/[chatid]/info.tsx";
-import * as $projects_project_chatid_partials_attachments_attId_ from "./routes/projects/[project]/[chatid]/partials/attachments/[attId].tsx";
-import * as $projects_project_chatid_partials_attachments_index from "./routes/projects/[project]/[chatid]/partials/attachments/index.tsx";
-import * as $projects_project_chatid_partials_chat from "./routes/projects/[project]/[chatid]/partials/chat.tsx";
-import * as $projects_project_chatid_partials_description from "./routes/projects/[project]/[chatid]/partials/description.tsx";
-import * as $projects_project_chatid_partials_info from "./routes/projects/[project]/[chatid]/partials/info.tsx";
-import * as $projects_project_chatid_partials_submissions from "./routes/projects/[project]/[chatid]/partials/submissions.tsx";
-import * as $projects_project_chatid_submissions from "./routes/projects/[project]/[chatid]/submissions.tsx";
-import * as $projects_project_description from "./routes/projects/[project]/description.tsx";
-import * as $projects_project_index from "./routes/projects/[project]/index.tsx";
-import * as $projects_project_timeline from "./routes/projects/[project]/timeline.tsx";
+import * as $messages_partials_chatid_attachments_attId_ from "./routes/messages/partials/[chatid]/attachments/[attId].tsx";
+import * as $messages_partials_chatid_attachments_index from "./routes/messages/partials/[chatid]/attachments/index.tsx";
+import * as $messages_partials_chatid_chat from "./routes/messages/partials/[chatid]/chat.tsx";
+import * as $messages_partials_chatid_info from "./routes/messages/partials/[chatid]/info.tsx";
+import * as $messages_partials_index from "./routes/messages/partials/index.tsx";
+import * as $projects_projectid_chatid_attachments_attId_ from "./routes/projects/[projectid]/[chatid]/attachments/[attId].tsx";
+import * as $projects_projectid_chatid_attachments_index from "./routes/projects/[projectid]/[chatid]/attachments/index.tsx";
+import * as $projects_projectid_chatid_chat from "./routes/projects/[projectid]/[chatid]/chat.tsx";
+import * as $projects_projectid_chatid_info from "./routes/projects/[projectid]/[chatid]/info.tsx";
+import * as $projects_projectid_chatid_submissions_submissionid_ from "./routes/projects/[projectid]/[chatid]/submissions/[submissionid].tsx";
+import * as $projects_projectid_chatid_submissions_index from "./routes/projects/[projectid]/[chatid]/submissions/index.tsx";
+import * as $projects_projectid_index from "./routes/projects/[projectid]/index.tsx";
 import * as $projects_layout from "./routes/projects/_layout.tsx";
+import * as $projects_create from "./routes/projects/create.tsx";
 import * as $projects_index from "./routes/projects/index.tsx";
-import * as $projects_newProject from "./routes/projects/newProject.tsx";
-import * as $projects_partials_project_description from "./routes/projects/partials/[project]/description.tsx";
-import * as $projects_partials_project_index from "./routes/projects/partials/[project]/index.tsx";
-import * as $projects_partials_project_timeline from "./routes/projects/partials/[project]/timeline.tsx";
+import * as $projects_partials_projectid_chatid_attachments_attId_ from "./routes/projects/partials/[projectid]/[chatid]/attachments/[attId].tsx";
+import * as $projects_partials_projectid_chatid_attachments_index from "./routes/projects/partials/[projectid]/[chatid]/attachments/index.tsx";
+import * as $projects_partials_projectid_chatid_chat from "./routes/projects/partials/[projectid]/[chatid]/chat.tsx";
+import * as $projects_partials_projectid_chatid_info from "./routes/projects/partials/[projectid]/[chatid]/info.tsx";
+import * as $projects_partials_projectid_chatid_submissions_submissionid_ from "./routes/projects/partials/[projectid]/[chatid]/submissions/[submissionid].tsx";
+import * as $projects_partials_projectid_chatid_submissions_index from "./routes/projects/partials/[projectid]/[chatid]/submissions/index.tsx";
+import * as $projects_partials_projectid_index from "./routes/projects/partials/[projectid]/index.tsx";
+import * as $projects_partials_create from "./routes/projects/partials/create.tsx";
 import * as $projects_partials_index from "./routes/projects/partials/index.tsx";
-import * as $projects_partials_newProject from "./routes/projects/partials/newProject.tsx";
 import * as $teams_layout from "./routes/teams/_layout.tsx";
+import * as $teams_create from "./routes/teams/create.tsx";
 import * as $teams_index from "./routes/teams/index.tsx";
 import * as $teams_newTeam from "./routes/teams/newTeam.tsx";
+import * as $teams_partials_create from "./routes/teams/partials/create.tsx";
 import * as $teams_partials_index from "./routes/teams/partials/index.tsx";
-import * as $teams_partials_newTeam from "./routes/teams/partials/newTeam.tsx";
-import * as $Counter from "./islands/Counter.tsx";
-import * as $Edit_EditImages from "./islands/Edit/EditImages.tsx";
-import * as $Edit_EditLayout from "./islands/Edit/EditLayout.tsx";
-import * as $Edit_EditSideNav from "./islands/Edit/EditSideNav.tsx";
-import * as $Edit_EditTools from "./islands/Edit/EditTools.tsx";
-import * as $Edit_forms_profile from "./islands/Edit/forms/profile.tsx";
-import * as $Edit_forms_projects_budget from "./islands/Edit/forms/projects/budget.tsx";
-import * as $Edit_forms_projects_job from "./islands/Edit/forms/projects/job.tsx";
-import * as $Edit_forms_projects_projects from "./islands/Edit/forms/projects/projects.tsx";
-import * as $Edit_forms_projects_timeline from "./islands/Edit/forms/projects/timeline.tsx";
-import * as $Edit_forms_team from "./islands/Edit/forms/team.tsx";
 import * as $ExploreFilter from "./islands/ExploreFilter.tsx";
 import * as $Navbar_GuestNav from "./islands/Navbar/GuestNav.tsx";
 import * as $Navbar_Navbar from "./islands/Navbar/Navbar.tsx";
@@ -122,21 +118,30 @@ import * as $Navbar_utils from "./islands/Navbar/utils.ts";
 import * as $Teams_NewTeam from "./islands/Teams/NewTeam.tsx";
 import * as $Teams_Teams from "./islands/Teams/Teams.tsx";
 import * as $Test from "./islands/Test.tsx";
-import * as $Textbox from "./islands/Textbox.tsx";
-import * as $account_Login from "./islands/account/Login.tsx";
+import * as $account_Confirm from "./islands/account/Confirm.tsx";
+import * as $account_ForgotPassword from "./islands/account/ForgotPassword.tsx";
 import * as $account_Register from "./islands/account/Register.tsx";
-import * as $chat_ChatLayout from "./islands/chat/ChatLayout.tsx";
+import * as $account_login_Login from "./islands/account/login/Login.tsx";
+import * as $account_login_LoginWithAccount from "./islands/account/login/LoginWithAccount.tsx";
+import * as $account_login_LoginWithEmail from "./islands/account/login/LoginWithEmail.tsx";
+import * as $account_login_LoginWithProvider from "./islands/account/login/LoginWithProvider.tsx";
+import * as $chat_ChatList from "./islands/chat/ChatList.tsx";
 import * as $chat_ChatResize from "./islands/chat/ChatResize.tsx";
-import * as $chat_ChatsList from "./islands/chat/ChatsList.tsx";
+import * as $chat_Navigation from "./islands/chat/Navigation.tsx";
 import * as $chat_attachments_Attachment from "./islands/chat/attachments/Attachment.tsx";
 import * as $chat_attachments_Attachments from "./islands/chat/attachments/Attachments.tsx";
 import * as $chat_attachments_FileList from "./islands/chat/attachments/FileList.tsx";
 import * as $chat_attachments_PreviewFile from "./islands/chat/attachments/PreviewFile.tsx";
 import * as $chat_messages_ChatMessage from "./islands/chat/messages/ChatMessage.tsx";
 import * as $chat_messages_ChatMessages from "./islands/chat/messages/ChatMessages.tsx";
-import * as $chat_messages_ChatSection from "./islands/chat/messages/ChatSection.tsx";
+import * as $chat_submissions_Submission from "./islands/chat/submissions/Submission.tsx";
+import * as $chat_submissions_Submissions from "./islands/chat/submissions/Submissions.tsx";
+import * as $contexts_ChatProvider from "./islands/contexts/ChatProvider.tsx";
 import * as $contexts_KVProvider from "./islands/contexts/KVProvider.tsx";
+import * as $contexts_PageProvider from "./islands/contexts/PageProvider.tsx";
+import * as $contexts_ProjectProvider from "./islands/contexts/ProjectProvider.tsx";
 import * as $contexts_UserProvider from "./islands/contexts/UserProvider.tsx";
+import * as $dashboard_Dashboard from "./islands/dashboard/Dashboard.tsx";
 import * as $explore_ExploreFilter from "./islands/explore/ExploreFilter.tsx";
 import * as $explore_ProjectDetails from "./islands/explore/ProjectDetails.tsx";
 import * as $explore_Projects_ExploreProjects from "./islands/explore/Projects/ExploreProjects.tsx";
@@ -147,10 +152,10 @@ import * as $profile_layout from "./islands/profile/layout.tsx";
 import * as $profile_profile from "./islands/profile/profile.tsx";
 import * as $projects_NewProject from "./islands/projects/NewProject.tsx";
 import * as $projects_ProjectChatList from "./islands/projects/ProjectChatList.tsx";
-import * as $projects_ProjectMessages from "./islands/projects/ProjectMessages.tsx";
-import * as $projects_ProjectsHeader from "./islands/projects/ProjectsHeader.tsx";
-import * as $projects_ProjectsLayout from "./islands/projects/ProjectsLayout.tsx";
 import * as $projects_ProjectsList from "./islands/projects/ProjectsList.tsx";
+import * as $projects_project_ProjectDetails from "./islands/projects/project/ProjectDetails.tsx";
+import * as $projects_project_ProjectMessages from "./islands/projects/project/ProjectMessages.tsx";
+import * as $projects_project_ProjectNavigation from "./islands/projects/project/ProjectNavigation.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -170,6 +175,7 @@ const manifest = {
     "./routes/_middleware.ts": $_middleware,
     "./routes/about/index.tsx": $about_index,
     "./routes/account/_layout.tsx": $account_layout,
+    "./routes/account/confirm.tsx": $account_confirm,
     "./routes/account/forgotpassword.tsx": $account_forgotpassword,
     "./routes/account/login.tsx": $account_login,
     "./routes/account/partials/forgotpassword.tsx":
@@ -177,6 +183,7 @@ const manifest = {
     "./routes/account/partials/login.tsx": $account_partials_login,
     "./routes/account/partials/register.tsx": $account_partials_register,
     "./routes/account/register.tsx": $account_register,
+    "./routes/api/auth/confirm.ts": $api_auth_confirm,
     "./routes/api/auth/login.ts": $api_auth_login,
     "./routes/api/auth/logout.ts": $api_auth_logout,
     "./routes/api/auth/register.ts": $api_auth_register,
@@ -184,27 +191,38 @@ const manifest = {
     "./routes/api/auth/switchUser.ts": $api_auth_switchUser,
     "./routes/api/chats/[id]/index.ts": $api_chats_id_index,
     "./routes/api/chats/[id]/messages.ts": $api_chats_id_messages,
+    "./routes/api/chats/[id]/messages/delete.ts": $api_chats_id_messages_delete,
+    "./routes/api/chats/[id]/messages/new.ts": $api_chats_id_messages_new,
+    "./routes/api/chats/[id]/messages/update.ts": $api_chats_id_messages_update,
     "./routes/api/chats/[id]/subscribe.ts": $api_chats_id_subscribe,
     "./routes/api/chats/index.ts": $api_chats_index,
-    "./routes/api/files/[id].ts": $api_files_id_,
+    "./routes/api/explore/users.ts": $api_explore_users,
     "./routes/api/files/index.ts": $api_files_index,
     "./routes/api/files/process/image/proxy.ts": $api_files_process_image_proxy,
     "./routes/api/files/process/image/resize.ts":
       $api_files_process_image_resize,
-    "./routes/api/projects/[id]/newRole.ts": $api_projects_id_newRole,
+    "./routes/api/files/process/tobase64.ts": $api_files_process_tobase64,
+    "./routes/api/projects/[id].ts": $api_projects_id_,
+    "./routes/api/projects/create/project.ts": $api_projects_create_project,
+    "./routes/api/projects/create/role.ts": $api_projects_create_role,
+    "./routes/api/projects/create/submission.ts":
+      $api_projects_create_submission,
     "./routes/api/projects/index.ts": $api_projects_index,
-    "./routes/api/projects/newProject.ts": $api_projects_newProject,
-    "./routes/api/teams/[id]/index.ts": $api_teams_id_index,
-    "./routes/api/teams/[id]/login.ts": $api_teams_id_login,
+    "./routes/api/projects/submissions/[jobid].ts":
+      $api_projects_submissions_jobid_,
+    "./routes/api/projects/submissions/submission/[submissionid].ts":
+      $api_projects_submissions_submission_submissionid_,
+    "./routes/api/projects/user/projects.ts": $api_projects_user_projects,
+    "./routes/api/projects/user/roles.ts": $api_projects_user_roles,
+    "./routes/api/teams/[teamid]/index.ts": $api_teams_teamid_index,
+    "./routes/api/teams/[teamid]/login.ts": $api_teams_teamid_login,
+    "./routes/api/teams/create.ts": $api_teams_create,
     "./routes/api/teams/index.ts": $api_teams_index,
-    "./routes/api/teams/logged.ts": $api_teams_logged,
     "./routes/api/teams/logout.ts": $api_teams_logout,
+    "./routes/api/teams/user.ts": $api_teams_user,
     "./routes/api/test.ts": $api_test,
     "./routes/api/user/[id].ts": $api_user_id_,
     "./routes/api/user/index.ts": $api_user_index,
-    "./routes/api/user/projects/[id]/chats.ts": $api_user_projects_id_chats,
-    "./routes/api/user/projects/[id]/index.ts": $api_user_projects_id_index,
-    "./routes/api/user/projects/index.ts": $api_user_projects_index,
     "./routes/dashboard/index.tsx": $dashboard_index,
     "./routes/explore/_layout.tsx": $explore_layout,
     "./routes/explore/index.tsx": $explore_index,
@@ -213,7 +231,6 @@ const manifest = {
     "./routes/explore/people/index.tsx": $explore_people_index,
     "./routes/explore/posts/index.tsx": $explore_posts_index,
     "./routes/explore/projects/index.tsx": $explore_projects_index,
-    "./routes/greet/[name].tsx": $greet_name_,
     "./routes/index.tsx": $index,
     "./routes/messages/[chatid]/attachments/[attId].tsx":
       $messages_chatid_attachments_attId_,
@@ -221,73 +238,57 @@ const manifest = {
       $messages_chatid_attachments_index,
     "./routes/messages/[chatid]/chat.tsx": $messages_chatid_chat,
     "./routes/messages/[chatid]/info.tsx": $messages_chatid_info,
-    "./routes/messages/[chatid]/partials/attachments/[attId].tsx":
-      $messages_chatid_partials_attachments_attId_,
-    "./routes/messages/[chatid]/partials/attachments/index.tsx":
-      $messages_chatid_partials_attachments_index,
-    "./routes/messages/[chatid]/partials/chat.tsx":
-      $messages_chatid_partials_chat,
-    "./routes/messages/[chatid]/partials/info.tsx":
-      $messages_chatid_partials_info,
     "./routes/messages/_layout.tsx": $messages_layout,
     "./routes/messages/index.tsx": $messages_index,
-    "./routes/projects/[project]/[chatid]/attachments/[attId].tsx":
-      $projects_project_chatid_attachments_attId_,
-    "./routes/projects/[project]/[chatid]/attachments/index.tsx":
-      $projects_project_chatid_attachments_index,
-    "./routes/projects/[project]/[chatid]/chat.tsx":
-      $projects_project_chatid_chat,
-    "./routes/projects/[project]/[chatid]/description.tsx":
-      $projects_project_chatid_description,
-    "./routes/projects/[project]/[chatid]/info.tsx":
-      $projects_project_chatid_info,
-    "./routes/projects/[project]/[chatid]/partials/attachments/[attId].tsx":
-      $projects_project_chatid_partials_attachments_attId_,
-    "./routes/projects/[project]/[chatid]/partials/attachments/index.tsx":
-      $projects_project_chatid_partials_attachments_index,
-    "./routes/projects/[project]/[chatid]/partials/chat.tsx":
-      $projects_project_chatid_partials_chat,
-    "./routes/projects/[project]/[chatid]/partials/description.tsx":
-      $projects_project_chatid_partials_description,
-    "./routes/projects/[project]/[chatid]/partials/info.tsx":
-      $projects_project_chatid_partials_info,
-    "./routes/projects/[project]/[chatid]/partials/submissions.tsx":
-      $projects_project_chatid_partials_submissions,
-    "./routes/projects/[project]/[chatid]/submissions.tsx":
-      $projects_project_chatid_submissions,
-    "./routes/projects/[project]/description.tsx":
-      $projects_project_description,
-    "./routes/projects/[project]/index.tsx": $projects_project_index,
-    "./routes/projects/[project]/timeline.tsx": $projects_project_timeline,
+    "./routes/messages/partials/[chatid]/attachments/[attId].tsx":
+      $messages_partials_chatid_attachments_attId_,
+    "./routes/messages/partials/[chatid]/attachments/index.tsx":
+      $messages_partials_chatid_attachments_index,
+    "./routes/messages/partials/[chatid]/chat.tsx":
+      $messages_partials_chatid_chat,
+    "./routes/messages/partials/[chatid]/info.tsx":
+      $messages_partials_chatid_info,
+    "./routes/messages/partials/index.tsx": $messages_partials_index,
+    "./routes/projects/[projectid]/[chatid]/attachments/[attId].tsx":
+      $projects_projectid_chatid_attachments_attId_,
+    "./routes/projects/[projectid]/[chatid]/attachments/index.tsx":
+      $projects_projectid_chatid_attachments_index,
+    "./routes/projects/[projectid]/[chatid]/chat.tsx":
+      $projects_projectid_chatid_chat,
+    "./routes/projects/[projectid]/[chatid]/info.tsx":
+      $projects_projectid_chatid_info,
+    "./routes/projects/[projectid]/[chatid]/submissions/[submissionid].tsx":
+      $projects_projectid_chatid_submissions_submissionid_,
+    "./routes/projects/[projectid]/[chatid]/submissions/index.tsx":
+      $projects_projectid_chatid_submissions_index,
+    "./routes/projects/[projectid]/index.tsx": $projects_projectid_index,
     "./routes/projects/_layout.tsx": $projects_layout,
+    "./routes/projects/create.tsx": $projects_create,
     "./routes/projects/index.tsx": $projects_index,
-    "./routes/projects/newProject.tsx": $projects_newProject,
-    "./routes/projects/partials/[project]/description.tsx":
-      $projects_partials_project_description,
-    "./routes/projects/partials/[project]/index.tsx":
-      $projects_partials_project_index,
-    "./routes/projects/partials/[project]/timeline.tsx":
-      $projects_partials_project_timeline,
+    "./routes/projects/partials/[projectid]/[chatid]/attachments/[attId].tsx":
+      $projects_partials_projectid_chatid_attachments_attId_,
+    "./routes/projects/partials/[projectid]/[chatid]/attachments/index.tsx":
+      $projects_partials_projectid_chatid_attachments_index,
+    "./routes/projects/partials/[projectid]/[chatid]/chat.tsx":
+      $projects_partials_projectid_chatid_chat,
+    "./routes/projects/partials/[projectid]/[chatid]/info.tsx":
+      $projects_partials_projectid_chatid_info,
+    "./routes/projects/partials/[projectid]/[chatid]/submissions/[submissionid].tsx":
+      $projects_partials_projectid_chatid_submissions_submissionid_,
+    "./routes/projects/partials/[projectid]/[chatid]/submissions/index.tsx":
+      $projects_partials_projectid_chatid_submissions_index,
+    "./routes/projects/partials/[projectid]/index.tsx":
+      $projects_partials_projectid_index,
+    "./routes/projects/partials/create.tsx": $projects_partials_create,
     "./routes/projects/partials/index.tsx": $projects_partials_index,
-    "./routes/projects/partials/newProject.tsx": $projects_partials_newProject,
     "./routes/teams/_layout.tsx": $teams_layout,
+    "./routes/teams/create.tsx": $teams_create,
     "./routes/teams/index.tsx": $teams_index,
     "./routes/teams/newTeam.tsx": $teams_newTeam,
+    "./routes/teams/partials/create.tsx": $teams_partials_create,
     "./routes/teams/partials/index.tsx": $teams_partials_index,
-    "./routes/teams/partials/newTeam.tsx": $teams_partials_newTeam,
   },
   islands: {
-    "./islands/Counter.tsx": $Counter,
-    "./islands/Edit/EditImages.tsx": $Edit_EditImages,
-    "./islands/Edit/EditLayout.tsx": $Edit_EditLayout,
-    "./islands/Edit/EditSideNav.tsx": $Edit_EditSideNav,
-    "./islands/Edit/EditTools.tsx": $Edit_EditTools,
-    "./islands/Edit/forms/profile.tsx": $Edit_forms_profile,
-    "./islands/Edit/forms/projects/budget.tsx": $Edit_forms_projects_budget,
-    "./islands/Edit/forms/projects/job.tsx": $Edit_forms_projects_job,
-    "./islands/Edit/forms/projects/projects.tsx": $Edit_forms_projects_projects,
-    "./islands/Edit/forms/projects/timeline.tsx": $Edit_forms_projects_timeline,
-    "./islands/Edit/forms/team.tsx": $Edit_forms_team,
     "./islands/ExploreFilter.tsx": $ExploreFilter,
     "./islands/Navbar/GuestNav.tsx": $Navbar_GuestNav,
     "./islands/Navbar/Navbar.tsx": $Navbar_Navbar,
@@ -304,21 +305,32 @@ const manifest = {
     "./islands/Teams/NewTeam.tsx": $Teams_NewTeam,
     "./islands/Teams/Teams.tsx": $Teams_Teams,
     "./islands/Test.tsx": $Test,
-    "./islands/Textbox.tsx": $Textbox,
-    "./islands/account/Login.tsx": $account_Login,
+    "./islands/account/Confirm.tsx": $account_Confirm,
+    "./islands/account/ForgotPassword.tsx": $account_ForgotPassword,
     "./islands/account/Register.tsx": $account_Register,
-    "./islands/chat/ChatLayout.tsx": $chat_ChatLayout,
+    "./islands/account/login/Login.tsx": $account_login_Login,
+    "./islands/account/login/LoginWithAccount.tsx":
+      $account_login_LoginWithAccount,
+    "./islands/account/login/LoginWithEmail.tsx": $account_login_LoginWithEmail,
+    "./islands/account/login/LoginWithProvider.tsx":
+      $account_login_LoginWithProvider,
+    "./islands/chat/ChatList.tsx": $chat_ChatList,
     "./islands/chat/ChatResize.tsx": $chat_ChatResize,
-    "./islands/chat/ChatsList.tsx": $chat_ChatsList,
+    "./islands/chat/Navigation.tsx": $chat_Navigation,
     "./islands/chat/attachments/Attachment.tsx": $chat_attachments_Attachment,
     "./islands/chat/attachments/Attachments.tsx": $chat_attachments_Attachments,
     "./islands/chat/attachments/FileList.tsx": $chat_attachments_FileList,
     "./islands/chat/attachments/PreviewFile.tsx": $chat_attachments_PreviewFile,
     "./islands/chat/messages/ChatMessage.tsx": $chat_messages_ChatMessage,
     "./islands/chat/messages/ChatMessages.tsx": $chat_messages_ChatMessages,
-    "./islands/chat/messages/ChatSection.tsx": $chat_messages_ChatSection,
+    "./islands/chat/submissions/Submission.tsx": $chat_submissions_Submission,
+    "./islands/chat/submissions/Submissions.tsx": $chat_submissions_Submissions,
+    "./islands/contexts/ChatProvider.tsx": $contexts_ChatProvider,
     "./islands/contexts/KVProvider.tsx": $contexts_KVProvider,
+    "./islands/contexts/PageProvider.tsx": $contexts_PageProvider,
+    "./islands/contexts/ProjectProvider.tsx": $contexts_ProjectProvider,
     "./islands/contexts/UserProvider.tsx": $contexts_UserProvider,
+    "./islands/dashboard/Dashboard.tsx": $dashboard_Dashboard,
     "./islands/explore/ExploreFilter.tsx": $explore_ExploreFilter,
     "./islands/explore/ProjectDetails.tsx": $explore_ProjectDetails,
     "./islands/explore/Projects/ExploreProjects.tsx":
@@ -332,10 +344,13 @@ const manifest = {
     "./islands/profile/profile.tsx": $profile_profile,
     "./islands/projects/NewProject.tsx": $projects_NewProject,
     "./islands/projects/ProjectChatList.tsx": $projects_ProjectChatList,
-    "./islands/projects/ProjectMessages.tsx": $projects_ProjectMessages,
-    "./islands/projects/ProjectsHeader.tsx": $projects_ProjectsHeader,
-    "./islands/projects/ProjectsLayout.tsx": $projects_ProjectsLayout,
     "./islands/projects/ProjectsList.tsx": $projects_ProjectsList,
+    "./islands/projects/project/ProjectDetails.tsx":
+      $projects_project_ProjectDetails,
+    "./islands/projects/project/ProjectMessages.tsx":
+      $projects_project_ProjectMessages,
+    "./islands/projects/project/ProjectNavigation.tsx":
+      $projects_project_ProjectNavigation,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

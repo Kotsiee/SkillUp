@@ -1,0 +1,113 @@
+/**
+ * Users:
+ * -----------------
+ * Fetch User By ID
+ * Fetch User By Handle
+ * Search Users - search params: (Name, Username, Headline, Description), filter params: (Languages, Skills)
+ * Register New User
+ * Login User
+ * Update User
+ * Delete User
+ * Request New Password
+ * Request Email Update
+ *
+ *
+ * Connections
+ * -----------------
+ * Fetch Connections By User ID
+ * Add New Connection
+ * Update Connection
+ * Delete Connection
+ *
+ *
+ * Teams:
+ * -----------------
+ * Fetch Team By ID
+ * Fetch Team By Handle
+ * Fetch Teams By User ID - relies on Team Roles
+ * Search Teams - search params: (Name, Handle, Headline, About), filter params: (Industry, No. Projects)
+ * Add New Team
+ * Update Team
+ * Delete Team
+ *
+ *
+ * Team Roles:
+ * -----------------
+ * Fetch Team Role By ID
+ * Fetch Team Roles By Project
+ * Fetch Team Roles By User
+ * Add New Team Role
+ * Update Team Role
+ * Delete Team Role
+ *
+ *
+ * Projects:
+ * -----------------
+ * Fetch Project By ID
+ * Fetch Projects By Team ID
+ * Fetch Projects By User ID - relies on Project Roles and Team Roles
+ * Search Projects - search params: (Title, Description, Job Title, Job Description, Task Title, Task Description), Filter: (Status, Total Budget, Start Date, End Date)
+ * Add New Project
+ * Update Project
+ * Delete Project
+ *
+ *
+ * Project Roles:
+ * -----------------
+ * Fetch Project Role By ID
+ * Fetch Project Roles By User ID
+ * Fetch Project Roles By Project ID
+ * Add New Project Role
+ * Update Project Role
+ * Delete Project Role
+ *
+ *
+ * Files:
+ * -----------------
+ * Fetch File By ID
+ * Fetch File By User ID
+ * Fetch File By Path - relies on user id
+ * Get File URL
+ * Insert New File
+ * Update File
+ * Delete File
+ *
+ *
+ * File References
+ * -----------------
+ * Fetch File References By ID
+ * Search File References By User ID - search params: (Public Name, Extension), filter params: (File Type, Mime Type, Extension, Privacy Level)
+ * Search Files References By Chat ID - search params: (Public Name, Extension), filter params: (File Type, Mime Type, Extension, Privacy Level)
+ * Insert New File Reference
+ * Update File Reference
+ * Delete File Reference
+ *
+ *
+ * Chats
+ * -----------------
+ * Fetch Chat By ID
+ * Fetch Chats By User ID
+ * Fetch Chats By Project ID
+ * Add New Chat
+ * Update Chat
+ * Delete Chat
+ *
+ *
+ * Chat Roles
+ * -----------------
+ * Fetch Chat Role By ID
+ * Fetch Chat Role By Chat ID
+ * Fetch Chat Role By User ID
+ * Add New Chat Role
+ * Update Chat Role
+ * Delete Chat Role
+ *
+ *
+ * Messages
+ * -----------------
+ * Fetch Message By ID
+ * Fetch Messages By Chat ID
+ * Add New Message
+ * Update Message
+ * Delete Message
+ */

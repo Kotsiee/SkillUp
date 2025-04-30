@@ -1,13 +1,11 @@
-import { PageProps } from "$fresh/server.ts";
-import { useRef } from 'preact/hooks';
-import Test from "../../islands/Test.tsx";
+import { PageProps } from '$fresh/server.ts';
+import Dashboard from '../../islands/dashboard/Dashboard.tsx';
 
-export default function Dash({ Component }: PageProps) {
-  const r = useRef<HTMLTextAreaElement>(null)
-
+export default function DashboardPage(props: PageProps) {
   return (
     <div>
-      <Test />
+      <link rel="stylesheet" href="/styles/pages/dashboard.css" />
+      <Dashboard />
     </div>
   );
 }

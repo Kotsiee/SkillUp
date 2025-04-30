@@ -1,0 +1,125 @@
+@import '../../components/UI/TableView.css';
+@import '../../components/FileUploader/main.css';
+@import '../../components/projects/newSubmission.css';
+
+.submissions {
+    position: relative;
+
+    .submissions-container {
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        overflow: hidden;
+
+        .tasks {
+            width: 100%;
+            min-width: max-content;
+            max-width: 15%;
+
+            .submission-tasks {
+                display: block;
+                padding: 4px 8px;
+                border-radius: var(--border-radius-smaller);
+                cursor: pointer;
+
+                &:hover {
+                    background-color: var(--modal-colour);
+                }
+
+                &:has(input:checked) {
+                    background-color: hsla(var(--primary-hue),
+                            var(--primary-saturation),
+                            var(--primary-lightness),
+                            0.4);
+
+                    font-weight: var(--weight-bold);
+                }
+            }
+        }
+
+        .leaderboard {
+            width: 90%;
+            overflow-x: scroll;
+
+            .actions {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+
+                .switch-views {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    height: 100%;
+
+                    label {
+                        cursor: pointer;
+
+                        .icon {
+                            height: 2em;
+                            width: 2em;
+
+                            path {
+                                stroke: none;
+                                fill: var(--text-color-dark);
+                            }
+                        }
+
+                        &:has(input:checked) path {
+                            fill: var(--secondary-colour);
+                        }
+                    }
+                }
+
+                .search {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 12px;
+                    width: 300px;
+                    border-radius: 50px;
+                    border: 1px solid var(--modal-colour-lighterer);
+                    padding: 4px;
+
+                    .icon path {
+                        stroke-width: 4;
+                    }
+
+                    input {
+                        background-color: transparent;
+                        width: 100%;
+                        font-size: 1em;
+                    }
+                }
+            }
+        }
+    }
+
+    .new-submission-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        padding: 12px 20px;
+        font-size: 1em;
+        border-radius: 30px;
+        background-color: var(--primary-colour);
+        font-weight: var(--weight-bold);
+
+        &:hover {
+            background-color: var(--primary-colour-light);
+        }
+
+        &:active {
+            background-color: var(--primary-colour-lighter);
+        }
+    }
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--modal-colour-lighterer);
+    overflow: hidden;
+}

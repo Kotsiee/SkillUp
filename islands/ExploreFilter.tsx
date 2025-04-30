@@ -1,6 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
 import { useSignal } from 'https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js';
-import { DualSlider } from '../components/Sliders/DualSlider.tsx';
+import { DualSlider } from '../components/UI/Sliders/DualSlider.tsx';
 import AIcon, { Icons } from '../components/Icons.tsx';
 import { Searchbar, SearchbarDropdown } from '../components/Searchbar.tsx';
 import { useRef } from 'preact/hooks';

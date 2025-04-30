@@ -1,8 +1,9 @@
 @import './filecard.css';
 @import './editfile.css';
 @import './uploadfile.css';
+@import './reviewfile.css';
 
-.modals {
+.file-uploader-modal {
     position: fixed;
     z-index: 12;
     top: 0;
@@ -13,39 +14,42 @@
     justify-content: center;
     align-items: center;
 
-    .back {
+    .file-uploader-modal__backdrop {
         background-color: hsla(0, 0%, 0%, 0.6);
         height: 100%;
         width: 100%;
-
         position: absolute;
         z-index: -1;
         top: 0;
         left: 0;
     }
 
-    .new-file {
+    .file-uploader-modal__container {
         background-color: var(--modal-colour);
         border-radius: var(--border-radius);
-        padding: 20px;
-        border: 1px solid #9994;
+        padding: 2em;
+        border: 1px solid var(--modal-colour-light);
         box-shadow: 0 2px 10px black;
 
-        .modal-title {
+        .file-uploader-modal__header {
             display: flex;
             justify-content: space-between;
             width: 100%;
 
-            .modal-exit-icon {
+            .file-uploader-modal__title {
+                margin-bottom: 2rem;
+            }
+
+            .file-uploader-modal__exit {
                 padding: 4px;
                 background-color: var(--red);
                 cursor: pointer;
-                height: 20px;
-                width: 20px;
-                border-radius: 20px;
+                height: 24px;
+                width: 24px;
+                border-radius: 50%;
 
                 path {
-                    stroke-width: 2;
+                    stroke-width: 6;
                 }
 
                 &:hover {
@@ -58,45 +62,53 @@
             }
         }
 
-        .new-file-selection-container {
-            margin-top: 12px;
+        .file-uploader-modal__tabs {
             display: flex;
+            gap: 0.8rem;
+            margin-bottom: 0.8em;
 
-            label {
-                cursor: pointer;
-                padding: 8px 20px;
-                padding-bottom: 20px;
-                font-size: 0.8;
+            .file-uploader-modal__tab {
                 color: var(--text-color-dark);
+                cursor: pointer;
+                padding: 4px 16px;
 
                 &:hover {
-                    background: linear-gradient(var(--tertiary-colour) 2px,
+                    border-bottom: 3px solid var(--tertiary-colour);
+                    background: linear-gradient(#0000 50%,
                             hsla(var(--tertiary-hue),
                                 var(--tertiary-saturation),
-                                var(--tertiary-lightness), 0.4) 5%,
-                            #0000 50%);
+                                var(--tertiary-lightness), 0.4));
                 }
 
-                &:has(input:checked) {
-                    background: linear-gradient(var(--secondary-colour) 2px,
-                            hsla(var(--secondary-hue),
-                                var(--secondary-saturation),
-                                var(--secondary-lightness), 0.4) 5%,
-                            #0000 50%);
-
+                &.file-uploader-modal__tab--active {
                     color: var(--text-color);
                     font-weight: var(--weight-bold);
-                }
 
-                &:has(input:disabled) {
-                    background: none;
-
-                    label {
-                        font-weight: var(--weight-normal);
-                        color: var(--text-color-dark-hover);
-                    }
+                    border-bottom: 3px solid var(--secondary-colour);
+                    background: linear-gradient(#0000 50%,
+                            hsla(var(--secondary-hue),
+                                var(--secondary-saturation),
+                                var(--secondary-lightness), 0.4));
                 }
             }
+        }
+
+        .file-uploader-modal__content {
+            width: 50vw;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+    }
+}
+
+/* .modals {
+    .new-file {
+
+        .new-file-selection-container {
+            margin-top: 12px;
+display: flex;
+
+            label {}
         }
 
         .modal-content {
@@ -173,4 +185,4 @@
     max-height: 400px;
     overflow-y: scroll;
     padding: 20px;
-}
+} */

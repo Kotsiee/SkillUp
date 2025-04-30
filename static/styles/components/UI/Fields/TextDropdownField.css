@@ -1,0 +1,177 @@
+@import './Field.css';
+
+.input-field--search-dropdown {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    font-family: inherit;
+
+    .input-field--search-dropdown__search {
+        position: relative;
+        width: 100%;
+
+        .input-field--search-dropdown__input {
+            display: flex;
+            align-items: center;
+            background: var(--modal-colour-dark);
+            outline: 1px solid var(--modal-colour-lighter);
+            border-radius: var(--border-radius-smaller);
+            padding: 8px 12px;
+            gap: 8px;
+
+            .input-field--search-dropdown__search-input {
+                flex: 1;
+                font-size: 1rem;
+                background: transparent;
+            }
+
+            .input-field--search-dropdown__plus-icon {
+                width: 20px;
+                height: 20px;
+                transition: color 0.2s ease;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                path {
+                    stroke-width: 6;
+                    stroke: var(--text-color-dark)
+                }
+
+                &.--enabled {
+                    cursor: pointer;
+
+                    path {
+                        stroke: var(--text-color)
+                    }
+
+                    &:hover path {
+                        stroke: var(--secondary-colour)
+                    }
+                }
+            }
+
+            &:has(.input-field--search-dropdown__search-input:focus),
+            &:has(.input-field--search-dropdown__search-input:active) {
+                outline: 1px solid var(--primary-colour);
+            }
+        }
+    }
+
+    .input-field--search-dropdown__items-selected {
+        margin-top: 1rem;
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+
+            overflow-x: auto;
+
+            &:has(.input-field--search-dropdown__item) {
+                padding: 4px;
+                padding-bottom: 1rem;
+            }
+        }
+
+        .input-field--search-dropdown__item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--modal-colour-dark);
+            outline: 1px solid var(--modal-colour-lighter);
+            border-radius: 16px;
+            padding: 4px 16px;
+            gap: 8px;
+            user-select: none;
+
+            &:hover {
+                background: var(--modal-colour-light);
+                outline: 1px solid var(--modal-colour-lighterer);
+            }
+
+            .input-field--search-dropdown__item p {
+                font-size: 0.7rem;
+            }
+
+            .input-field--search-dropdown__remove-icon {
+                cursor: pointer;
+                width: 12px;
+                height: 12px;
+
+                path {
+                    stroke-width: 6;
+                    stroke: var(--text-color-dark);
+                }
+            }
+
+            &:has(.input-field--search-dropdown__remove-icon:hover) {
+                background: var(--red-dark);
+                outline: 1px solid var(--red-light);
+
+                .input-field--search-dropdown__remove-icon {
+                    path {
+                        stroke-width: 8;
+                        stroke: var(--red-lighter);
+                    }
+                }
+            }
+        }
+    }
+
+    .input-field--search-dropdown__dropdown {
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        z-index: 10;
+        width: 100%;
+        background: var(--modal-colour-light);
+        outline: 1px solid var(--modal-colour-lighterer);
+        border-top: none;
+        max-height: 200px;
+        overflow-y: auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        padding: 8px 0;
+        border-radius: var(--border-radius-small);
+
+        .input-field--search-dropdown__item {
+            padding: 8px 12px;
+            background: transparent;
+            border-radius: 0;
+            cursor: pointer;
+            transition: background 0.2s ease;
+
+            label {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+
+                p {}
+            }
+
+            &:hover {
+                background: #000;
+            }
+
+            .input-field--search-dropdown__checked-icon {
+                margin-right: 6px;
+                width: 14px;
+                height: 14px;
+
+                path {
+                    stroke-width: 6px;
+                    stroke: var(--text-color-dark)
+                }
+            }
+
+            &:has(input:checked) {
+                .input-field--search-dropdown__checked-icon {
+                    path {
+                        stroke: var(--secondary-colour);
+                    }
+                }
+            }
+        }
+    }
+}

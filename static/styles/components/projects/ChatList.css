@@ -1,0 +1,136 @@
+.projects-chat-list {
+    padding: 1rem;
+    background-color: var(--modal-colour-darker);
+    overflow: scroll;
+    height: 100%;
+    width: 100%;
+
+    * {
+        text-decoration: none;
+    }
+
+    .projects-chat-list__actions-top {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+
+        .projects-chat-list__actions-top-back {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--modal-colour-light);
+            border: 1px solid var(--modal-colour-lightererer);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 0.725rem;
+            font-weight: var(--weight-bold);
+
+            .icon {
+                path {
+                    stroke-width: 8;
+                }
+            }
+
+            &:hover {
+                background-color: var(--modal-colour-lighter);
+            }
+
+            &:active {
+                background-color: var(--modal-colour-lighterer);
+            }
+        }
+    }
+
+    .projects-chat-list__header {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 1rem;
+        align-items: center;
+
+        .projects-chat-list__header-team-logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .projects-chat-list__header-team-logo-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .projects-chat-list__header-details {
+            .projects-chat-list__header-details {}
+
+            .projects-chat-list__header-team-name {
+                font-size: 0.9em;
+                font-weight: var(--weight-bold);
+                color: var(--text-color-dark);
+            }
+        }
+
+        &:has(.projects-chat-list__header-team-logo:hover),
+        &:has(.projects-chat-list__header-team-name:hover) {
+            .projects-chat-list__header-team-logo {
+                outline: 2px solid var(--secondary-colour)
+            }
+
+            .projects-chat-list__header-team-name {
+                color: var(--secondary-colour)
+            }
+        }
+
+        .icon {
+            stroke-width: 4;
+        }
+    }
+
+    .projects-list__options {}
+
+    .projects-chat-list__chats {
+        .project-chat-card {
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+
+            .project-chat-card__container {
+                padding: 8px 12px;
+                border-radius: var(--border-radius-smaller);
+
+                .project-chat-card__name {
+                    grid-area: 0.8rem;
+                    opacity: 0.8;
+
+                    span {
+                        font-size: 1.2rem;
+                        color: var(--primary-colour);
+                        margin-right: 0.8rem;
+                    }
+                }
+
+                &:hover {
+                    background-color: var(--modal-colour);
+                }
+
+                &:active {
+                    background-color: var(--modal-colour-light);
+                }
+            }
+
+            &.--active .project-chat-card__container {
+                background-color: var(--modal-colour);
+
+                .project-chat-card__name {
+                    opacity: 1;
+
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,33 @@
+@import './Field.css';
+
+.input-field--files {
+    .input-field--files-title {
+        font-size: 1.1rem;
+        font-weight: var(--weight-bold);
+    }
+
+    .input-field--files__uploads {
+        display: flex;
+        gap: 0.75rem;
+
+        &:has(.file-card) {
+            margin: 0.8rem 0;
+            padding: 1rem;
+            background-color: var(--modal-colour-dark);
+            border-radius: var(--border-radius-small);
+            border: 2px dashed var(--modal-colour-lighterer);
+        }
+    }
+
+    .input-field--files-open {
+        padding: 0.6rem 1rem;
+        border-radius: var(--border-radius-small);
+        background-color: var(--modal-colour-lighter);
+        border: 1px solid var(--modal-colour-lightererer);
+
+        &:hover {
+            background-color: var(--primary-colour-dark);
+            border: 1px solid var(--primary-colour);
+        }
+    }
+}

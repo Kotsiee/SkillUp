@@ -22,6 +22,10 @@
                 border-radius: var(--border-radius-small);
                 transition: all 200ms;
 
+                path {
+                    stroke-width: 4;
+                }
+
                 &:hover {
                     background-color: var(--modal-colour)
                 }
@@ -46,5 +50,10 @@
                 scale: 1;
             }
         }
+    }
+
+    [data-current],
+    [data-ancestor] {
+        background-color: var(--modal-colour);
     }
 }

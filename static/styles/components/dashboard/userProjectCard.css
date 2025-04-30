@@ -1,0 +1,111 @@
+.dashboard__content__projects-content__project-card {
+    /* Main card styling */
+    background-color: var(--modal-colour-dark);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    a {
+        text-decoration: none;
+    }
+
+    /* Header section */
+    .dashboard__content__projects-content__project-card__header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .dashboard__content__projects-content__project-card__logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 0.5rem;
+            object-fit: cover;
+
+            &:hover {
+                outline: 2px solid var(--tertiary-colour);
+            }
+        }
+
+        .dashboard__content__projects-content__project-card__details {
+            display: flex;
+            flex-direction: column;
+
+            .dashboard__content__projects-content__project-card__title {
+                font-size: 1.125rem;
+                font-weight: var(--weight-bold);
+            }
+
+            .dashboard__content__projects-content__project-card__team {
+                font-size: 0.8rem;
+                color: var(--text-color-dark);
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+            }
+
+            .dashboard__content__projects-content__project-card__created-date {
+                font-size: 0.75rem;
+                color: var(--text-color-dark);
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            .dashboard__content__projects-content__project-card__title {
+                color: var(--text-color-hover);
+            }
+        }
+
+        &:active {
+            .dashboard__content__projects-content__project-card__title {
+                color: var(--text-color-active);
+            }
+        }
+    }
+
+    /* Stats section */
+    .dashboard__content__projects-content__project-card__stats {
+        display: flex;
+        gap: 2rem;
+        justify-content: space-between;
+
+        .dashboard__content__projects-content__project-card__stat {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+
+            .dashboard__content__projects-content__project-card__stat-title {
+                font-size: 0.8rem;
+                font-weight: var(--weight-bold);
+                color: var(--text-color-dark);
+            }
+
+            .dashboard__content__projects-content__project-card__stat-value {
+                font-size: 1rem;
+                font-weight: 600;
+            }
+        }
+    }
+
+    /* Earnings section */
+    .dashboard__content__projects-content__project-card__earnings {
+        margin-top: auto;
+        padding-top: 0.5rem;
+        border-top: 1px solid var(--modal-colour-lighter);
+
+        .dashboard__content__projects-content__project-card__earnings-title {
+            font-size: 0.8rem;
+            font-weight: var(--weight-bold);
+            color: var(--text-color-dark);
+        }
+
+        .dashboard__content__projects-content__project-card__earnings-value {
+            font-size: 1.2rem;
+            color: var(--green);
+        }
+    }
+}

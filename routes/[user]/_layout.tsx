@@ -1,6 +1,6 @@
 import { defineLayout } from '$fresh/server.ts';
 import ProfileLayout from '../../islands/profile/layout.tsx';
-import { fetchProfile } from '../../lib/api/misc/profile.ts';
+import { fetchProfile } from '../../lib/newapi/profile.ts';
 
 export default defineLayout(async (req, ctx) => {
   const account = await fetchProfile(ctx.params.user);

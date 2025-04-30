@@ -63,3 +63,10 @@ export function joinProjectFilter(filter: ProjectFilter | null): string {
 
   return strArr.join('&');
 }
+
+export function getCookie(name: string, cookies: string): string | undefined {
+  return cookies
+    .split('; ')
+    .find(row => row.startsWith(`${name}=`))
+    ?.split('=')[1];
+}

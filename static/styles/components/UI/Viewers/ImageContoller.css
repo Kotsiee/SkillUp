@@ -1,0 +1,73 @@
+.controls {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+
+    .rotation {
+        width: 200px;
+
+        .rotation-input-container {
+            display: flex;
+            margin-top: 8px;
+
+            .rotation-input {
+                display: flex;
+                padding: 2px 8px;
+                background-color: var(--modal-colour-lighter);
+                border-radius: var(--border-radius-smaller);
+
+                input[type="number"] {
+                    width: 6em;
+                    background-color: #0000;
+                    text-align: right;
+
+                    &::-webkit-inner-spin-button,
+                    &::-webkit-outer-spin-button {
+                        appearance: none;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+
+        .fixed-rotate {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+
+            button {
+                padding: 8px;
+                background-color: var(--modal-colour-lighter);
+                border-radius: var(--border-radius-smaller);
+            }
+        }
+    }
+
+    .scale {
+        width: 200px;
+
+        .scale-input-container {
+            display: flex;
+            margin-top: 8px;
+
+            .scale-input {
+                display: flex;
+                padding: 2px 8px;
+                background-color: var(--modal-colour-lighter);
+                border-radius: var(--border-radius-smaller);
+
+                input[type="number"] {
+                    width: 6em;
+                    background-color: #0000;
+                    text-align: right;
+
+                    &::-webkit-inner-spin-button,
+                    &::-webkit-outer-spin-button {
+                        appearance: none;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+}

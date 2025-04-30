@@ -13,8 +13,13 @@
         padding: 12px;
         transition: background-color 200ms;
 
-        &:hover { background-color: hsla(0, 0%, 100%, 0.1); }
-        &:active { background-color: hsla(0, 0%, 100%, 0.2); }
+        &:hover {
+            background-color: hsla(0, 0%, 100%, 0.1);
+        }
+
+        &:active {
+            background-color: hsla(0, 0%, 100%, 0.2);
+        }
 
         .account-contents {
             display: flex;
@@ -68,8 +73,13 @@
         transition: background-color 200ms;
         background-color: hsla(0, 0%, 100%, 0.1);
 
-        &:hover { background-color: hsla(0, 0%, 100%, 0.2); }
-        &:active { background-color: hsla(0, 0%, 100%, 0.3); }
+        &:hover {
+            background-color: hsla(0, 0%, 100%, 0.2);
+        }
+
+        &:active {
+            background-color: hsla(0, 0%, 100%, 0.3);
+        }
     }
 }
 
@@ -88,13 +98,17 @@
         cursor: pointer;
         margin-bottom: 8px;
 
-        &:hover { background-color: hsla(0, 0%, 100%, 0.1); }
-        &:active { background-color: hsla(0, 0%, 100%, 0.2); }
+        &:hover {
+            background-color: hsla(0, 0%, 100%, 0.1);
+        }
+
+        &:active {
+            background-color: hsla(0, 0%, 100%, 0.2);
+        }
 
         img {
             height: 40px;
             width: 40px;
-            border-radius: 40px;
         }
     }
 
@@ -107,102 +121,116 @@
         padding: 12px;
         cursor: pointer;
 
-        &:hover { background-color: var(--primary-colour-dark); }
-        &:active { background-color: var(--primary-colour-darker); }
+        &:hover {
+            background-color: var(--primary-colour-dark);
+        }
+
+        &:active {
+            background-color: var(--primary-colour-darker);
+        }
     }
 }
 
-.loginWithEmail {
+.login-email-form {
     width: 400px;
     margin: 12px;
     margin-bottom: 28px;
 
-    .input {
-        width: inherit;
-        min-height: 80%;
+    .login-email-form__title {
+        text-align: center;
+        margin-bottom: 16px;
+        font-weight: var(--weight-bold);
+    }
+
+    .login-email-form__field {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        margin: 12px 0;
+
+        &>label {
+            margin-bottom: 4px;
+            font-weight: var(--weight-bold);
+            text-shadow: 0 1px 4px black;
+        }
+
+        &>input {
+            padding: 12px;
+            border: 1px solid var(--text-color);
+            border-radius: var(--border-radius-small);
+            background-color: var(--background);
+            color: var(--text-color);
+            outline: none;
+            transition: border 0.2s;
+
+            &:focus {
+                border-color: var(--primary-colour);
+            }
+        }
+    }
+
+    .login-email-form__error {
+        margin: 12px 0;
+        padding: 8px;
+        color: var(--error-colour);
+        background-color: var(--error-background);
+        border-radius: var(--border-radius-small);
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .login-email-form__extras {
+        display: flex;
+        justify-content: space-between;
         align-items: center;
+        margin-top: 8px;
+        font-size: small;
+        color: var(--text-color);
 
-        .container {
-            width: inherit;
-        }
+        .login-email-form__forgot-link {
+            cursor: pointer;
+            user-select: none;
+            transition: all 200ms;
 
-        .text {
-            width: inherit;
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-
-            .container-1 {
-                width: 70%;
-            }
-
-            p {
-                font-weight: var(--weight-bold);
-                text-shadow: 0 1px 4px black;
+            &:hover {
+                color: var(--secondary-colour);
             }
         }
 
-        .additional {
-            display: flex;
-            justify-content: center;
-
-            * {
-                font-size: small;
-                color: var(--text-color);
-            }
-
-            .container-2 {
-                width: 70%;
-                display: flex;
-                justify-content: space-between;
-            }
-
-            label {
+        .login-email-form__remember {
+            .login-email-form__remember-label {
                 display: flex;
                 align-items: center;
                 cursor: pointer;
-                user-select: none;
-                transition: all 200ms;
+                gap: 8px;
 
-                .check {
-                    transition: all 200ms;
-                    outline: 1px solid var(--text-color);
-                    border-radius: var(--border-radius-smaller);
-                    margin-right: 8px;
-                    padding: 4px;
-                    stroke: none;
+                .login-email-form__check-icon {
+
+                    path {
+                        stroke-width: 6;
+                    }
                 }
-            }
-
-            input:hover+label {
-                color: var(--primary-colour);
-
-                .check {
-                    outline: 2px solid var(--primary-colour);
-                }
-            }
-
-            input:checked+label .check {
-                stroke: var(--secondary-colour);
-                stroke-width: 4px;
-                outline: 2px solid var(--primary-colour);
-            }
-
-            a {
-                cursor: pointer;
-                user-select: none;
-                transition: all 200ms;
 
                 &:hover {
-                    color: var(--primary-colour);
+                    color: var(--text-color-hover);
+
+                    path {
+                        stroke: var(--text-color-hover);
+                    }
+                }
+            }
+
+            input:checked+.login-email-form__remember-label {
+                color: var(--secondary-colour);
+
+                path {
+                    stroke: var(--secondary-colour);
+                    stroke-width: 12;
                 }
             }
         }
     }
 
-    .enter {
+    .login-email-form__submit {
         display: flex;
         justify-content: center;
 
@@ -210,123 +238,20 @@
             background-color: var(--primary-colour);
             border-radius: var(--border-radius-small);
             border: none;
-            outline: none;
             padding: 12px;
             margin-top: 50px;
-            transition: all 200ms;
             cursor: pointer;
             width: 60%;
-            height: 100%;
-    
-            &:hover { background-color: var(--primary-colour-dark); }
-            &:active { background-color: var(--primary-colour-darker); }
+            color: white;
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: var(--primary-colour-dark);
+            }
+
+            &:active {
+                background-color: var(--primary-colour-darker);
+            }
         }
     }
 }
-
-
-/* .modal.login {
-    h1 {
-        text-shadow: 0 2px 6px black;
-    }
-
-    .input {
-        width: inherit;
-        min-height: 80%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .container {
-            width: inherit;
-        }
-
-        .text {
-            width: inherit;
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-
-            .container-1 {
-                width: 70%;
-            }
-
-            p {
-                font-weight: var(--weight-bold);
-                text-shadow: 0 1px 4px black;
-            }
-        }
-
-        .additional {
-            display: flex;
-            justify-content: center;
-
-            * {
-                font-size: small;
-                color: var(--text-color);
-            }
-
-            .container-2 {
-                width: 70%;
-                display: flex;
-                justify-content: space-between;
-            }
-
-            label {
-                display: flex;
-                align-items: center;
-                cursor: pointer;
-                user-select: none;
-                transition: all 200ms;
-
-                .check {
-                    transition: all 200ms;
-                    outline: 1px solid var(--text-color);
-                    border-radius: var(--border-radius-smaller);
-                    margin-right: 8px;
-                    padding: 4px;
-                    stroke: none;
-                }
-            }
-
-            input:hover+label {
-                color: var(--primary-colour);
-
-                .check {
-                    outline: 2px solid var(--primary-colour);
-                }
-            }
-
-            input:checked+label .check {
-                stroke: var(--secondary-colour);
-                stroke-width: 4px;
-                outline: 2px solid var(--primary-colour);
-            }
-
-            a {
-                cursor: pointer;
-                user-select: none;
-                transition: all 200ms;
-
-                &:hover {
-                    color: var(--primary-colour);
-                }
-            }
-        }
-    }
-
-    .enter {
-        background-color: var(--primary-colour);
-        border-radius: var(--border-radius-small);
-        border: none;
-        outline: none;
-        width: 50%;
-        padding: 12px;
-        margin-top: 50px;
-        transition: all 200ms;
-        cursor: pointer;
-
-        &:hover { background-color: var(--primary-colour-dark); }
-        &:active { background-color: var(--primary-colour-darker); }
-    }
-} */

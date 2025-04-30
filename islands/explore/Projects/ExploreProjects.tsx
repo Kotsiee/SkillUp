@@ -1,4 +1,4 @@
-import { useEffect } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import { PageProps } from '$fresh/server.ts';
 import ExploreFilters from '../ExploreFilter.tsx';
 import { parseProjectFilter } from '../../../lib/utils/parsers.ts';
@@ -10,6 +10,19 @@ export default function ExploreProjects({ ctx }: { ctx: PageProps }) {
   const url = useSignal(new URL(ctx.url));
   const project = useSignal(null);
   const filters = parseProjectFilter(url.value.search);
+
+  const [userProjects, setUserProjects] = useState([]);
+
+  useEffect(() => {
+    fetch(`/api/user/projects/allprojects`, {
+      method: 'GET',
+    })
+      .then(res => res.json())
+      .then(projs => {
+        setUserProjects(projs.json);
+        console.log(projs.json);
+      });
+  }, []);
 
   useEffect(() => {
     url.value = new URL(ctx.url);
@@ -77,7 +90,7 @@ export default function ExploreProjects({ ctx }: { ctx: PageProps }) {
 
         <div class="explore-projects-details">
           <div class="container">
-            <ProjectDetails project={project.value} />
+            <ProjectDetails project={project.value} userProjects={userProjects} />
           </div>
         </div>
       </div>

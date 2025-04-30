@@ -1,15 +1,15 @@
-import { DateTime } from "https://esm.sh/luxon@3.5.0";
-import { ChatRoles } from "./chatRoles.ts";
-import { Chat } from "./chats.ts";
-import { FileReference } from "../files/fileReferences.ts";
-import { Files } from "../files/files.ts";
+import { DateTime } from 'https://esm.sh/luxon@3.5.0';
+import { ChatRoles } from './chatRoles.ts';
+import { Chat } from './chats.ts';
+import { FileReference } from '../files/fileReferences.ts';
+import { Files } from '../files/files.ts';
 
 export interface Messages {
   id?: string;
   user?: ChatRoles;
   chat?: Chat;
   content: jsonTag;
-  textContent: jsonTag;
+  textContent?: jsonTag;
   attachments?: Files[] | FileReference[] | null;
   sentAt: DateTime;
 }

@@ -1,45 +1,59 @@
-import { Handlers } from "$fresh/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.47.10/dist/module/index.js";
+// routes/api/chats/[id]/subscribe.ts
+
+import { Handlers } from '$fresh/server.ts';
+import { getCookies } from '$std/http/cookie.ts';
+import { getCachedUser } from '../../../../lib/utils/cache.ts';
+import { subscribeToMessages } from '../../../../lib/newapi/chats/messages.ts';
+
+const kv = await Deno.openKv();
 
 export const handler: Handlers = {
-  async GET(req, _ctx) {
-    const headers = new Headers({
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      "Connection": "keep-alive",
-      "Access-Control-Allow-Origin": "*", // Ensure CORS allows requests
-    });
+  async GET(req, ctx) {
+    const chatId = ctx.params.id;
 
-    // Get Supabase credentials from environment variables
-    const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
-    const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY")!;
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const cookies = getCookies(req.headers);
+    const sessionId = cookies['session'];
+
+    if (!sessionId) {
+      return new Response(JSON.stringify({ error: 'Missing session' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const { accessToken } = await getCachedUser(req, kv);
+
+    if (!accessToken) {
+      return new Response(JSON.stringify({ error: 'Invalid session or user' }), {
+        status: 403,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
 
     const stream = new ReadableStream({
       start(controller) {
-        console.log("SSE Connection Started...");
-    
-        const channel = supabase
-          .channel("messages")
-          .on(
-            "postgres_changes",
-            { event: "*", schema: "messages", table: "messages" },
-            (payload) => {
-              console.log("🔔 New Message:", payload);
-              const data = `data: ${JSON.stringify(payload)}\n\n`;
-              controller.enqueue(new TextEncoder().encode(data));
-            },
-          )
-          .subscribe();
-    
-        req.signal.addEventListener("abort", () => {
-          console.log("SSE Connection Closed...");
-          channel.unsubscribe();
+        const encoder = new TextEncoder();
+        console.log('SSE Connection Started');
+
+        const sub = subscribeToMessages(chatId, accessToken, event => {
+          const payload = `data: ${JSON.stringify(event)}\n\n`;
+          controller.enqueue(encoder.encode(payload));
+        });
+
+        req.signal.addEventListener('abort', () => {
+          console.log('SSE Connection Closed');
+          sub.unsubscribe();
           controller.close();
         });
       },
-    });    
+    });
 
-    return new Response(stream, { headers });
+    return new Response(stream, {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        Connection: 'keep-alive',
+      },
+    });
   },
 };

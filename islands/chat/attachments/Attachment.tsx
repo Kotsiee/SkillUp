@@ -7,7 +7,7 @@ import {
 } from 'https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js';
 import { VNode } from 'preact/src/index.d.ts';
 import { DateTime } from 'https://esm.sh/luxon@3.5.0';
-import LabelSlider from '../../../components/Sliders/LabelSlider.tsx';
+import LabelSlider from '../../../components/UI/Sliders/LabelSlider.tsx';
 import AIcon, { Icons } from '../../../components/Icons.tsx';
 import { FileReference, Files } from '../../../lib/types/index.ts';
 
@@ -110,7 +110,7 @@ export default function Attachment({ pageProps }: { pageProps: PageProps }) {
 
       <div class="file-details">
         <div class="obj-info">
-          <h5 class="title">{file.meta?.publicName}</h5>
+          <h5 class="title">{file.publicName}</h5>
           <p class="obj-type">{file.file?.fileType || file.file?.mimeType}</p>
           <p class="sent-at">{createdAtDate.toFormat("DDDD' - 'HH':'mm")}</p>
         </div>
@@ -159,170 +159,4 @@ function ReviewTab() {
 
 function CommentsTab() {
   return <div></div>;
-}
-
-interface IViewer {
-  file: Files;
-  controller: Signal<{ [ctrl: string]: Signal<any> } | null>;
-}
-
-function ImageViewer({ file, controller }: IViewer) {
-  const clicked = useSignal<boolean>(false);
-  const posX = useSignal<number>(0);
-  const posY = useSignal<number>(0);
-
-  const scale = useSignal<number>(0.75);
-  const rotate = useSignal<number>(0);
-
-  controller.value = {
-    scale: scale,
-    rotate: rotate,
-  };
-
-  return (
-    <div class="image-viewer">
-      <div
-        class="image-content"
-        onMouseDown={() => (clicked.value = true)}
-        onMouseUp={() => (clicked.value = false)}
-        onMouseLeave={() => (clicked.value = false)}
-        onMouseMove={event => {
-          if (clicked.value) {
-            posX.value += event.movementX;
-            posY.value += event.movementY;
-          }
-        }}
-      >
-        <div
-          class="image"
-          style={{
-            scale: scale.value.toString(),
-            rotate: `${rotate.value}deg`,
-            translate: `${posX.value}px ${posY.value}px`,
-          }}
-        >
-          <img
-            class="background"
-            src={file.publicURL}
-            draggable={false}
-            style={{
-              filter: `blur(${(1 / scale.value) * 30}px)`,
-            }}
-          />
-          <img class="forground" src={file.publicURL} draggable={false} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ImageController({
-  controller,
-}: {
-  controller: Signal<{ [ctrl: string]: Signal<any> } | null>;
-}) {
-  const rotate = controller.value?.['rotate']!;
-  const scale = controller.value?.['scale']!;
-
-  return (
-    <div class="controls">
-      <div class="rotation">
-        <p>Rotation</p>
-
-        <button onClick={() => (rotate.value = 0)}>Reset</button>
-        <div class="rotation-input-container">
-          <div class="rotation-input">
-            <LabelSlider value={rotate} min={-180} max={180}>
-              <AIcon startPaths={Icons.Filter} size={16} />
-            </LabelSlider>
-
-            <input
-              type="number"
-              value={rotate.value}
-              min={-180}
-              max={180}
-              step={1}
-              onInput={val => (rotate.value = Number.parseInt(val.currentTarget.value))}
-            />
-            <p>°</p>
-          </div>
-        </div>
-
-        <div class="fixed-rotate">
-          <button
-            onClick={() => {
-              if (rotate.value - 90 <= -180) {
-                const remainer = 180 + (rotate.value - 90);
-                rotate.value = 180 - remainer;
-              } else {
-                rotate.value -= 90;
-              }
-            }}
-          >
-            <AIcon startPaths={Icons.Filter} size={16} />
-          </button>
-
-          <button
-            onClick={() => {
-              if (rotate.value + 90 >= 180) {
-                const remainer = 180 - (rotate.value + 90);
-                rotate.value = -180 + remainer;
-              } else {
-                rotate.value += 90;
-              }
-            }}
-          >
-            <AIcon startPaths={Icons.Filter} size={16} />
-          </button>
-        </div>
-      </div>
-
-      <div class="scale">
-        <p>Scale</p>
-
-        <button onClick={() => (scale.value = 0.75)}>Reset</button>
-        <div class="scale-input-container">
-          <div class="scale-input">
-            <LabelSlider value={scale} min={0.1} max={10} steps={0.01}>
-              <AIcon startPaths={Icons.Filter} size={16} />
-            </LabelSlider>
-
-            <input
-              type="number"
-              value={scale.value}
-              min={0.1}
-              max={10}
-              step={0.01}
-              onInput={val => (scale.value = Number.parseInt(val.currentTarget.value).toFixed(2))}
-            />
-            <p>x</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function VideoViewer({ file, controller }: IViewer) {
-  return (
-    <div class="image-viewer">
-      <h1>CBA</h1>
-    </div>
-  );
-}
-
-function AudioViewer({ file, controller }: IViewer) {
-  return (
-    <div class="image-viewer">
-      <h1>CBA</h1>
-    </div>
-  );
-}
-
-function TextViewer({ file, controller }: IViewer) {
-  return (
-    <div class="image-viewer">
-      <h1>CBA</h1>
-    </div>
-  );
 }

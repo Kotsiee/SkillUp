@@ -1,0 +1,42 @@
+.register {
+    .register__form {
+        width: 400px;
+        margin: 12px;
+        margin-bottom: 28px;
+
+        .register__field {
+            margin-bottom: 12px;
+        }
+
+        .register__form-name {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .register__submit {
+            display: flex;
+            justify-content: center;
+
+            input[type="submit"] {
+                background-color: var(--primary-colour);
+                border-radius: var(--border-radius-small);
+                border: none;
+                padding: 12px;
+                margin-top: 50px;
+                cursor: pointer;
+                width: 60%;
+                color: white;
+                transition: background-color 0.2s;
+
+                &:hover {
+                    background-color: var(--primary-colour-dark);
+                }
+
+                &:active {
+                    background-color: var(--primary-colour-darker);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+.review {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 8px;
+
+    .review__empty {
+        font-size: 1rem;
+        color: var(--text-color-dark-hover);
+        text-align: center;
+    }
+
+    .review__list {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding: 8px;
+    }
+
+    .review__upload-btn {
+        align-self: center;
+        padding: 8px 24px;
+        border-radius: 20px;
+        background-color: var(--primary-colour);
+        color: var(--text-color);
+        font-weight: 600;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: var(--primary-colour-dark);
+        }
+
+        &:active {
+            background-color: var(--primary-colour-darker);
+        }
+    }
+}

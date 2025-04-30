@@ -2,8 +2,8 @@
 import { useRef } from 'preact/hooks';
 import { useSignal } from '@preact/signals';
 import { useUser } from '../contexts/UserProvider.tsx';
-import FileUploader from '../../components/FileUploader/FileUploader.tsx';
-import EditLayout from '../Edit/EditLayout.tsx';
+import FileUploader from '../../components/UI/FileUploader/FileUploader.tsx';
+import EditLayout from '../../components/Edit/EditLayout.tsx';
 import { Project } from '../../lib/types/index.ts';
 import { DateTime } from 'https://esm.sh/luxon@3.5.0';
 
@@ -22,8 +22,7 @@ export default function NewProject() {
 
   const editableProject = useSignal<Project | null>({
     id: crypto.randomUUID(),
-    team,
-
+    team: team ?? undefined,
     title: 'Test Project',
     description: 'desc',
     jobs: [

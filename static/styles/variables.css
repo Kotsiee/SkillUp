@@ -10,9 +10,7 @@
     --border-radius-smaller: 4px;
 
     --easing: cubic-bezier(.0, .8, .5, 2);
-
     --header-height-desktop: 56px;
-
     --width-transition: 400ms;
 
     --text-white: hsl(0, 0%, 90%);
@@ -43,17 +41,35 @@
     --yellow-light: hsl(var(--yellow-hue), var(--yellow-saturation), 60%);
     --yellow-lighter: hsl(var(--yellow-hue), var(--yellow-saturation), 70%);
 
-    --green-hue: 350;
-    --green-saturation: 55%;
+    --green-hue: 150;
+    --green-saturation: 80%;
     --green-lightness: 50%;
+
+    --green: hsl(var(--green-hue), var(--green-saturation), var(--green-lightness));
+    --green-dark: hsl(var(--green-hue), var(--green-saturation), 40%);
+    --green-darker: hsl(var(--green-hue), var(--green-saturation), 30%);
+    --green-light: hsl(var(--green-hue), var(--green-saturation), 60%);
+    --green-lighter: hsl(var(--green-hue), var(--green-saturation), 70%);
 
     --blue-hue: 35;
     --blue-saturation: 90%;
     --blue-lightness: 50%;
 
+    --blue: hsl(var(--blue-hue), var(--blue-saturation), var(--blue-lightness));
+    --blue-dark: hsl(var(--blue-hue), var(--blue-saturation), 40%);
+    --blue-darker: hsl(var(--blue-hue), var(--blue-saturation), 30%);
+    --blue-light: hsl(var(--blue-hue), var(--blue-saturation), 60%);
+    --blue-lighter: hsl(var(--blue-hue), var(--blue-saturation), 70%);
+
     --purple-hue: 350;
     --purple-saturation: 55%;
     --purple-lightness: 50%;
+
+    --purple: hsl(var(--purple-hue), var(--purple-saturation), var(--purple-lightness));
+    --purple-dark: hsl(var(--purple-hue), var(--purple-saturation), 40%);
+    --purple-darker: hsl(var(--purple-hue), var(--purple-saturation), 30%);
+    --purple-light: hsl(var(--purple-hue), var(--purple-saturation), 60%);
+    --purple-lighter: hsl(var(--purple-hue), var(--purple-saturation), 70%);
 }
 
 .light-mode {
@@ -76,7 +92,8 @@
     --nav-bg: hsl(0, 0%, 65%)
 }
 
-.dark-mode {--bg-colour-primary: hsl(0, 0%, 10%);
+.dark-mode {
+    --bg-colour-primary: hsl(0, 0%, 10%);
     --bg-colour-secondary: hsl(0, 0%, 4%);
 
     --modal-colour: hsl(0, 0%, 15%);
@@ -88,10 +105,10 @@
     --modal-colour-lighterer: hsl(0, 0%, 25%);
     --modal-colour-lightererer: hsl(0, 0%, 30%);
 
-    --text-color-lightness: 90%;
+    --text-color-lightness: 95%;
     --text-color: hsl(0, 0%, var(--text-color-lightness));
-    --text-color-hover: hsl(0, 0%, 80%);
-    --text-color-active: hsl(0, 0%, 70%);
+    --text-color-hover: hsl(0, 0%, 75%);
+    --text-color-active: hsl(0, 0%, 65%);
     --text-color-dark: hsl(0, 0%, 50%);
     --text-color-dark-hover: hsl(0, 0%, 40%);
 

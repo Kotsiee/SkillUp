@@ -1,121 +1,116 @@
-.upload-file {
+.upload {
     padding: 4px;
 
-    .actions {
+    .upload__header {
+        display: flex;
+        justify-content: space-between;
         margin-bottom: 12px;
+        padding-top: 8px;
 
-        .top {
-            display: flex;
-            justify-content: space-between;
-            padding-top: 8px;
-
-            .newFile-container {
-                input+label {
-                    padding: 4px 16px;
-                    border-radius: 20px;
-                    background-color: var(--primary-colour);
-                    cursor: pointer;
-                }
-
-                input:hover+label {
-                    background-color: var(--primary-colour-dark)
-                }
-
-                input:active+label {
-                    background-color: var(--primary-colour-darker)
-                }
-            }
-
-            .search {
-                display: flex;
+        .upload__new-file {
+            &input+label.upload__button {
+                padding: 4px 16px;
                 border-radius: 20px;
-                padding: 4px;
-                background-color: var(--modal-colour-lighter);
-
-                input {
-                    background-color: #0000;
-                    text-indent: 12px;
-                    width: 200px;
-                }
-
-                path {
-                    stroke-width: 2;
-                }
-
-                .x-icon {
-                    padding: 6px;
-                    cursor: pointer;
-
-                    &:hover path {
-                        stroke: var(--text-color-hover)
-                    }
-
-                    &:active path {
-                        stroke: var(--text-color-active)
-                    }
-                }
-
-                .search-icon {
-                    padding: 4px;
-                    border-radius: 20px;
-                    background-color: var(--primary-colour);
-                    cursor: pointer;
-                    outline: 4px solid var(--modal-colour);
-                    transform: scale(1.2);
-
-                    &:hover {
-                        background-color: var(--primary-colour-dark)
-                    }
-
-                    &:active {
-                        background-color: var(--primary-colour-darker)
-                    }
-                }
+                background-color: var(--primary-colour);
+                cursor: pointer;
             }
-        }
 
-        .file-locations {
-            margin-top: 12px;
+            &input:hover+label.upload__button {
+                background-color: var(--primary-colour-dark);
+            }
 
-            ul {
-                display: flex;
-                gap: 8px;
-
-                li {
-                    input+label {
-                        padding: 4px 16px;
-                        background-color: #0006;
-                        cursor: pointer;
-                        border-radius: 20px;
-                        font-size: 0.8em;
-                    }
-
-                    input:hover+label {
-                        background-color: #0002
-                    }
-
-                    input:checked+label {
-                        background-color: hsla(var(--primary-hue), var(--primary-saturation), var(--primary-lightness), 0.5)
-                    }
-                }
+            &input:active+label.upload__button {
+                background-color: var(--primary-colour-darker);
             }
         }
     }
 
-    .view-files-container{
-        
-        .view-files {
-            display: flex;
-            gap: 12px;
-            overflow-x: scroll;
-            padding: 4px;
+    .upload__search {
+        display: flex;
+        border-radius: 20px;
+        padding: 4px;
+        background-color: var(--modal-colour-lighter);
+
+        .upload__search-input {
+            background-color: transparent;
+            text-indent: 12px;
+            width: 200px;
         }
 
-        h6 {
-            color: var(--text-color-dark-hover);
-            font-size: 0.8em;
-            margin-bottom: 4px;
-            margin-left: 4px;
+        .upload__icon--search {
+            padding: 4px;
+            border-radius: 20px;
+            background-color: var(--primary-colour);
+            outline: 4px solid var(--modal-colour);
+            transform: scale(1.2);
+
+            &:hover {
+                background-color: var(--primary-colour-dark);
+            }
+
+            &:active {
+                background-color: var(--primary-colour-darker);
+            }
         }
+    }
+
+    .upload__icon {
+        padding: 6px;
+        cursor: pointer;
+        stroke-width: 4;
+    }
+
+    .upload__icon--clear:hover path {
+        stroke: var(--text-color-hover);
+    }
+
+    .upload__icon--clear:active path {
+        stroke: var(--text-color-active);
+    }
+
+    .upload__locations {
+        margin-top: 12px;
+
+        .upload__location-list {
+            display: flex;
+            gap: 8px;
+
+            .upload__location-item {
+                input+label.upload__location-label {
+                    padding: 4px 16px;
+                    background-color: #0006;
+                    cursor: pointer;
+                    border-radius: 20px;
+                    font-size: 0.8em;
+                }
+
+                input:hover+label.upload__location-label {
+                    background-color: #0002;
+                }
+
+                input:checked+label.upload__location-label {
+                    background-color: hsla(var(--primary-hue), var(--primary-saturation), var(--primary-lightness), 0.5);
+                }
+            }
+        }
+    }
+}
+
+.upload__section {
+    margin-top: 16px;
+
+    .upload__section-title {
+        color: var(--text-color-dark-hover);
+        font-size: 0.8em;
+        margin-bottom: 4px;
+        margin-left: 4px;
+    }
+
+    .upload__files {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        overflow-x: scroll;
+        padding: 4px;
     }
 }

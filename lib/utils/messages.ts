@@ -1,18 +1,20 @@
+import { jsonTag } from '../newtypes/index.ts';
+
 export const toMessage = (msg: any, chat: Chat): Messages => {
   const c = chat;
 
-  return ({
+  return {
     id: msg.id,
     user:
-      c?.users?.find((u) => u.user?.id == msg.user_id) as ChatRoles | null ||
+      (c?.users?.find(u => u.user?.id == msg.user_id) as ChatRoles | null) ||
       msg.user ||
-      c?.users?.find((u) => u.user?.id == msg.user?.id) as ChatRoles | null,
+      (c?.users?.find(u => u.user?.id == msg.user?.id) as ChatRoles | null),
     chat: c as Chat | null,
     content: msg.content,
     textContent: msg.textContent,
     attachments: msg.attachments,
     sentAt: msg.sent_at || msg.sentAt,
-  });
+  };
 };
 
 const toStyle = (style?: CSSStyleDeclaration): style | null => {
@@ -24,19 +26,24 @@ const toStyle = (style?: CSSStyleDeclaration): style | null => {
   };
 };
 
-export function toJSON(node: HTMLElement, tag: string, lineCount: number, parent?: HTMLElement,): jsonTag {
+export function toJSON(
+  node: HTMLElement,
+  tag: string,
+  lineCount: number,
+  parent?: HTMLElement
+): jsonTag {
   const newTag: jsonTag = {
     Tag: tag,
   };
 
-  if (tag === "LI") {
-    const listType = node.getAttribute("data-list");
+  if (tag === 'LI') {
+    const listType = node.getAttribute('data-list');
     newTag.Tag = listType?.toUpperCase();
 
-    newTag.indent = node.className.replace('ql-indent-', '') as any as number || 0
+    newTag.indent = (node.className.replace('ql-indent-', '') as any as number) || 0;
   }
 
-  if (tag !== "ROOT" && "OL" && "UL") {
+  if (tag !== 'ROOT' && 'OL' && 'UL') {
     newTag.Content = node.textContent;
 
     if (toStyle(node.style)) newTag.Style = toStyle(node.style);
@@ -51,23 +58,19 @@ export function toJSON(node: HTMLElement, tag: string, lineCount: number, parent
   }
 
   if (node.hasChildNodes() && node.textContent && node.children.length > 0) {
-
     newTag.Children = [];
     const cArray = Array.from(node.children) as HTMLElement[];
 
-    cArray.forEach((item) => {
-        if (item.tagName === "OL")
-          lineCount += item.children.length
-        else
-          lineCount += 1
+    cArray.forEach(item => {
+      if (item.tagName === 'OL') lineCount += item.children.length;
+      else lineCount += 1;
 
-        newTag.Children?.push(toJSON(item, item.tagName, lineCount, node));
+      newTag.Children?.push(toJSON(item, item.tagName, lineCount, node));
     });
   }
 
-  if (tag == "ROOT")
-    newTag.range === lineCount
-  
+  if (tag == 'ROOT') newTag.range === lineCount;
+
   return newTag;
 }
 
@@ -89,81 +92,99 @@ function getNodeIndex(child: Node, parent: Node): number | null {
 
 export function toHTML(tagObj: jsonTag): HTMLElement {
   // Create the parent element
-  let tag = tagObj.Tag || "p"
-  if ((tagObj.Tag === "BULLET") || (tagObj.Tag === "ORDERED")) tag = "li"
+  let tag = tagObj.Tag || 'p';
+  if (tagObj.Tag === 'BULLET' || tagObj.Tag === 'ORDERED') tag = 'li';
   const element = document.createElement(tag);
-  if (tag === "li")
-  {
-    element.setAttribute('data-list', tagObj.Tag!.toLowerCase())
-    element.setAttribute('style', `padding-left: ${(tagObj.indent || 0) * 2}em`)
-    element.className = `indent-${tagObj.indent}`
+  if (tag === 'li') {
+    element.setAttribute('data-list', tagObj.Tag!.toLowerCase());
+    element.setAttribute('style', `padding-left: ${(tagObj.indent || 0) * 2}em`);
+    element.className = `indent-${tagObj.indent}`;
   }
 
   const fragment = document.createDocumentFragment();
 
-  if (!tagObj.Content){
-    fragment.appendChild(document.createElement('br'))
+  if (!tagObj.Content) {
+    fragment.appendChild(document.createElement('br'));
     element.appendChild(fragment);
     return element;
   }
 
-  if (tag === "li")
-  {
-    const marker = document.createElement('span')
-    marker.className = 'list-marker'
-    fragment.appendChild(marker)
+  if (tag === 'li') {
+    const marker = document.createElement('span');
+    marker.className = 'list-marker';
+    fragment.appendChild(marker);
   }
 
   let content = tagObj.Content;
   let lastIndex = 0;
 
   if (tagObj.Children && tagObj.Children.length > 0) {
-      // Sort children by index to process them sequentially
-      const sortedChildren = [...tagObj.Children].sort((a, b) => a.index! - b.index!);
+    // Sort children by index to process them sequentially
+    const sortedChildren = [...tagObj.Children].sort((a, b) => a.index! - b.index!);
 
-      sortedChildren.forEach(child => {
-          // Extract the text before this child
-          if (child.index !== undefined)
-          {
-            const textBefore = content.substring(lastIndex, child.index);
-            if (textBefore) {
-                fragment.appendChild(document.createTextNode(textBefore));
-            }
-  
-            // Recursively create child elements
-            const childElement = toHTML(child);
-            fragment.appendChild(childElement);
-  
-            lastIndex = child.index! + child.range!;
-          }
-      });
+    sortedChildren.forEach(child => {
+      // Extract the text before this child
+      if (child.index !== undefined) {
+        const textBefore = content.substring(lastIndex, child.index);
+        if (textBefore) {
+          fragment.appendChild(document.createTextNode(textBefore));
+        }
 
-      // Append remaining text after the last child
-      const textAfter = content.substring(lastIndex);
-      if (textAfter) {
-          fragment.appendChild(document.createTextNode(textAfter));
+        // Recursively create child elements
+        const childElement = toHTML(child);
+        fragment.appendChild(childElement);
+
+        lastIndex = child.index! + child.range!;
       }
+    });
+
+    // Append remaining text after the last child
+    const textAfter = content.substring(lastIndex);
+    if (textAfter) {
+      fragment.appendChild(document.createTextNode(textAfter));
+    }
   } else {
-      // If no children, just insert the full content
-      fragment.appendChild(document.createTextNode(content));
+    // If no children, just insert the full content
+    fragment.appendChild(document.createTextNode(content));
   }
 
   element.appendChild(fragment);
   return element;
 }
 
-
 export function jsonToString(json: jsonTag): string {
-  let content = "";
+  let content = '';
 
   // Check if the root has children
   if (json.Children && json.Children.length > 0) {
     for (const child of json.Children) {
       if (child.Content) {
-        content += child.Content + " ";
+        content += child.Content + ' ';
       }
     }
   }
 
   return content.trim();
+}
+
+export function toText(tag: jsonTag | jsonTag[]): string {
+  if (Array.isArray(tag)) {
+    return tag.map(toText).join(''); // join siblings
+  }
+
+  let text = '';
+
+  if (tag.Content) {
+    text += tag.Content;
+  }
+
+  if (tag.Children && tag.Children.length > 0) {
+    text += tag.Children.map(toText).join(''); // flatten child tags
+  }
+
+  if (tag.Tag === 'br') {
+    text += '  '; // double space for line break
+  }
+
+  return text;
 }

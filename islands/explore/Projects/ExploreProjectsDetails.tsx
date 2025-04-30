@@ -1,15 +1,18 @@
-import { Project, Task } from '../../../lib/types/index.ts';
+import { Project, ProjectRole, Task } from '../../../lib/types/index.ts';
 import { useSignal } from '@preact/signals';
 import { TimeAgo } from '../../../lib/utils/time.ts';
 import { DateTime } from 'https://esm.sh/luxon@3.5.0';
 import { formatWithCommas } from '../../../lib/utils/math.ts';
+import { useUser } from '../../contexts/UserProvider.tsx';
 
 export function ProjectDetails({
   project,
   className,
+  userProjects,
 }: {
   project: Project | null;
   className?: string;
+  userProjects: ProjectRole[];
 }) {
   if (!project) return <div>Loading...</div>;
 
@@ -49,14 +52,16 @@ export function ProjectDetails({
             </div>
           </div>
           <div class="actions">
-            <button
-              class="join"
-              onClick={() => {
-                handleJoin();
-              }}
-            >
-              Join
-            </button>
+            {userProjects.findIndex(p => p.project === project.id) === -1 ? (
+              <button
+                class="join"
+                onClick={() => {
+                  handleJoin();
+                }}
+              >
+                Join
+              </button>
+            ) : null}
           </div>
           <div>
             <ul class="tasks">

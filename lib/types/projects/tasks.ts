@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-explicit-any
 import { DateTime } from 'https://esm.sh/luxon@3.5.0';
 import { FileReference } from '../files/fileReferences.ts';
 import { Project } from './projects.ts';
@@ -19,8 +20,8 @@ export interface Task {
   };
 
   budgetAllocated?: number;
-
   tasks?: Task[];
+  meta?: TaskMeta;
 }
 
 export type TaskMeta = {

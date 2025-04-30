@@ -1,11 +1,21 @@
-import { PageProps } from "$fresh/server.ts";
-export default function Layout(pageProps: PageProps) {
+// projects/_layout
 
-    return (
-        <div class="projectss-layout" f-client-nav>
-            <link rel="stylesheet" href="/styles/pages/projects/projects.css" />
-            <link rel="stylesheet" href="/styles/pages/messages/messages.css" />
-            <pageProps.Component />
-        </div>
+import { PageProps } from '$fresh/server.ts';
+import ChatResize from '../../islands/chat/ChatResize.tsx';
+import { PageProvider } from '../../islands/contexts/PageProvider.tsx';
+import { ProjectProvider } from '../../islands/contexts/ProjectProvider.tsx';
+import ProjectsList from '../../islands/projects/ProjectsList.tsx';
+import { ChatProvider } from './../../islands/contexts/ChatProvider.tsx';
+
+export default function Layout(pageProps: PageProps) {
+  return (
+    <PageProvider>
+      <ProjectProvider pageProps={pageProps}>
+        <ChatProvider pageProps={pageProps}>
+          <link rel="stylesheet" href="/styles/pages/projects/projects.css" />
+          <pageProps.Component />
+        </ChatProvider>
+      </ProjectProvider>
+    </PageProvider>
   );
 }

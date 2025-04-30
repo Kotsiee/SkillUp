@@ -2,8 +2,8 @@
 import { useRef } from 'preact/hooks';
 import { useSignal } from '@preact/signals';
 import { useUser } from '../contexts/UserProvider.tsx';
-import FileUploader from '../../components/FileUploader/FileUploader.tsx';
-import EditLayout from '../Edit/EditLayout.tsx';
+import FileUploader from '../../components/UI/FileUploader/FileUploader.tsx';
+import EditLayout from '../../components/Edit/EditLayout.tsx';
 import { AccountProfile } from '../../lib/types/index.ts';
 
 export default function EditProfile({ account }: { account: AccountProfile }) {

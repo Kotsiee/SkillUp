@@ -6,5 +6,6 @@ export interface ProjectRole {
   id?: string;
   project?: Project | null;
   user?: User | null;
-  createdAt?: DateTime;
+  role?: string;
+  joinedAt?: DateTime;
 }

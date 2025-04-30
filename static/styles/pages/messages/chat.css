@@ -1,12 +1,13 @@
 @import "../../components/messages/input.css";
 @import "../../components/messages/message.css";
 
-.chat-messages-container{
+.chat-messages {
     position: relative;
     width: 100%;
 
-    .chat-messages-area{
+    .chat-messages__list-container {
         padding: 40px;
-        padding-bottom: calc(var(--footer-hight));
+        padding-top: calc(2 * var(--header-height));
+        padding-bottom: calc(2 * var(--footer-height));
     }
 }

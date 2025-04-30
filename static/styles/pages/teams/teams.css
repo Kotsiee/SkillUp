@@ -1,4 +1,8 @@
 .teams {
+    * {
+        text-decoration: none;
+    }
+
     .top {
         display: flex;
         justify-content: space-between;
@@ -54,8 +58,13 @@
             font-size: 1em;
             background-color: var(--primary-colour);
 
-            &:hover {background-color: var(--primary-colour-dark)}
-            &:active {background-color: var(--primary-colour-darker)}
+            &:hover {
+                background-color: var(--primary-colour-dark)
+            }
+
+            &:active {
+                background-color: var(--primary-colour-darker)
+            }
         }
     }
 }
@@ -105,6 +114,7 @@
 
     .team-details {
         padding: 12px;
+
         .deets {
             display: flex;
             justify-content: space-between;

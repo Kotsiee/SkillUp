@@ -1,11 +1,11 @@
-import { Partial } from "$fresh/runtime.ts";
-import LoginIsland from "../../islands/account/Login.tsx";
+import { Partial } from '$fresh/runtime.ts';
+import Login from '../../islands/account/login/Login.tsx';
 
-export default function Login() {
+export default function LoginPage() {
   return (
     <Partial name="account-log">
       <div class="modal login">
-        <LoginIsland />
+        <Login />
       </div>
     </Partial>
   );

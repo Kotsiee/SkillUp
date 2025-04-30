@@ -1,0 +1,71 @@
+@import './quilljs.css';
+@import './Field.css';
+
+.input-field--richtext {
+    .input-field--richtext-title {
+        font-size: 1.1rem;
+        font-weight: var(--weight-bold);
+    }
+
+
+    .input-field--richtext-area {
+        outline: 2px solid var(--modal-colour-lighter);
+        background-color: var(--modal-colour-dark);
+        border-radius: var(--border-radius-smaller);
+
+        .input-field--richtext-area-input {
+            border-radius: var(--border-radius-smaller);
+            padding: 0.75rem 1rem;
+            resize: vertical;
+            overflow: auto;
+            min-height: 4rem;
+
+            * {
+                outline: none;
+                font-size: 1rem;
+            }
+        }
+
+        .input-field--richtext__toolbar {
+            border-top: 2px solid var(--modal-colour-lighterer);
+
+            padding: 0.5rem 1rem;
+            display: flex;
+            gap: 1rem;
+
+            .input-field--richtext__toolbar-style {
+                display: flex;
+                gap: 0.5rem;
+
+                .input-field--richtext__toolbar-style-item {
+                    cursor: pointer;
+
+                    path {
+                        stroke: none;
+                        fill: var(--text-color);
+                    }
+
+                    &:hover path {
+                        fill: var(--text-color-hover);
+                    }
+
+                    &.--enabled {
+                        path {
+                            fill: var(--secondary-colour);
+                        }
+                    }
+                }
+            }
+        }
+
+        &:has(.input-field--richtext-area-input *:focus),
+        &:has(.input-field--richtext-area-input *:active) {
+            outline: 2px solid var(--primary-colour);
+
+            .input-field--richtext__toolbar {
+                border-top: 2px solid var(--primary-colour-darker);
+
+            }
+        }
+    }
+}

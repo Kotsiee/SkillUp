@@ -1,0 +1,48 @@
+@import './ProjectCard.css';
+
+.projects-list {
+    padding: 1rem;
+    background-color: var(--modal-colour-darker);
+    overflow: scroll;
+    height: 100%;
+    width: 100%;
+
+    * {
+        text-decoration: none;
+    }
+
+    .projects-list__header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+
+        .projects-list__title {}
+
+        .icon {
+            stroke-width: 4;
+        }
+    }
+
+    .projects-list__options {}
+
+    .projects-list__chats {}
+
+    .projects-list__create {
+        width: 100%;
+        padding: 1rem;
+        font-size: 0.8rem;
+        border-radius: var(--border-radius-smaller);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            background-color: var(--modal-colour-light);
+        }
+
+        a {
+            height: 100%;
+            width: 100%;
+        }
+    }
+}

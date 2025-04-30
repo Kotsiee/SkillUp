@@ -1,0 +1,50 @@
+@import "../../components/messages/list/ChatList.css";
+@import "../../components/messages/navigation.css";
+
+.chat-layout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    min-height: calc(100vh - var(--header-height-desktop));
+
+    .chat-layout__resizer {
+        width: 5px;
+        background-color: var(--modal-colour);
+        cursor: col-resize;
+        user-select: none;
+        touch-action: none;
+        position: absolute;
+        z-index: 5;
+        height: 100%;
+        left: var(--messages-width);
+
+        &:hover {
+            background-color: var(--modal-colour-light);
+        }
+
+        &:active {
+            background-color: var(--modal-colour-lighter);
+        }
+    }
+
+    .chat-layout__panel {
+        min-width: 350px;
+        overflow: auto;
+    }
+
+    .chat-layout__panel--right {
+        width: calc(100% - var(--messages-width));
+
+        .chat-layout__panel--right__body {
+            padding: 40px;
+            padding-top: calc(var(--header-height) + 2rem);
+        }
+    }
+
+    .chat-layout__panel--left {
+        min-width: 200px;
+        width: var(--messages-width);
+        position: relative;
+    }
+}

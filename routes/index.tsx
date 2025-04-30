@@ -56,10 +56,10 @@ export default function Home() {
 
       <div>
         <p>Paragraph</p>
-        <a href="#">Link</a> <br/>
-        <b>Bold</b> <br/>
-        <i>Italic</i> <br/>
-        <u>Underline</u> <br/>
+        <a href="#">Link</a> <br />
+        <b>Bold</b> <br />
+        <i>Italic</i> <br />
+        <u>Underline</u> <br />
       </div>
 
       <div class="list">
@@ -77,29 +77,33 @@ export default function Home() {
       </div>
 
       <div class="inputs">
-        <input type="button"/> <br/>
-        <input type="checkbox"/> <br/>
-        <input type="color"/> <br/>
-        <input type="date"/> <br/>
-        <input type="datetime-local"/> <br/>
-        <input type="email"/> <br/>
-        <input type="file"/> <br/>
-        <input type="hidden"/> <br/>
-        <input type="image"/> <br/>
-        <input type="month"/> <br/>
-        <input type="number"/> <br/>
-        <input type="password"/> <br/>
-        <input type="radio"/> <br/>
-        <input type="range"/> <br/>
-        <input type="reset"/> <br/>
-        <input type="search"/> <br/>
-        <input type="submit"/> <br/>
-        <input type="tel"/> <br/>
-        <input type="text"/> <br/>
-        <input type="time"/> <br/>
-        <input type="url"/> <br/>
-        <input type="week"/> <br/>
+        <input type="button" /> <br />
+        <input type="checkbox" /> <br />
+        <input type="color" /> <br />
+        <input type="date" /> <br />
+        <input type="datetime-local" /> <br />
+        <input type="email" /> <br />
+        <input type="file" /> <br />
+        <input type="hidden" /> <br />
+        <input type="image" /> <br />
+        <input type="month" /> <br />
+        <input type="number" /> <br />
+        <input type="password" /> <br />
+        <input type="radio" /> <br />
+        <input type="range" /> <br />
+        <input type="reset" /> <br />
+        <input type="search" /> <br />
+        <input type="submit" /> <br />
+        <input type="tel" /> <br />
+        <input type="text" /> <br />
+        <input type="time" /> <br />
+        <input type="url" /> <br />
+        <input type="week" /> <br />
       </div>
+
+      <footer class="footer">
+        <p>&copy; 2023 SkillUp. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
