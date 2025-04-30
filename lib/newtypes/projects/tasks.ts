@@ -3,12 +3,13 @@ import { DateTime } from 'https://esm.sh/luxon@3.5.0';
 import { FileReference } from '../files/fileReferences.ts';
 import { Project } from './projects.ts';
 import { Files } from '../files/files.ts';
+import { jsonTag } from '../index.ts';
 
 export interface Task {
   id?: string;
   project?: Project | Task;
   title?: string;
-  description?: string;
+  description?: string | jsonTag;
   status?: string;
   attachments?: Files[] | FileReference[];
   startDate?: DateTime;

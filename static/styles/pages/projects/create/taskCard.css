@@ -1,0 +1,28 @@
+.task-card {
+    background-color: var(--modal-colour);
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--modal-colour-lighter);
+    padding: 1rem;
+    margin-bottom: 1rem;
+
+    .task-card-title {
+        font-size: 1.2rem;
+        font-weight: var(--weight-bold);
+    }
+
+    .task-card__dates {
+        margin-top: 12px;
+        display: flex;
+        gap: 12px;
+
+        .task-card__dates-title {
+            font-weight: var(--weight-bold);
+            color: var(--text-color-dark);
+            font-size: 0.8rem;
+        }
+
+        .task-card__dates-date {
+            font-weight: var(--weight-light);
+        }
+    }
+}

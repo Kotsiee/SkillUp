@@ -1,0 +1,209 @@
+@import '../../../components/UI/Fields/TextField.css';
+@import '../../../components/UI/Fields/RichTextField.css';
+@import '../../../components/UI/Fields/TextDropdownField.css';
+@import '../../../components/UI/Fields/FileField.css';
+@import '../../../components/UI/Fields/DateField.css';
+@import '../../../components/FileUploader/main.css';
+
+@import './createJob.css';
+
+.new-project {
+
+    * {
+        text-decoration: none;
+    }
+
+    .new-project__header {
+        background-color: var(--modal-colour-darker);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 2rem;
+
+        .new-project__back {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .new-project__back-link {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 8px;
+                background-color: var(--modal-colour-light);
+                border: 1px solid var(--modal-colour-lightererer);
+                border-radius: 20px;
+                padding: 4px 12px;
+                font-size: 0.725rem;
+                font-weight: var(--weight-bold);
+
+                .icon {
+                    path {
+                        stroke-width: 8;
+                    }
+                }
+
+                &:hover {
+                    background-color: var(--modal-colour-lighter);
+                }
+
+                &:active {
+                    background-color: var(--modal-colour-lighterer);
+                }
+            }
+        }
+
+        .new-project__submit {
+            .new-project__submit-button {
+                padding: 0.75rem 1rem;
+                background-color: var(--primary-colour);
+                border-radius: 2rem;
+                font-size: 1rem;
+                font-weight: var(--weight-bold);
+
+                &:hover {
+                    background-color: var(--primary-colour-light);
+                }
+
+                &:active {
+                    background-color: var(--primary-colour-lighter);
+                }
+            }
+        }
+    }
+
+    .new-project__create {
+        min-height: 100vh;
+        width: 100%;
+        padding: 2rem;
+        margin-bottom: 4rem;
+
+        .new-project__create-section {
+            background-color: var(--modal-colour);
+            border: 1px solid var(--modal-colour-lighter);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin: 2rem 0;
+
+            h2 {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .new-project__create__branding {
+            position: relative;
+            margin-top: 0;
+            padding-bottom: 0;
+
+            .new-project__change-image {
+                transition: all 100ms;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: var(--border-radius);
+                display: none;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .new-project__banner-img {
+                border-radius: var(--border-radius);
+                width: 100%;
+                height: 300px;
+                background-size: cover;
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+
+                img {
+                    transition: all 200ms;
+                    object-fit: cover;
+
+                    width: 100%;
+                    height: 100%;
+                }
+
+                &:hover {
+                    img {
+                        filter: blur(5px) brightness(0.6);
+                    }
+
+                    .change-image {
+                        display: flex;
+                    }
+                }
+            }
+
+            .new-project__logo-img {
+                height: 140px;
+                width: 140px;
+                border-radius: 35px;
+                background-size: cover;
+                background-position: 50%;
+                cursor: pointer;
+                position: relative;
+                bottom: 70px;
+                left: 70px;
+                outline: 8px solid var(--modal-colour-dark);
+                overflow: hidden;
+
+                img {
+                    transition: all 200ms;
+
+                    width: 100%;
+                    height: 100%;
+                }
+
+                &:hover {
+                    img {
+                        filter: blur(5px) brightness(0.6);
+                    }
+
+                    .change-image {
+                        display: flex;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.new-project__create-jobs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    .back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: #0006;
+    }
+
+    .new-project__create-jobs-modal {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80%;
+        background-color: var(--modal-colour-dark);
+        border-left: 1px solid var(--modal-colour-light);
+    }
+}
+
+.input-field--job-open {
+    padding: 0.6rem 1rem;
+    border-radius: var(--border-radius-small);
+    background-color: var(--modal-colour-lighter);
+    border: 1px solid var(--modal-colour-lightererer);
+
+    &:hover {
+        background-color: var(--primary-colour-dark);
+        border: 1px solid var(--primary-colour);
+    }
+}

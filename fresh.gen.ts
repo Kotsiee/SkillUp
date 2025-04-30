@@ -40,7 +40,6 @@ import * as $api_chats_index from "./routes/api/chats/index.ts";
 import * as $api_explore_users from "./routes/api/explore/users.ts";
 import * as $api_files_index from "./routes/api/files/index.ts";
 import * as $api_files_process_image_proxy from "./routes/api/files/process/image/proxy.ts";
-import * as $api_files_process_image_resize from "./routes/api/files/process/image/resize.ts";
 import * as $api_files_process_tobase64 from "./routes/api/files/process/tobase64.ts";
 import * as $api_projects_id_ from "./routes/api/projects/[id].ts";
 import * as $api_projects_create_project from "./routes/api/projects/create/project.ts";
@@ -150,9 +149,9 @@ import * as $explore_Projects_ExploreProjectsList from "./islands/explore/Projec
 import * as $profile_edit from "./islands/profile/edit.tsx";
 import * as $profile_layout from "./islands/profile/layout.tsx";
 import * as $profile_profile from "./islands/profile/profile.tsx";
-import * as $projects_NewProject from "./islands/projects/NewProject.tsx";
 import * as $projects_ProjectChatList from "./islands/projects/ProjectChatList.tsx";
 import * as $projects_ProjectsList from "./islands/projects/ProjectsList.tsx";
+import * as $projects_newProject_NewProject from "./islands/projects/newProject/NewProject.tsx";
 import * as $projects_project_ProjectDetails from "./islands/projects/project/ProjectDetails.tsx";
 import * as $projects_project_ProjectMessages from "./islands/projects/project/ProjectMessages.tsx";
 import * as $projects_project_ProjectNavigation from "./islands/projects/project/ProjectNavigation.tsx";
@@ -199,8 +198,6 @@ const manifest = {
     "./routes/api/explore/users.ts": $api_explore_users,
     "./routes/api/files/index.ts": $api_files_index,
     "./routes/api/files/process/image/proxy.ts": $api_files_process_image_proxy,
-    "./routes/api/files/process/image/resize.ts":
-      $api_files_process_image_resize,
     "./routes/api/files/process/tobase64.ts": $api_files_process_tobase64,
     "./routes/api/projects/[id].ts": $api_projects_id_,
     "./routes/api/projects/create/project.ts": $api_projects_create_project,
@@ -342,9 +339,10 @@ const manifest = {
     "./islands/profile/edit.tsx": $profile_edit,
     "./islands/profile/layout.tsx": $profile_layout,
     "./islands/profile/profile.tsx": $profile_profile,
-    "./islands/projects/NewProject.tsx": $projects_NewProject,
     "./islands/projects/ProjectChatList.tsx": $projects_ProjectChatList,
     "./islands/projects/ProjectsList.tsx": $projects_ProjectsList,
+    "./islands/projects/newProject/NewProject.tsx":
+      $projects_newProject_NewProject,
     "./islands/projects/project/ProjectDetails.tsx":
       $projects_project_ProjectDetails,
     "./islands/projects/project/ProjectMessages.tsx":

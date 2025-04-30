@@ -1,0 +1,16 @@
+@import './Field.css';
+
+.input-field--date {
+    .input-field--date-input {
+        background-color: var(--modal-colour-dark);
+        outline: 2px solid var(--modal-colour-lighter);
+        border-radius: var(--border-radius-smaller);
+        font-size: 1rem;
+        padding: 0.5rem 0.75rem;
+
+        &:focus,
+        &:active {
+            outline: 2px solid var(--primary-colour);
+        }
+    }
+}

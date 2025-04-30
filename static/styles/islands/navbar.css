@@ -78,4 +78,15 @@ nav {
 .nav-center,
 .nav-right {
   width: 100%;
+
+  .nav-left-logo {
+    display: flex;
+    align-content: center;
+    height: var(--header-height-desktop);
+
+    img {
+      width: auto;
+      height: calc(inherit - 10px);
+    }
+  }
 }

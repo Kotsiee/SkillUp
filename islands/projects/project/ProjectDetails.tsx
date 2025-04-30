@@ -8,7 +8,7 @@ export default function ProjectDetails({ pageProps }: { pageProps: PageProps }) 
 
   return (
     <div class="projects-list" role="region" aria-label="Projects List">
-      <h1>Henlo</h1>
+      <h1>Select a Job</h1>
     </div>
   );
 }

@@ -1,7 +1,9 @@
 @import '../../components/UI/Fields/TextField.css';
 @import '../../components/UI/Fields/RichTextField.css';
 @import '../../components/UI/Fields/TextDropdownField.css';
+@import '../../components/UI/Fields/FileField.css';
 @import '../../components/FileUploader/main.css';
+
 
 .new-team {
 

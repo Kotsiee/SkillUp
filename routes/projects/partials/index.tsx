@@ -6,7 +6,7 @@ export default function Projects(pageProps: PageProps) {
   return (
     <Partial name="projects">
       <ProjectsList pageProps={pageProps}>
-        <h1>Nothing to see here</h1>
+        <h1>Select a Project</h1>
       </ProjectsList>
     </Partial>
   );

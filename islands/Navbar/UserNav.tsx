@@ -32,7 +32,9 @@ export default function UserNavbar({
             endPaths={Icons.X}
             onClick={() => toggleNavbar(isNavbarOpen)}
           />
-          <a href="/">DuckTasks</a>
+          <a class="nav-left-logo" href="/">
+            <img src="/assets/images/Logo.webp" />
+          </a>
         </div>
 
         {/* Center Section - Search */}

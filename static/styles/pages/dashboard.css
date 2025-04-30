@@ -107,17 +107,22 @@
                         cursor: pointer;
 
                         path {
-                            stroke-width: 4;
+                            stroke: none;
+                            fill: var(--text-color);
                         }
 
                         &:has(input:checked) {
                             path {
-                                stroke: var(--secondary-colour);
-                                stroke-width: 6;
+                                fill: var(--secondary-colour);
                             }
                         }
                     }
                 }
+            }
+
+            .dashboard__content__projects-content__projects {
+                margin: 2rem 0;
+                display: flex;
             }
         }
 

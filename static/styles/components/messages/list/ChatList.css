@@ -10,4 +10,16 @@
     * {
         text-decoration: none;
     }
+
+    .chat-list__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .icon {
+            path {
+                stroke-width: 6;
+            }
+        }
+    }
 }

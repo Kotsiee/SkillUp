@@ -103,25 +103,13 @@ export default function Submissions({ pageProps }: { pageProps: PageProps }) {
             </div>
           </div>
 
-          <button
-            onClick={() => {
-              // navigate to next page partial
-              /**
-               * Example page:
-               * routes/projects/page
-               * routes/projects/partials/page
-               */
-            }}
-          >
-            Next page
-          </button>
           <TableView
             widths={[90, '50%', 90, 90, 140, 100, '20%']}
             fields={fields}
             data={submissions.value}
             className="table"
             onClickRow={d => {
-              console.log(d);
+              globalThis.location.assign(`/projects/${project.id}/${chat.id}/submissions/${d.id}`);
             }}
           />
         </div>

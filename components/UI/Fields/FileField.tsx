@@ -11,9 +11,9 @@ export default function FileField({
 }: {
   uploadedFiles: Signal<(Files | FileReference)[]>;
   fileUploader: MutableRef<any>;
-} & JSX.HTMLAttributes<HTMLInputElement>) {
+} & JSX.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div class={`input-field input-field--files ${props.class}`}>
+    <div {...props} class={`input-field input-field--files ${props.class}`}>
       <p class="input-field-title input-field--files-title">{props.children}</p>
       <div class="input-field--files__uploads">
         {uploadedFiles.value.map((file, index) => {

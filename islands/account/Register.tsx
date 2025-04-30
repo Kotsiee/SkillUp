@@ -2,12 +2,12 @@ import { useSignal } from '@preact/signals';
 
 export default function Register() {
   const formData = useSignal<{ [name: string]: string }>({
-    firstName: 'John',
-    lastName: 'Doe',
-    dob: '2000-01-01',
-    email: 'bretreujeisaupo-7982@yopmail.com',
-    password: 'Strongpassword123!',
-    confirmPassword: 'Strongpassword123!',
+    firstName: '',
+    lastName: '',
+    dob: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
 
   const errors = useSignal<string[]>([]);
@@ -111,6 +111,7 @@ export default function Register() {
               value={formData.value.firstName}
               onInput={handleChange}
               autoComplete={'given-name'}
+              placeholder="First Name"
             />
           </div>
 
@@ -126,6 +127,7 @@ export default function Register() {
               value={formData.value.lastName}
               onInput={handleChange}
               autoComplete={'family-name'}
+              placeholder="Last Name"
             />
           </div>
         </div>
@@ -157,6 +159,7 @@ export default function Register() {
             value={formData.value.email}
             onInput={handleChange}
             autoComplete={'email'}
+            placeholder="email@email.com"
           />
         </div>
 
@@ -172,6 +175,7 @@ export default function Register() {
             value={formData.value.password}
             onInput={handleChange}
             autoComplete={'new-password'}
+            placeholder="*********"
           />
           {passwordStrength.value && (
             <div
@@ -194,6 +198,7 @@ export default function Register() {
             value={formData.value.confirmPassword}
             onInput={handleChange}
             autoComplete={'new-password'}
+            placeholder="*********"
           />
         </div>
 

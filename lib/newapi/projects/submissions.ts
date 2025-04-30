@@ -89,6 +89,7 @@ export async function addSubmission(
       files: (submission.files as Files[]).map(file => {
         return {
           mime_type: file.mimeType,
+          file_type: file.fileType,
           extension: file.extension,
           public_name: file.publicName,
           verified: file.verified,

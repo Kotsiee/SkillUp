@@ -108,11 +108,11 @@ function UserDashboard({ user }: { user: User }) {
               <div class="dashboard__content__projects-content__views">
                 <label class="dashboard__content__projects-content__views-input">
                   <input type="radio" name="projects-views" value="ongoing" checked hidden />
-                  <AIcon startPaths={Icons.Filter} />
+                  <AIcon startPaths={Icons.Grid} />
                 </label>
                 <label class="dashboard__content__projects-content__views-input">
                   <input type="radio" name="projects-views" value="completed" hidden />
-                  <AIcon startPaths={Icons.Filter} />
+                  <AIcon startPaths={Icons.Table} />
                 </label>
               </div>
             </div>
