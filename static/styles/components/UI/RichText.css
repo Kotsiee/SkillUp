@@ -1,0 +1,61 @@
+.richtext {
+    ol,
+    ul {
+        text-align: left;
+
+        li {
+            list-style: none;
+            position: relative;
+
+
+            >.list-marker:before {
+                display: inline-block;
+                margin-right: 0.4em;
+                width: 1.2em;
+                text-align: right;
+                white-space: nowrap;
+            }
+
+            &[data-list="bullet"]>.list-marker:before {
+                content: '\2022';
+                /* Bullet */
+            }
+
+            &[data-list="ordered"] {
+                counter-increment: list-0;
+            }
+
+            &[data-list="ordered"]>.list-marker:before {
+                content: counter(list-0, decimal) '.';
+            }
+
+            &.indent-1[data-list="ordered"] {
+                counter-increment: list-1;
+            }
+
+            &.indent-1[data-list="ordered"]>.list-marker:before {
+                content: counter(list-1, lower-alpha) '.';
+            }
+
+            &.indent-2[data-list="ordered"] {
+                counter-increment: list-2;
+            }
+
+            &.indent-2[data-list="ordered"]>.list-marker:before {
+                content: counter(list-2, lower-roman) '.';
+            }
+        }
+    }
+}
+
+.richtext [data-list] {
+    counter-set: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+
+    &.indent-1 {
+        counter-set: list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+    }
+
+    &.indent-2 {
+        counter-set: list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+    }
+}

@@ -9,7 +9,7 @@ import { VNode } from 'preact/src/index.d.ts';
 import { DateTime } from 'https://esm.sh/luxon@3.5.0';
 import LabelSlider from '../../../components/UI/Sliders/LabelSlider.tsx';
 import AIcon, { Icons } from '../../../components/Icons.tsx';
-import { FileReference, Files } from '../../../lib/types/index.ts';
+import { FileReference, Files } from '../../../lib/newtypes/index.ts';
 
 export default function Attachment({ pageProps }: { pageProps: PageProps }) {
   const [file, setFile] = useState<FileReference | null>(null);

@@ -1,20 +1,12 @@
 import { PageProps } from '$fresh/server.ts';
-import ProfilePage from '../../islands/profile/profile.tsx';
+import ProfilePage from '../../islands/profile/view.tsx';
 import { Partial } from '$fresh/runtime.ts';
-import { AccountProfile } from '../../lib/types/index.ts';
 
-export default function Profile(props: PageProps) {
+export default function Profile() {
   return (
     <Partial name="profile">
-      {props.state.account ? (
-        <div>
-          <ProfilePage account={props.state.account as AccountProfile} />
-        </div>
-      ) : (
-        <div>
-          <h1>User Not Found :(</h1>
-        </div>
-      )}
+      <link rel="stylesheet" href="/styles/pages/profile/view.css" />
+      <ProfilePage />
     </Partial>
   );
 }

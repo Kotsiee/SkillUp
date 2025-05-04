@@ -4,7 +4,7 @@ import AIcon, { Icons } from '../../components/Icons.tsx';
 import { getNavbarState, toggleNavbar } from './utils.ts';
 import ProfileModal from './profileModal/ProfileModal.tsx';
 import UserSideNav from './SideNav.tsx';
-import { Team, User } from '../../lib/types/index.ts';
+import { Team, User } from '../../lib/newtypes/index.ts';
 
 export default function UserNavbar({
   pageProps,

@@ -1,6 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
 import { getSupabaseClient } from '../supabase/client.ts';
-import { AccountProfile, Team, User } from '../types/index.ts';
+import { AccountProfile, Team, User } from '../newtypes/index.ts';
 import { fetchTeamById } from './teams/teams.ts';
 import { fetchUserById } from './user/user.ts';
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'preact/hooks';
-import { TeamRoles, User } from '../../../lib/types/index.ts';
+import { TeamRoles, User } from '../../../lib/newtypes/index.ts';
 import { BusinessProfile, PersonalProfile } from './Profile.tsx';
 import { useSignal } from '@preact/signals';
 

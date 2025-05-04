@@ -1,20 +1,22 @@
 import { useSignal } from 'https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js';
-import { JSX } from "preact/jsx-runtime";
-import { DateTime } from "https://esm.sh/luxon@3.5.0";
-import { useEffect, useState } from "preact/hooks";
-import { Project } from "../../lib/types/index.ts";
+import { JSX } from 'preact/jsx-runtime';
+import { DateTime } from 'https://esm.sh/luxon@3.5.0';
+import { useEffect, useState } from 'preact/hooks';
+import { Project } from '../../lib/newtypes/index.ts';
 
-export function ProjectDetails( props: JSX.HTMLAttributes<HTMLDivElement> & { project: Project | null }) {
+export function ProjectDetails(
+  props: JSX.HTMLAttributes<HTMLDivElement> & { project: Project | null }
+) {
   const [project, setProject] = useState<Project | null>(props.project);
-  const currentTask = useSignal<string>("");
-  const currentDesc = useSignal<string | undefined>("");
+  const currentTask = useSignal<string>('');
+  const currentDesc = useSignal<string | undefined>('');
 
   useEffect(() => {
     if (!project) {
-      fetch("/api/projects")
-        .then((res) => res.json())
-        .then((data) => setProject(data[0]))
-        .catch((err) => console.error("Failed to fetch project:", err));
+      fetch('/api/projects')
+        .then(res => res.json())
+        .then(data => setProject(data[0]))
+        .catch(err => console.error('Failed to fetch project:', err));
     }
   }, [project]);
 
@@ -26,20 +28,20 @@ export function ProjectDetails( props: JSX.HTMLAttributes<HTMLDivElement> & { pr
   }, [project]);
 
   const calculateTimeDifference = () => {
-    if (!project) return { value: 0, unit: "Minutes" };
+    if (!project) return { value: 0, unit: 'Minutes' };
     const date = DateTime.fromISO(project.createdAt.toString());
-    const diff = Math.abs(date.diffNow().as("minutes"));
+    const diff = Math.abs(date.diffNow().as('minutes'));
 
     if (diff > 1440) {
       const days = Math.floor(diff / 1440);
       if (days > 7) {
-        return { value: Math.floor(days / 7), unit: "Weeks" };
+        return { value: Math.floor(days / 7), unit: 'Weeks' };
       }
-      return { value: days, unit: "Days" };
+      return { value: days, unit: 'Days' };
     } else if (diff > 60) {
-      return { value: Math.floor(diff / 60), unit: "Hours" };
+      return { value: Math.floor(diff / 60), unit: 'Hours' };
     } else {
-      return { value: Math.floor(diff), unit: "Minutes" };
+      return { value: Math.floor(diff), unit: 'Minutes' };
     }
   };
 
@@ -59,7 +61,7 @@ export function ProjectDetails( props: JSX.HTMLAttributes<HTMLDivElement> & { pr
           <div class="title-container-right">
             <img
               class="logo"
-              src={project.team?.logo?.publicURL ?? ""}
+              src={project.team?.logo?.publicURL ?? ''}
               loading="lazy"
               alt={`${project.team?.name} logo`}
             />
@@ -67,7 +69,10 @@ export function ProjectDetails( props: JSX.HTMLAttributes<HTMLDivElement> & { pr
               <h2 class="title">{project.title}</h2>
               <p class="org">
                 {project.team?.name}
-                <b> • Posted {timeValue} {timeUnit} ago</b>
+                <b>
+                  {' '}
+                  • Posted {timeValue} {timeUnit} ago
+                </b>
               </p>
             </div>
           </div>
@@ -84,17 +89,15 @@ export function ProjectDetails( props: JSX.HTMLAttributes<HTMLDivElement> & { pr
                   id={`task-overview-${project.id}`}
                   value={`task-overview-${project.id}`}
                   onChange={() =>
-                    handleTaskChange(`task-overview-${project.id}`, project.description )
+                    handleTaskChange(`task-overview-${project.id}`, project.description)
                   }
-                  checked={
-                    currentTask.value === `task-overview-${project.id}`
-                  }
+                  checked={currentTask.value === `task-overview-${project.id}`}
                   hidden
                 />
                 <label for={`task-overview-${project.id}`}>Overview</label>
               </li>
 
-              {project.tasks?.map((task) => (
+              {project.tasks?.map(task => (
                 <li key={task.id}>
                   <input
                     type="radio"
@@ -102,7 +105,7 @@ export function ProjectDetails( props: JSX.HTMLAttributes<HTMLDivElement> & { pr
                     name={`selectTask-${project.id}`}
                     id={`task-${task.id}`}
                     value={`task-${task.id}`}
-                    onChange={() => handleTaskChange(`task-${task.id}`, task.description) }
+                    onChange={() => handleTaskChange(`task-${task.id}`, task.description)}
                     checked={currentTask.value === `task-${task.id}`}
                     hidden
                   />

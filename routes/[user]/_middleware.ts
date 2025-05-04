@@ -1,5 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
 import { FreshContext } from '$fresh/server.ts';
+import { getCookies } from '$std/http/cookie.ts';
 import { fetchTeamById } from '../../lib/newapi/teams/teams.ts';
 import { fetchUserById } from '../../lib/newapi/user/user.ts';
 import { getCachedUser } from '../../lib/utils/cache.ts';
@@ -8,7 +9,24 @@ const PROTECTED_ROUTES = ['/view', '/edit', '/manage'];
 const kv = await Deno.openKv();
 
 export async function handler(req: Request, ctx: FreshContext) {
-  const { user, team } = await getCachedUser(req, kv);
+  const cookies = getCookies(req.headers);
+  const sessionId = cookies['session'];
+
+  if (!sessionId) {
+    return new Response(JSON.stringify({ error: 'Missing session' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const { accessToken, user, team } = await getCachedUser(req, kv);
+
+  if (!accessToken || !user) {
+    return new Response(JSON.stringify({ error: 'Invalid session or user' }), {
+      status: 403,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
   const resp = await ctx.next();
 
   const newResp = new Response(resp.body, resp);
@@ -19,10 +37,9 @@ export async function handler(req: Request, ctx: FreshContext) {
   const headers = new Headers(newResp.headers);
   headers.set('X-Redirected', 'true');
 
-  // 🧠 USER PROFILE LOGIC
   if (pathname.startsWith(`/${ctx.params.user}`) && user) {
     if (team) {
-      const teamInfo = await fetchTeamById(team);
+      const teamInfo = await fetchTeamById(team, accessToken, true);
 
       if (!teamInfo) {
         headers.set('Location', '/');
@@ -37,11 +54,11 @@ export async function handler(req: Request, ctx: FreshContext) {
       }
 
       if (ctx.params.user !== teamInfo?.handle && PROTECTED_ROUTES.includes(subPath)) {
-        headers.set('Location', `/${teamInfo?.handle}/view`);
+        headers.set('Location', `/${ctx.params.user}`);
         return new Response(null, { status: 302, headers });
       }
     } else {
-      const userInfo = await fetchUserById(user);
+      const userInfo = await fetchUserById(user, accessToken, true);
 
       if (!userInfo) {
         headers.set('Location', '/');
@@ -56,7 +73,7 @@ export async function handler(req: Request, ctx: FreshContext) {
       }
 
       if (ctx.params.user !== userInfo.username && PROTECTED_ROUTES.includes(subPath)) {
-        headers.set('Location', `/${userInfo.username}/view`);
+        headers.set('Location', `/${ctx.params.user}`);
         return new Response(null, { status: 302, headers });
       }
     }

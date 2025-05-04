@@ -9,6 +9,7 @@ import RichTextField from '../../components/UI/Fields/RichTextField.tsx';
 import TextDropdownField from '../../components/UI/Fields/TextDropdownField.tsx';
 import AIcon, { Icons } from '../../components/Icons.tsx';
 import resizeImageBase64 from '../../lib/utils/resizeImage.ts';
+import { testIndustries } from '../../lib/testArrays.ts';
 
 export default function EditProfile() {
   const { user } = useUser();
@@ -252,7 +253,7 @@ export default function EditProfile() {
             Team About and Industry
           </h2>
           <RichTextField val={about}>About</RichTextField>
-          <TextDropdownField val={industries} placeholder="Industries" items={['Hello', 'World']}>
+          <TextDropdownField val={industries} placeholder="Industries" items={testIndustries}>
             Industries
           </TextDropdownField>
         </section>

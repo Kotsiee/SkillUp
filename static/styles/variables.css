@@ -51,25 +51,25 @@
     --green-light: hsl(var(--green-hue), var(--green-saturation), 60%);
     --green-lighter: hsl(var(--green-hue), var(--green-saturation), 70%);
 
-    --blue-hue: 35;
-    --blue-saturation: 90%;
-    --blue-lightness: 50%;
+    --blue-hue: 195;
+    --blue-saturation: 80%;
+    --blue-lightness: 40%;
 
     --blue: hsl(var(--blue-hue), var(--blue-saturation), var(--blue-lightness));
-    --blue-dark: hsl(var(--blue-hue), var(--blue-saturation), 40%);
-    --blue-darker: hsl(var(--blue-hue), var(--blue-saturation), 30%);
-    --blue-light: hsl(var(--blue-hue), var(--blue-saturation), 60%);
-    --blue-lighter: hsl(var(--blue-hue), var(--blue-saturation), 70%);
+    --blue-dark: hsl(var(--blue-hue), var(--blue-saturation), 30%);
+    --blue-darker: hsl(var(--blue-hue), var(--blue-saturation), 20%);
+    --blue-light: hsl(var(--blue-hue), var(--blue-saturation), 50%);
+    --blue-lighter: hsl(var(--blue-hue), var(--blue-saturation), 60%);
 
-    --purple-hue: 350;
-    --purple-saturation: 55%;
-    --purple-lightness: 50%;
+    --purple-hue: 275;
+    --purple-saturation: 90%;
+    --purple-lightness: 40%;
 
     --purple: hsl(var(--purple-hue), var(--purple-saturation), var(--purple-lightness));
-    --purple-dark: hsl(var(--purple-hue), var(--purple-saturation), 40%);
-    --purple-darker: hsl(var(--purple-hue), var(--purple-saturation), 30%);
-    --purple-light: hsl(var(--purple-hue), var(--purple-saturation), 60%);
-    --purple-lighter: hsl(var(--purple-hue), var(--purple-saturation), 70%);
+    --purple-dark: hsl(var(--purple-hue), var(--purple-saturation), 30%);
+    --purple-darker: hsl(var(--purple-hue), var(--purple-saturation), 20%);
+    --purple-light: hsl(var(--purple-hue), var(--purple-saturation), 50%);
+    --purple-lighter: hsl(var(--purple-hue), var(--purple-saturation), 60%);
 }
 
 .light-mode {
@@ -141,9 +141,9 @@ for now just stick to one and this can be changed
 
     --secondary-colour: hsl(var(--secondary-hue), var(--secondary-saturation), var(--secondary-lightness));
     --secondary-colour-dark: hsl(var(--secondary-hue), var(--secondary-saturation), 40%);
-    --secondary-colour-darker: hsl(var(--secondary-hue), var(--secondary-saturation), 30%);
-    --secondary-colour-light: hsl(var(--secondary-hue), var(--secondary-saturation), 55%);
-    --secondary-colour-lighter: hsl(var(--secondary-hue), var(--secondary-saturation), 60%);
+    --secondary-colour-darker: hsl(var(--secondary-hue), var(--secondary-saturation), 35%);
+    --secondary-colour-light: hsl(var(--secondary-hue), var(--secondary-saturation), 60%);
+    --secondary-colour-lighter: hsl(var(--secondary-hue), var(--secondary-saturation), 65%);
 
     --tertiary-colour: hsl(var(--tertiary-hue), var(--tertiary-saturation), var(--tertiary-lightness));
     --tertiary-colour-dark: hsl(var(--tertiary-hue), var(--tertiary-saturation), 40%);

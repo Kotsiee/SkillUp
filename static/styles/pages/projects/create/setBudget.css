@@ -1,0 +1,58 @@
+.set-budgets {
+    .set-budgets-totalbudget {
+        display: flex;
+        justify-content: right;
+        font-size: 1.75em;
+        font-weight: var(--weight-bold);
+
+        .set-budgets-totalbudget-currency {
+            font-weight: var(--weight-black);
+            margin-right: 0.5rem;
+        }
+    }
+
+    .job-budget {
+        border-bottom: 1px solid var(--modal-colour-lighterer);
+        margin-bottom: 1rem;
+
+        .job-budget-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .job-budget-row-title {
+                font-weight: var(--weight-bold);
+            }
+
+            .job-budget-row-totalbudget {
+                display: flex;
+                align-items: baseline;
+                font-size: 1.2em;
+
+                .job-budget-currency {
+                    font-weight: var(--weight-bold);
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+
+        .job-budget-row__tasks {
+            background-color: var(--modal-colour-light);
+            border: 1px solid var(--modal-colour-lighterer);
+            border-radius: var(--border-radius-small);
+            padding: 1rem;
+            margin: 1rem 0;
+            margin-left: 2rem;
+
+            .task-budget-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .task-budget-row-title {
+                    font-weight: var(--weight-bold);
+                }
+            }
+        }
+    }
+}

@@ -25,7 +25,11 @@ export async function fetchTeamBanner(id: string, accessToken?: string): Promise
 /**
  * Fetch a team by ID.
  */
-export async function fetchTeamById(id: string, accessToken?: string): Promise<Team | null> {
+export async function fetchTeamById(
+  id: string,
+  accessToken?: string,
+  simplified?: boolean
+): Promise<Team | null> {
   const supabase = getSupabaseClient(accessToken).schema('teams');
 
   const { data, error } = await supabase.from('teams').select('*').eq('id', id).single();
@@ -35,7 +39,10 @@ export async function fetchTeamById(id: string, accessToken?: string): Promise<T
     return null;
   }
 
-  return normalizeTeam({ ...data, logo: await fetchTeamLogo(id, accessToken || '') });
+  return normalizeTeam({
+    ...data,
+    logo: simplified ? undefined : await fetchTeamLogo(id, accessToken || ''),
+  });
 }
 
 /**

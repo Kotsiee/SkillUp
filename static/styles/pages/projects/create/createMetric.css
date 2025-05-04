@@ -1,0 +1,58 @@
+.input-field--metric {
+    .input-field--metric-open {
+        padding: 0.6rem 1rem;
+        border-radius: var(--border-radius-small);
+        background-color: var(--modal-colour-lighter);
+        border: 1px solid var(--modal-colour-lightererer);
+
+        &:hover {
+            background-color: var(--primary-colour-dark);
+            border: 1px solid var(--primary-colour);
+        }
+    }
+}
+
+.create-metric {
+    .create-metric-dates {
+        display: flex;
+        gap: 12px;
+    }
+
+    .create-metric-actions {
+        display: flex;
+        gap: 12px;
+
+        .create-metric-save {
+            padding: 0.6rem 1rem;
+            border-radius: 2rem;
+            background-color: var(--primary-colour);
+            font-size: 1rem;
+            font-weight: var(--weight-bold);
+
+            &:hover {
+                background-color: var(--primary-colour-light);
+            }
+
+            &:active {
+                background-color: var(--primary-colour-lighter);
+            }
+        }
+
+        .create-metric-cancel {
+            padding: 0.6rem 1rem;
+            border-radius: 2rem;
+            background-color: var(--modal-colour-lighter);
+            border: 1px solid var(--modal-colour-lightererer);
+            font-size: 1rem;
+            font-weight: var(--weight-bold);
+
+            &:hover {
+                background-color: var(--modal-colour-lighterer);
+            }
+
+            &:active {
+                background-color: var(--modal-colour-lighter);
+            }
+        }
+    }
+}

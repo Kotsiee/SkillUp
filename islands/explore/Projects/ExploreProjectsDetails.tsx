@@ -1,4 +1,4 @@
-import { Project, ProjectRole, Task } from '../../../lib/types/index.ts';
+import { Project, ProjectRole, Task } from '../../../lib/newtypes/index.ts';
 import { useSignal } from '@preact/signals';
 import { TimeAgo } from '../../../lib/utils/time.ts';
 import { DateTime } from 'https://esm.sh/luxon@3.5.0';

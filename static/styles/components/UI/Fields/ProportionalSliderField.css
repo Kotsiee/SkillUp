@@ -1,0 +1,87 @@
+@import './Field.css';
+
+.input-field--pSlider {
+    * {
+        user-select: none;
+    }
+
+    .input-field--pSlider-container {
+        display: flex;
+        height: 75px;
+        width: 100%;
+        background-color: var(--modal-colour-dark);
+        border: 1px solid var(--modal-colour-lighter);
+        border-radius: var(--border-radius-small);
+        overflow: hidden;
+
+        .input-field--pSlider-item {
+            height: 100%;
+            background-color: var(--primary-colour);
+            position: relative;
+
+            .input-field--pSlider-item-content {
+                text-align: center;
+                padding: 12px;
+
+                .input-field--pSlider-item-name {
+                    font-weight: var(--weight-bold);
+                }
+
+                .input-field--pSlider-item-value {
+                    background-color: transparent;
+                    text-align: center;
+                    cursor: text;
+
+                    &:hover {
+                        color: var(--text-color-hover)
+                    }
+                }
+            }
+
+            .input-field--pSlider-item-handle {
+                position: absolute;
+                right: 0;
+                top: -4px;
+                height: calc(100% + 8px);
+                width: 8px;
+                background-color: var(--modal-colour);
+                cursor: col-resize;
+                z-index: 2;
+
+                &:hover {
+                    background-color: var(--modal-colour-lighter);
+                }
+
+                &:active {
+                    background-color: var(--modal-colour-lighterer);
+                    outline: 2px solid white;
+                }
+            }
+
+            &:nth-child(3n+1) {
+                background-color: var(--secondary-colour);
+            }
+
+            &:nth-child(3n+2) {
+                background-color: var(--tertiary-colour);
+            }
+
+            &:nth-child(3n+3) {
+                background-color: var(--primary-colour);
+            }
+
+            /* 
+            &:nth-child(5n+3) {
+                background-color: var(--green-dark);
+            }
+
+            &:nth-child(5n+4) {
+                background-color: var(--yellow);
+            }
+
+            &:nth-child(5n+5) {
+                background-color: var(--red);
+            } */
+        }
+    }
+}

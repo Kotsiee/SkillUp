@@ -17,14 +17,18 @@ export default function LabelSlider({
   onValInput?: (val: number) => void;
 }) {
   let isDragging = false;
-  let startX = 0;
+  let lastX = 0;
   let startValue = value.value;
+  let lastTime = performance.now();
+  let startTime = performance.now();
   const step = steps ?? 1;
 
   const startDrag = (event: MouseEvent | TouchEvent) => {
     isDragging = true;
-    startX = 'touches' in event ? event.touches[0].clientX : event.clientX;
+    lastX = 'touches' in event ? event.touches[0].clientX : event.clientX;
     startValue = value.value;
+    startTime = performance.now();
+    lastTime = startTime;
 
     document.addEventListener('mousemove', onDrag);
     document.addEventListener('mouseup', stopDrag);
@@ -35,12 +39,23 @@ export default function LabelSlider({
   const onDrag = (event: MouseEvent | TouchEvent) => {
     if (!isDragging) return;
 
-    const currentX = 'touches' in event ? event.touches[0].clientX : event.clientX;
-    const delta = currentX - startX; // Calculate movement
+    const now = performance.now();
+    const deltaTime = now - lastTime;
+    lastTime = now;
 
-    // Compute the new value, ensuring it aligns with the step
-    let newValue = Math.min(max || Infinity, Math.max(min || 0, startValue + delta * step));
-    newValue = Math.round(newValue / step) * step; // Apply step rounding
+    const currentX = 'touches' in event ? event.touches[0].clientX : event.clientX;
+    const frameDeltaX = currentX - lastX;
+    lastX = currentX;
+
+    // velocity in px/ms
+    const velocity = Math.abs(frameDeltaX / deltaTime);
+    const accelerationFactor = 1 + velocity * 3; // tweak as needed
+
+    let newValue = value.value + frameDeltaX * step * accelerationFactor;
+
+    // Clamp and round
+    newValue = Math.min(max || Infinity, Math.max(min || 0, newValue));
+    newValue = Math.round((Math.round(newValue / step) * step + Number.EPSILON) * 100) / 100;
 
     value.value = newValue;
     onValInput?.(value.value);
@@ -55,40 +70,31 @@ export default function LabelSlider({
   };
 
   return (
-    <div
-      class={`label-slider ${className || ''}`}
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      {/* Hidden Range Input (Still Functional) */}
-      <input
-        type="range"
-        id="labelSlider"
-        min={min}
-        max={max}
-        step={step}
-        value={value.value}
-        onInput={e => {
-          (value.value = Math.round(Number(e.currentTarget.value) / step) * step).toFixed(2);
-          onValInput?.(value.value);
-        }}
-        hidden
-      />
-
-      {/* Label Becomes the Slider */}
-      <label
-        for="labelSlider"
-        onMouseDown={startDrag}
-        onTouchStart={startDrag}
-        style={{
-          cursor: 'ew-resize',
-          userSelect: 'none',
-        }}
-      >
-        {children}
+    <div class={`label-slider ${className || ''}`}>
+      <label class="label-slider__inputs">
+        <div
+          class="label-slider__inputs-display-label"
+          onMouseDown={startDrag}
+          onTouchStart={startDrag}
+        >
+          {children}
+        </div>
+        <input
+          class="label-slider__inputs-number"
+          type="number"
+          min={min}
+          max={max}
+          step={step}
+          value={value.value}
+          onInput={e => {
+            const raw = Number(e.currentTarget.value);
+            const stepped = Math.round(raw / step) * step;
+            // Proper rounding to 2 decimal places without float error
+            value.value = Math.round((stepped + Number.EPSILON) * 100) / 100;
+            onValInput?.(value.value);
+          }}
+          // hidden
+        />
       </label>
     </div>
   );

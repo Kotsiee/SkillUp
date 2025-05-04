@@ -6,6 +6,7 @@ import TextField from '../../../UI/Fields/TextField.tsx';
 import RichTextField from '../../../UI/Fields/RichTextField.tsx';
 import DateField from '../../../UI/Fields/DateField.tsx';
 import { DateTime } from 'https://esm.sh/luxon@3.5.0';
+import CurrencyField from '../../../UI/Fields/CurrencyField.tsx';
 
 export default function NewTask({
   tasks,
@@ -14,16 +15,26 @@ export default function NewTask({
   tasks: Signal<Task[]>;
 } & JSX.HTMLAttributes<HTMLDivElement>) {
   const openCreateTask = useSignal<boolean>(false);
+  const selectedTask = useSignal<Task | null>(null);
 
   return (
     <div {...props} class={`input-field input-field--task ${props.class}`}>
       <div class="input-field--tasks__uploads">
         {tasks.value.map((task, index) => {
-          return <TaskCard key={index} task={task} />;
+          return (
+            <TaskCard
+              key={index}
+              task={task}
+              onSelect={task => {
+                selectedTask.value = task;
+                openCreateTask.value = true;
+              }}
+            />
+          );
         })}
       </div>
 
-      <CreateTask open={openCreateTask} tasks={tasks} />
+      <CreateTask open={openCreateTask} tasks={tasks} selectedTask={selectedTask.value} />
 
       <button
         class="input-field--task-open"
@@ -38,19 +49,40 @@ export default function NewTask({
   );
 }
 
-function CreateTask({ open, tasks }: { open: Signal<boolean>; tasks: Signal<Task[]> }) {
+function CreateTask({
+  open,
+  tasks,
+  selectedTask,
+}: {
+  open: Signal<boolean>;
+  tasks: Signal<Task[]>;
+  selectedTask: Task | null;
+}) {
   const title = useSignal<string>('');
-  const description = useSignal<jsonTag | null>(null);
+  const description = useSignal<jsonTag | undefined>(undefined);
+  const budget = useSignal<number>(0);
   const now = DateTime.now().plus({ day: 1 });
   const startDate = useSignal<string>(now.toFormat("yyyy-LL-dd'T'00:00"));
   const endDate = useSignal<string>(now.plus({ month: 1 }).toFormat("yyyy-LL-dd'T'00:00"));
 
   if (!open.value) {
     title.value = '';
-    description.value = null;
+    description.value = undefined;
+    budget.value = 0;
     startDate.value = now.toFormat("yyyy-LL-dd'T'00:00");
     endDate.value = now.plus({ month: 1 }).toFormat("yyyy-LL-dd'T'00:00");
     return null;
+  }
+
+  if (selectedTask) {
+    title.value = selectedTask.title || '';
+    description.value = (selectedTask.description as jsonTag) || undefined;
+    budget.value = selectedTask.budgetAllocated || 0;
+    startDate.value =
+      selectedTask.startDate!.toFormat("yyyy-LL-dd'T'00:00") || now.toFormat("yyyy-LL-dd'T'00:00");
+    endDate.value =
+      selectedTask.endDate!.toFormat("yyyy-LL-dd'T'00:00") ||
+      now.plus({ month: 1 }).toFormat("yyyy-LL-dd'T'00:00");
   }
 
   return (
@@ -59,6 +91,8 @@ function CreateTask({ open, tasks }: { open: Signal<boolean>; tasks: Signal<Task
         Title
       </TextField>
       <RichTextField val={description}>Description</RichTextField>
+
+      <CurrencyField val={budget}>Budget</CurrencyField>
 
       <div class="create-task-dates">
         <DateField val={startDate} min={now.toFormat("yyyy-LL-dd'T'00:00")}>
@@ -73,21 +107,36 @@ function CreateTask({ open, tasks }: { open: Signal<boolean>; tasks: Signal<Task
         <button
           class="create-task-save"
           onClick={() => {
-            tasks.value = [
-              ...tasks.value,
-              {
-                id: crypto.randomUUID(),
-                title: title.value,
-                description: description.value ? description.value : undefined,
-                startDate: DateTime.fromFormat(startDate.value, "yyyy-LL-dd'T'00:00"),
-                endDate: DateTime.fromFormat(endDate.value, "yyyy-LL-dd'T'00:00"),
-              },
-            ];
+            if (tasks.value.findIndex(task => task.id === selectedTask?.id) !== -1) {
+              tasks.value = tasks.value.map(task => {
+                task = {
+                  title: title.value,
+                  description: description.value ? description.value : undefined,
+                  budgetAllocated: budget.value,
+                  startDate: DateTime.fromFormat(startDate.value, "yyyy-LL-dd'T'00:00"),
+                  endDate: DateTime.fromFormat(endDate.value, "yyyy-LL-dd'T'00:00"),
+                };
+
+                return task;
+              });
+            } else {
+              tasks.value = [
+                ...tasks.value,
+                {
+                  id: crypto.randomUUID(),
+                  title: title.value,
+                  description: description.value ? description.value : undefined,
+                  budgetAllocated: budget.value,
+                  startDate: DateTime.fromFormat(startDate.value, "yyyy-LL-dd'T'00:00"),
+                  endDate: DateTime.fromFormat(endDate.value, "yyyy-LL-dd'T'00:00"),
+                },
+              ];
+            }
 
             open.value = false;
           }}
         >
-          Save Task
+          {selectedTask ? 'Save' : 'Add'} Task
         </button>
 
         <button

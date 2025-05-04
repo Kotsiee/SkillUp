@@ -1,0 +1,138 @@
+@import '../../components/UI/Fields/TextField.css';
+@import '../../components/UI/Fields/RichTextField.css';
+@import '../../components/UI/Fields/TextDropdownField.css';
+@import '../../components/UI/Fields/FileField.css';
+@import '../../components/FileUploader/main.css';
+
+.edit-profile {
+    min-height: 100vh;
+    width: 100%;
+    padding: 2rem;
+    margin-bottom: 4rem;
+
+    section {
+        background-color: var(--modal-colour);
+        border: 1px solid var(--modal-colour-lighter);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        margin: 2rem 0;
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+    }
+
+    .edit-profile__create__branding {
+        position: relative;
+        margin-top: 0;
+        padding-bottom: 0;
+
+        .edit-profile__change-image {
+            transition: all 100ms;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: var(--border-radius);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .edit-profile__banner-img {
+            border-radius: var(--border-radius);
+            width: 100%;
+            height: 300px;
+            background-size: cover;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+
+            img {
+                transition: all 200ms;
+                object-fit: cover;
+
+                width: 100%;
+                height: 100%;
+            }
+
+            &:hover {
+                img {
+                    filter: blur(5px) brightness(0.6);
+                }
+
+                .change-image {
+                    display: flex;
+                }
+            }
+        }
+
+        .edit-profile__logo-img {
+            height: 140px;
+            width: 140px;
+            background-size: cover;
+            background-position: 50%;
+            cursor: pointer;
+            position: relative;
+            bottom: 70px;
+            left: 70px;
+            outline: 8px solid var(--modal-colour);
+            overflow: hidden;
+
+            img {
+                transition: all 200ms;
+
+                width: 100%;
+                height: 100%;
+            }
+
+            &:hover {
+                img {
+                    filter: blur(2px) brightness(0.6);
+                }
+
+                .change-image {
+                    display: flex;
+                }
+            }
+        }
+    }
+
+    .edit-profile__create__profile {
+
+        .edit-profile__create__profile-name {
+            display: flex;
+            gap: 1rem;
+        }
+    }
+
+    .edit-profile__create__about {
+        .edit-profile__create__about-skills {
+            display: flex;
+            gap: 1rem;
+        }
+    }
+
+    .edit-profile__save {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+
+        button {
+            background-color: var(--primary-colour);
+            padding: 0.6rem 2rem;
+            border-radius: 2rem;
+            font-size: 1.2rem;
+            font-weight: var(--weight-bold);
+
+            &:hover {
+                background-color: var(--primary-colour-light);
+            }
+
+            &:active {
+                background-color: var(--primary-colour-lighter);
+            }
+        }
+    }
+}

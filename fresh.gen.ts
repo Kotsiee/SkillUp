@@ -138,9 +138,12 @@ import * as $chat_submissions_Submissions from "./islands/chat/submissions/Submi
 import * as $contexts_ChatProvider from "./islands/contexts/ChatProvider.tsx";
 import * as $contexts_KVProvider from "./islands/contexts/KVProvider.tsx";
 import * as $contexts_PageProvider from "./islands/contexts/PageProvider.tsx";
+import * as $contexts_ProfileProvider from "./islands/contexts/ProfileProvider.tsx";
 import * as $contexts_ProjectProvider from "./islands/contexts/ProjectProvider.tsx";
 import * as $contexts_UserProvider from "./islands/contexts/UserProvider.tsx";
 import * as $dashboard_Dashboard from "./islands/dashboard/Dashboard.tsx";
+import * as $dashboard_TeamDashboard from "./islands/dashboard/TeamDashboard.tsx";
+import * as $dashboard_UserDashboard from "./islands/dashboard/UserDashboard.tsx";
 import * as $explore_ExploreFilter from "./islands/explore/ExploreFilter.tsx";
 import * as $explore_ProjectDetails from "./islands/explore/ProjectDetails.tsx";
 import * as $explore_Projects_ExploreProjects from "./islands/explore/Projects/ExploreProjects.tsx";
@@ -148,10 +151,9 @@ import * as $explore_Projects_ExploreProjectsDetails from "./islands/explore/Pro
 import * as $explore_Projects_ExploreProjectsList from "./islands/explore/Projects/ExploreProjectsList.tsx";
 import * as $profile_edit from "./islands/profile/edit.tsx";
 import * as $profile_layout from "./islands/profile/layout.tsx";
-import * as $profile_profile from "./islands/profile/profile.tsx";
-import * as $projects_ProjectChatList from "./islands/projects/ProjectChatList.tsx";
+import * as $profile_view from "./islands/profile/view.tsx";
+import * as $projects_NewProject from "./islands/projects/NewProject.tsx";
 import * as $projects_ProjectsList from "./islands/projects/ProjectsList.tsx";
-import * as $projects_newProject_NewProject from "./islands/projects/newProject/NewProject.tsx";
 import * as $projects_project_ProjectDetails from "./islands/projects/project/ProjectDetails.tsx";
 import * as $projects_project_ProjectMessages from "./islands/projects/project/ProjectMessages.tsx";
 import * as $projects_project_ProjectNavigation from "./islands/projects/project/ProjectNavigation.tsx";
@@ -325,9 +327,12 @@ const manifest = {
     "./islands/contexts/ChatProvider.tsx": $contexts_ChatProvider,
     "./islands/contexts/KVProvider.tsx": $contexts_KVProvider,
     "./islands/contexts/PageProvider.tsx": $contexts_PageProvider,
+    "./islands/contexts/ProfileProvider.tsx": $contexts_ProfileProvider,
     "./islands/contexts/ProjectProvider.tsx": $contexts_ProjectProvider,
     "./islands/contexts/UserProvider.tsx": $contexts_UserProvider,
     "./islands/dashboard/Dashboard.tsx": $dashboard_Dashboard,
+    "./islands/dashboard/TeamDashboard.tsx": $dashboard_TeamDashboard,
+    "./islands/dashboard/UserDashboard.tsx": $dashboard_UserDashboard,
     "./islands/explore/ExploreFilter.tsx": $explore_ExploreFilter,
     "./islands/explore/ProjectDetails.tsx": $explore_ProjectDetails,
     "./islands/explore/Projects/ExploreProjects.tsx":
@@ -338,11 +343,9 @@ const manifest = {
       $explore_Projects_ExploreProjectsList,
     "./islands/profile/edit.tsx": $profile_edit,
     "./islands/profile/layout.tsx": $profile_layout,
-    "./islands/profile/profile.tsx": $profile_profile,
-    "./islands/projects/ProjectChatList.tsx": $projects_ProjectChatList,
+    "./islands/profile/view.tsx": $profile_view,
+    "./islands/projects/NewProject.tsx": $projects_NewProject,
     "./islands/projects/ProjectsList.tsx": $projects_ProjectsList,
-    "./islands/projects/newProject/NewProject.tsx":
-      $projects_newProject_NewProject,
     "./islands/projects/project/ProjectDetails.tsx":
       $projects_project_ProjectDetails,
     "./islands/projects/project/ProjectMessages.tsx":

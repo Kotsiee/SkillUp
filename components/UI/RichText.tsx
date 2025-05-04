@@ -5,11 +5,14 @@ import { JSX } from 'preact/jsx-runtime';
 
 export default function RichText({
   jsonText,
+  className,
 }: { jsonText: jsonTag } & JSX.HTMLAttributes<HTMLDivElement>) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
+
+    ref.current.innerHTML = '';
 
     const fragment = document.createDocumentFragment();
     jsonText.Children?.forEach(tag => {
@@ -17,7 +20,7 @@ export default function RichText({
     });
 
     ref.current.appendChild(fragment);
-  }, []);
+  }, [jsonText]);
 
-  return <div ref={ref} />;
+  return <div class={`richtext ${className}`} ref={ref} />;
 }

@@ -1,0 +1,101 @@
+.job-card {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: var(--modal-colour);
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--modal-colour-lighter);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+
+    .job-card-title {
+        font-size: 1.2rem;
+        font-weight: var(--weight-bold);
+    }
+
+    .job-card__description {
+        .job-card__description-title {
+            font-weight: var(--weight-bold);
+            color: var(--text-color-dark);
+            font-size: 0.8rem;
+        }
+    }
+
+    .job-card__budget {
+        margin-top: 12px;
+
+        .job-card__budget-title {
+            font-weight: var(--weight-bold);
+            color: var(--text-color-dark);
+            font-size: 0.8rem;
+        }
+
+        .job-card__budget-amount {
+            display: flex;
+            font-size: 1rem;
+
+            .job-card__budget-currency {
+                margin-right: 0.5rem;
+                font-weight: var(--weight-normal);
+            }
+        }
+    }
+
+    .job-card__dates {
+        margin-top: 12px;
+        display: flex;
+        gap: 12px;
+
+        .job-card__dates-title {
+            font-weight: var(--weight-bold);
+            color: var(--text-color-dark);
+            font-size: 0.8rem;
+        }
+
+        .job-card__dates-date {
+            font-weight: var(--weight-light);
+        }
+    }
+
+    .job-card-attachments {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+    }
+
+    &:hover {
+        background-color: var(--modal-colour-light);
+        box-shadow: 2px 4px 8px #0002;
+    }
+
+    .job-card-tasks-title .job-card-metrics-title {
+        font-size: 1.2em;
+        font-weight: var(--weight-bold);
+    }
+
+    .job-card-tasks {
+        overflow-y: auto;
+        width: 30%;
+
+        .task-card {
+            background-color: none;
+
+            &:hover {
+                background-color: none;
+                box-shadow: none;
+            }
+        }
+    }
+
+    .job-card-metrics {
+        overflow-y: auto;
+        width: 30%;
+
+        .job-card-metrics-item {
+            .job-card-metrics-item-name {}
+
+            .job-card-metrics-item-value {}
+        }
+    }
+}

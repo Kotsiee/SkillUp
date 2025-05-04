@@ -1,0 +1,22 @@
+.label-slider {
+    width: 100%;
+
+    .label-slider__inputs {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+    }
+
+    .label-slider__inputs-display-label {
+        font-weight: var(--weight-bold);
+        font-size: 1.2em;
+        user-select: none;
+        cursor: ew-resize;
+    }
+
+    .label-slider__inputs-number {
+        background-color: transparent;
+        width: 100%;
+        font-size: 1.1em;
+    }
+}

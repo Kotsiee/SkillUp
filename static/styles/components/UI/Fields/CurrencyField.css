@@ -1,0 +1,10 @@
+@import './Field.css';
+@import '../Sliders/LabelSlider.css';
+
+.input-field--currency-labelslider {
+    background-color: var(--modal-colour-dark);
+    border: 1px solid var(--modal-colour-lighter);
+    border-radius: var(--border-radius-smaller);
+    padding: 4px 12px;
+    width: 250px;
+}

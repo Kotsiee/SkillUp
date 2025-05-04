@@ -1,6 +1,6 @@
 import AIcon from '../Icons.tsx';
 import { Icons } from '../Icons.tsx';
-import { Project } from '../../lib/types/index.ts';
+import { Project } from '../../lib/newtypes/index.ts';
 import { formatWithCommas } from '../../lib/utils/math.ts';
 import { TimeAgo } from '../../lib/utils/time.ts';
 import { DateTime } from 'https://esm.sh/luxon@3.5.0';

@@ -2,7 +2,7 @@ import { PageProps } from '$fresh/server.ts';
 import { useSignal } from 'https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js';
 import PreviewFile from './PreviewFile.tsx';
 import FileList from './FileList.tsx';
-import { FileMessage } from '../../../lib/types/index.ts';
+import { FileMessage } from '../../../lib/newtypes/index.ts';
 import { useChat } from '../../contexts/ChatProvider.tsx';
 
 export default function Attachments({ pageProps }: { pageProps: PageProps }) {

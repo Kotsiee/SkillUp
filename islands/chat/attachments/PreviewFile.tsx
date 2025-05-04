@@ -1,6 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
 import { DateTime } from 'https://esm.sh/luxon@3.5.0';
-import { FileMessage } from '../../../lib/types/index.ts';
+import { FileMessage } from '../../../lib/newtypes/index.ts';
 
 export default function PreviewFile({ fileRef }: { fileRef: FileMessage | null }) {
   if (!fileRef) return null;

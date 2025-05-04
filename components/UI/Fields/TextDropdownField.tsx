@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'preact/hooks';
+import { useRef } from 'preact/hooks';
 import { useSignal, Signal } from '@preact/signals';
 import { JSX } from 'preact/jsx-runtime';
 import AIcon, { Icons } from '../../Icons.tsx';
@@ -6,10 +6,14 @@ import AIcon, { Icons } from '../../Icons.tsx';
 export default function TextDropdownField({
   val,
   items,
+  onAdd,
+  onMinus,
   ...props
 }: {
   val: Signal<string[]>;
   items: string[];
+  onAdd?: (item: string) => void;
+  onMinus?: (item: string) => void;
 } & JSX.HTMLAttributes<HTMLInputElement>) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const selectionRef = useRef<HTMLDivElement>(null);
@@ -21,6 +25,7 @@ export default function TextDropdownField({
     if (trimmed.length === 0) return; // Don't add empty
     if (!val.value.includes(trimmed)) {
       val.value = [...val.value, trimmed];
+      onAdd?.(trimmed);
     }
     searchValue.value = ''; // Clear input after adding
   };
@@ -70,13 +75,16 @@ export default function TextDropdownField({
         <div ref={selectionRef} class="input-field--search-dropdown__items-selected">
           <ul>
             {val.value.map((item, index) => (
-              <li key={index} class="input-field--search-dropdown__item">
+              <li class="input-field--search-dropdown__item">
                 <AIcon
                   className="input-field--search-dropdown__remove-icon"
                   size={12}
                   startPaths={Icons.X}
                   onClick={() => {
-                    val.value = val.value.length === 1 ? [] : val.value.filter(v => v !== item);
+                    onMinus?.(val.value[index]);
+                    const newVal = [...val.value];
+                    newVal.splice(index, 1);
+                    val.value = newVal;
                   }}
                 />
                 <p>{item}</p>
@@ -118,6 +126,7 @@ export default function TextDropdownField({
                           val.value = val.value.filter(v => v !== item);
                         } else {
                           val.value = [...val.value, item];
+                          onAdd?.(item);
                         }
                       }}
                     />

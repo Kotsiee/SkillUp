@@ -1,4 +1,4 @@
-import { User, TeamRoles, Team } from '../../../lib/types/index.ts';
+import { Team, TeamRoles, User } from '../../../lib/newtypes/index.ts';
 
 export function PersonalProfile({ profile, onClick }: { profile: User; onClick?: () => void }) {
   const switchUser = async () => {

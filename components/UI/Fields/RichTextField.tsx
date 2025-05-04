@@ -3,13 +3,14 @@ import Quill from 'https://esm.sh/quill@2.0.3';
 import { useEffect, useRef } from 'preact/hooks';
 import { JSX } from 'preact/jsx-runtime';
 import AIcon, { Icons } from '../../Icons.tsx';
-import { toJSON } from '../../../lib/utils/messages.ts';
+import { toHTML, toJSON } from '../../../lib/utils/messages.ts';
+import { jsonTag } from '../../../lib/newtypes/messages/messages.ts';
 
 export default function RichTextField({
   val,
   ...props
 }: {
-  val: Signal<any>;
+  val: Signal<jsonTag | undefined>;
 } & JSX.HTMLAttributes<HTMLInputElement>) {
   const editorRef = useRef<HTMLDivElement>(null);
   const toolRef = useRef<HTMLDivElement>(null);
@@ -37,6 +38,15 @@ export default function RichTextField({
           });
         })
         .catch(error => console.error('Failed to load Quill:', error));
+    }
+
+    if (val.value && editorRef.current) {
+      const fragment = document.createDocumentFragment();
+      val.value.Children?.forEach((tag: jsonTag) => {
+        fragment.appendChild(toHTML(tag));
+      });
+
+      editorRef.current.appendChild(fragment);
     }
   }, []);
 

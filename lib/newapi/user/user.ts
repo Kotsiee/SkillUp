@@ -4,6 +4,7 @@
 import { getSupabaseClient } from '../../supabase/client.ts';
 import { normalizeUser, User } from '../../newtypes/index.ts';
 import { fetchFileByPath } from '../files/files.ts';
+import { boolean } from 'https://esm.sh/@types/webidl-conversions@7.0.3/index.d.ts';
 
 export async function fetchAvatar(
   id: string,
@@ -19,17 +20,29 @@ export async function fetchAvatar(
   return { small, med, large };
 }
 
+export async function fetchBanner(id: string, accessToken?: string): Promise<any> {
+  const banner = await fetchFileByPath(id, 'profile/banner', 'banner.webp', accessToken);
+  return banner;
+}
+
 /**
  * Fetch a user by their UUID.
  * @param userId - UUID of the user.
  * @param accessToken - Supabase access token for RLS.
  * @returns User data if found.
  */
-export async function fetchUserById(userId: string, accessToken?: string): Promise<User | null> {
+export async function fetchUserById(
+  userId: string,
+  accessToken?: string,
+  simplified?: boolean
+): Promise<User | null> {
   const supabase = getSupabaseClient(accessToken).schema('users');
   const { data, error } = await supabase.from('users').select('*').eq('id', userId).single();
   if (error) throw new Error(error.message);
-  return normalizeUser({ ...data, profilepics: await fetchAvatar(userId, accessToken) });
+  return normalizeUser({
+    ...data,
+    profilepics: simplified ? undefined : await fetchAvatar(userId, accessToken),
+  });
 }
 
 /**

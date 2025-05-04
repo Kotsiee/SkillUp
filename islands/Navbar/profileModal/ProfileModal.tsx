@@ -1,9 +1,12 @@
-import { useRef } from "preact/hooks";
-import AIcon, { Icons } from "../../../components/Icons.tsx";
-import { User, Team } from "../../../lib/types/index.ts";
-import UserSwitch from "./UserSwitch.tsx";
-import UserNav from "./UserNav.tsx";
-import { Signal, useSignal } from "https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js";
+import { useRef } from 'preact/hooks';
+import AIcon, { Icons } from '../../../components/Icons.tsx';
+import UserSwitch from './UserSwitch.tsx';
+import UserNav from './UserNav.tsx';
+import {
+  Signal,
+  useSignal,
+} from 'https://esm.sh/v135/@preact/signals@1.2.2/X-ZS8q/dist/signals.js';
+import { Team, User } from '../../../lib/newtypes/index.ts';
 
 export default function ProfileModal({
   isOpen,
@@ -18,17 +21,19 @@ export default function ProfileModal({
   const openAccounts = useSignal(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const currentAccount = team ? {
-    profilePicture: team.logo?.small?.publicURL,
-    name: team.name,
-    handle: team.handle,
-    accountType: "Business Account"
-  } : {
-    profilePicture: user.profilePicture?.small?.publicURL,
-    name: `${user.firstName} ${user.lastName}`,
-    handle: user.username,
-    accountType: "Personal Account"
-  }
+  const currentAccount = team
+    ? {
+        profilePicture: team.logo?.small?.publicURL,
+        name: team.name,
+        handle: team.handle,
+        accountType: 'Business Account',
+      }
+    : {
+        profilePicture: user.profilePicture?.small?.publicURL,
+        name: `${user.firstName} ${user.lastName}`,
+        handle: user.username,
+        accountType: 'Personal Account',
+      };
 
   return (
     <div
@@ -46,7 +51,7 @@ export default function ProfileModal({
       }}
     >
       <div class="top">
-        <div class="switch-account" onClick={() => openAccounts.value = !openAccounts.value}>
+        <div class="switch-account" onClick={() => (openAccounts.value = !openAccounts.value)}>
           <div class="details">
             <img class="profilePic" src={currentAccount.profilePicture} alt="Profile Picture" />
             <div class="account">
@@ -65,7 +70,11 @@ export default function ProfileModal({
 
       <hr class="separator" />
 
-      {openAccounts.value ? <UserSwitch user={user} /> : <UserNav currentAccount={currentAccount} />}
+      {openAccounts.value ? (
+        <UserSwitch user={user} />
+      ) : (
+        <UserNav currentAccount={currentAccount} />
+      )}
     </div>
   );
 }

@@ -16,19 +16,21 @@ export interface Task {
   endDate?: DateTime;
   createdAt?: DateTime;
   updatedAt?: DateTime;
-  metrics?: {
-    [metric: string]: any; // Metric name & its weight
-  };
+  metrics?: Metrics;
 
   budgetAllocated?: number;
   tasks?: Task[];
   meta?: TaskMeta;
 }
 
+export type Metrics = {
+  [metric: string]: any;
+};
+
 export type TaskMeta = {
   timeline?: TaskTimeline;
   priority?: string;
-  subTasks?: Task[]; // Shoud also be a pointer
+  subTasks?: Task[];
   icon?: string;
 };
 
@@ -43,7 +45,7 @@ export type TaskTimeline = {
 export function normalizeTask(raw: any): Task {
   return {
     id: raw.id,
-    project: raw.job_id, // reference to job
+    project: raw.job_id,
     title: raw.title,
     description: raw.description,
     status: raw.status,

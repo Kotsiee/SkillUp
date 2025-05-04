@@ -48,22 +48,22 @@ export default function SubmissionItem({ pageProps }: { pageProps: PageProps }) 
     switch (file.fileType.toLowerCase()) {
       case 'image':
         return [
-          <ImageViewer file={file} controller={controller} />,
+          <ImageViewer file={selectedFile.value.file!} controller={controller} />,
           <ImageController controller={controller} />,
         ];
       case 'video':
         return [
-          <VideoViewer file={file} controller={controller} />,
+          <VideoViewer file={selectedFile.value.file!} controller={controller} />,
           <ImageController controller={controller} />,
         ];
       case 'audio':
         return [
-          <AudioViewer file={file} controller={controller} />,
+          <AudioViewer file={selectedFile.value.file!} controller={controller} />,
           <ImageController controller={controller} />,
         ];
       case 'text':
         return [
-          <TextViewer file={file} controller={controller} />,
+          <TextViewer file={selectedFile.value.file!} controller={controller} />,
           <ImageController controller={controller} />,
         ];
       default:
@@ -157,6 +157,7 @@ export default function SubmissionItem({ pageProps }: { pageProps: PageProps }) 
                 checked={selectedFile.value.id === file.id}
                 onInput={() => {
                   selectedFile.value = file;
+                  switchView(selectedFile.value.file!);
                 }}
                 hidden
               />
